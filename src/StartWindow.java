@@ -24,13 +24,15 @@ public class StartWindow extends JFrame {
 	private static final long serialVersionUID = -8217358516629805849L;
 	
 	private JPanel contentPane;
-	private JButton btnUser;
-	private JButton btnAdmin;
-	private JButton btnConect;
+	private JButton btnInitUser;
+	private JButton btnInitAdmin;
+	private JButton btnInitFarmacia;
+	private JButton btnInitMedico;
 	private JButton btnAyuda;
 
 	private MySql db = new MySql();
 	private JPanel logoPanel;
+	private JButton btnRegistrarUser;
 	
 
     public StartWindow() {
@@ -40,12 +42,13 @@ public class StartWindow extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
     	
-    	btnConect = new JButton();
+    	btnInitFarmacia = new JButton();
     	btnAyuda = new JButton();
-    	btnUser = new JButton();
-    	btnAdmin = new JButton();
+    	btnInitUser = new JButton();
+    	btnInitAdmin = new JButton();
+    	btnInitMedico = new JButton();
     	
-    	
+    	//Conectar bbdd
     	
     
     	
@@ -55,7 +58,7 @@ public class StartWindow extends JFrame {
 		setFont(new Font("Consolas", Font.PLAIN, 13));
 	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 573, 595);
+		setBounds(100, 100, 573, 671);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setBackground(new Color(255, 255, 255));
@@ -71,27 +74,13 @@ public class StartWindow extends JFrame {
 		contentPane.add(logoPanel);
 		
 		
-	/*
-	 * CONECTAR
-	 */
-		btnConect.setText("Conectar a base de datos.");
-		btnConect.setForeground(new Color(139, 0, 0));
-		btnConect.setBackground(new Color(245, 245, 220));
-		btnConect.setBounds(145, 395, 277, 31);
-		btnConect.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 14));
-		btnConect.setVisible(true);
-		btnConect.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				jButtonConnectActionPerformed(evt);
-			}
-		});
-		contentPane.add(btnConect);
+	
 	/*
 	 * AYUDA	
 	 */
 		btnAyuda.setText("Ayuda");
-		btnAyuda.setBounds(239, 532, 88, 23);
-		btnAdmin.setVisible(true);
+		btnAyuda.setBounds(244, 604, 88, 23);
+		btnInitAdmin.setVisible(true);
 		btnAyuda.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			abrirAyuda();
@@ -102,39 +91,90 @@ public class StartWindow extends JFrame {
 	/*
 	 * ADMIN
 	 */
-		btnAdmin.setText("Iniciar sesión como administrador.");
-		btnAdmin.setEnabled(false);
-		btnAdmin.setForeground(new Color(139, 0, 0));
-		btnAdmin.setBackground(new Color(245, 245, 220));
-		btnAdmin.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 14));
-		btnAdmin.setBounds(145, 437, 277, 31);
-		btnAdmin.addActionListener(new ActionListener() {
+		btnInitAdmin.setText("Iniciar sesión como administrador.");
+		btnInitAdmin.setForeground(new Color(139, 0, 0));
+		btnInitAdmin.setBackground(new Color(245, 245, 220));
+		btnInitAdmin.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 14));
+		btnInitAdmin.setBounds(141, 393, 269, 31);
+		btnInitAdmin.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			iniciarSesionAdmin();
     		}
     	});
-		contentPane.add(btnAdmin);
+		contentPane.add(btnInitAdmin);
 		
+	/*
+	 * FARMACIA
+	 */
+		btnInitFarmacia.setText("Iniciar sesión como farmacia.");
+		btnInitFarmacia.setForeground(new Color(139, 0, 0));
+		btnInitFarmacia.setBackground(new Color(245, 245, 220));
+		btnInitFarmacia.setBounds(141, 435, 269, 31);
+		btnInitFarmacia.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 14));
+		btnInitFarmacia.setVisible(true);
+		btnInitFarmacia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				//jButtonConnectActionPerformed(evt);
+			}
+		});
+		contentPane.add(btnInitFarmacia);	
 		
 	/*
 	 * USER
 	 */
-		btnUser.setToolTipText("Si no tienes cuenta de usuario ponte en contacto con recepción.");
-		btnUser.setText("Iniciar sesión como usuario.");
-		btnUser.setEnabled(false);
-		btnUser.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 14));
-		btnUser.setForeground(new Color(139, 0, 0));
-		btnUser.setBackground(new Color(245, 245, 220));
-		btnUser.setBounds(145, 479, 277, 31);
-		btnUser.addActionListener(new ActionListener() {
+		
+		//INICIO DE SESION
+		
+		btnInitUser.setToolTipText("Si no tiene cuenta de usuario haga clic en crear cuenta de usuario");
+		btnInitUser.setText("Iniciar sesión como usuario.");
+		btnInitUser.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 14));
+		btnInitUser.setForeground(new Color(139, 0, 0));
+		btnInitUser.setBackground(new Color(245, 245, 220));
+		btnInitUser.setBounds(141, 520, 269, 31);
+		btnInitUser.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			iniciarSesionUser();
     		}
     	});
-		contentPane.add(btnUser);
+		contentPane.add(btnInitUser);
 		
+		//REGISTRO
 		
+		btnRegistrarUser = new JButton();
+		btnRegistrarUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				registrarUsuario();
+			}
+		});
+		btnRegistrarUser.setText("Crear cuenta de usuario.");
+		btnRegistrarUser.setForeground(new Color(139, 0, 0));
+		btnRegistrarUser.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 14));
+		btnRegistrarUser.setBackground(new Color(245, 245, 220));
+		btnRegistrarUser.setBounds(141, 562, 269, 31);
+		contentPane.add(btnRegistrarUser);
 	
+	/*
+	 * MEDICO
+	 */
+		btnInitMedico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnInitMedico.setToolTipText("Si no tiene cuenta de médico pongase en contacto con administración.");
+		btnInitMedico.setText("Iniciar sesión como médico.");
+		btnInitMedico.setForeground(new Color(139, 0, 0));
+		btnInitMedico.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 14));
+		btnInitMedico.setBackground(new Color(245, 245, 220));
+		btnInitMedico.setBounds(141, 478, 269, 31);
+		contentPane.add(btnInitMedico);
+		
+		
+		
+		
+	}
+
+	protected void registrarUsuario() {
+		// TODO Auto-generated method stub
 		
 	}
 
@@ -158,8 +198,8 @@ public class StartWindow extends JFrame {
 	private void jButtonConnectActionPerformed(ActionEvent evt) {
 		db.MySQLConnection("root", "", "Gym");
 		
-        btnAdmin.setEnabled(true);
-        btnUser.setEnabled(true);
+        btnInitAdmin.setEnabled(true);
+        btnInitUser.setEnabled(true);
         
 		
 	}

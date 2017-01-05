@@ -1,4 +1,3 @@
-
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -6,22 +5,20 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class Administrador extends JFrame {
-
+public class Medico extends JFrame {
 	/**
-	 * Ventana que se muestra al administrador del programa.
-	 * Contendra los métodos para registrar, dar de baja y editar los datos de los médicos y las farmacias, 
-	 * y hacer una copia de seguridad
+	 * Ventana que se muestra a los médicos. Mientras esté abierta almacenará los datos del medico que la esté usando
+	 * para que sea mas facil la tarea de elaborar recetas.
 	 */
-	private static final long serialVersionUID = 1L;
+
 	private JPanel contentPane;
-	
-	
+
+
 
 	/**
 	 * Create the frame.
 	 */
-	public Administrador() {
+	public Medico() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
