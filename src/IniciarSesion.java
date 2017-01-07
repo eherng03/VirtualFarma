@@ -14,42 +14,33 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 
+/**
+ * Ventana que pide usuario y contraseña
+ * @author Eva
+ * @author Alba
+ *
+ */
 public class IniciarSesion extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private StartWindow padre;
 	private JPanel contentPane;
-	private JTextField userText;
+	private JTextField userField;
 	private JPasswordField passwordField;
 	private JButton btnAyuda;
 	private JButton btnIniciarSes;
-	private boolean admin;
+	
+	private String rol;
+	private String user;
+	private String password;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					IniciarSesion frame = new IniciarSesion(true);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
 	 */
-	public IniciarSesion(boolean adminX) {
+	public IniciarSesion(String flag) {
 		
-		this.admin = adminX;
+		this.rol = flag;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 393, 266);
@@ -59,10 +50,10 @@ public class IniciarSesion extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		userText = new JTextField();
-		userText.setBounds(136, 64, 189, 20);
-		contentPane.add(userText);
-		userText.setColumns(10);
+		userField = new JTextField();
+		userField.setBounds(136, 64, 189, 20);
+		contentPane.add(userField);
+		userField.setColumns(10);
 		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(136, 95, 189, 20);
@@ -101,7 +92,7 @@ public class IniciarSesion extends JFrame {
 		btnIniciarSes = new JButton("Iniciar sesión");
 		btnIniciarSes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				botonIniciar();
+				accionIniciarSesion();
 			}
 		});
 		btnIniciarSes.setBounds(196, 126, 129, 23);
@@ -118,11 +109,34 @@ public class IniciarSesion extends JFrame {
 		contentPane.add(btnVolverAtrs);
 	}
 
-	private void botonIniciar() {
-		//Comprobar si es user o admin
-		//Mirar en dicha tabla a ver si esta bien
-		//Si esta bien pasar a la siguinte pantalla
-		//Si no que salga un mensaje de error
+	//*************************************METODOS**********************************
+	
+	/**
+	 * Dependiendo del rol seleccionado se buscará el usuario y contraseña en una BBDD determinada
+	 */
+	private void accionIniciarSesion() {
+		user = userField.getText();
+		password = passwordField.getPassword().toString();
+		
+		switch(rol){
+			case "admin":
+				//Comprobar que usuario y contraseña sean los de admin
+				WindowAdministrador ventana = new WindowAdministrador();
+				ventana.setVisible(true);
+				break;
+			case "paciente":
+				Paciente pac = BBDDPacientes.getPaciente(user, password);
+				//abrir la ventana de paciente
+				break;
+			case "farmacia":
+				Farmacia f1 = BBDDFarmacias.getFarmacia(user, password);
+				//Abrir la ventana de farmacia
+				break;
+			case "medico":
+				Medico m1 = BBDDMedicos.getMedico(user, password);
+				//abrir la ventana de medico
+				break;
+		}
 		
 	}
 
