@@ -1,33 +1,29 @@
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-public class Administrador extends JFrame {
-
-	/**
-	 * Ventana que se muestra al administrador del programa.
-	 * Contendra los métodos para registrar, dar de baja y editar los datos de los médicos y las farmacias, 
-	 * y hacer una copia de seguridad
-	 */
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+public class Administrador {
+	private final String user = "admin";
+	private final String password = "EvAlba";
 	
-	
-
-	/**
-	 * Create the frame.
-	 */
-	public Administrador() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+	public void crearFarmacia(){
+		
 	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public void crearMedico() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void editarFarmacia() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 
 }

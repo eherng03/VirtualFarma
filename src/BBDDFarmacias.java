@@ -11,5 +11,17 @@ public class BBDDFarmacias {
 		// busca en la bbdd la farmacia con esos datos y la devuelve
 		
 	}
+	
+	public void introducirFarmacia(Farmacia farmacia){
+		
+	}
+	
+	public void editarFarmacia(Farmacia farmacia){
+		
+	}
+	
+	public void eliminarFarmacia(Farmacia farmacia){
+		
+	}
 
 }

@@ -10,4 +10,19 @@ public class BBDDMedicos {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public void introducirMedico(Medico medico){
+		
+	}
+	
+	public void editarMedico(Medico medico){
+		
+	}
+	
+	public void eliminarMedico(Medico medico){
+		
+	}
+
+
+
 }

@@ -17,7 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 public class StartWindow extends JFrame {
 	
-
+	
 	/**
 	 * 
 	 */
@@ -34,6 +34,13 @@ public class StartWindow extends JFrame {
 	private JPanel logoPanel;
 	private JButton btnRegistrarPaciente;
 	
+	
+	public static void main(String[] args) {
+		 StartWindow w = new StartWindow();
+	     w.setVisible(true);
+
+	 }
+
 
     public StartWindow() {
         initComponents();

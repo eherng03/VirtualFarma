@@ -21,7 +21,17 @@ public class BBDDPacientes {
 	 * Introduce los datos del paciente en la bbdd
 	 * @param paciente
 	 */
-	public static void introducir(Paciente paciente) {
+	public static void introducirPaciente(Paciente paciente) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public static void editarPaciente(Paciente paciente) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public static void eliminarPaciente(Paciente paciente) {
 		// TODO Auto-generated method stub
 		
 	}
