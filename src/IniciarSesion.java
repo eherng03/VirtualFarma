@@ -121,12 +121,15 @@ public class IniciarSesion extends JFrame {
 		switch(rol){
 			case "admin":
 				//Comprobar que usuario y contraseña sean los de admin
-				WindowAdministrador ventana = new WindowAdministrador();
-				ventana.setVisible(true);
+				WindowAdministrador ventanaAdmin = new WindowAdministrador(this);
+				ventanaAdmin.setVisible(true);
+				this.setVisible(false);
 				break;
 			case "paciente":
 				Paciente pac = BBDDPacientes.getPaciente(user, password);
-				//abrir la ventana de paciente
+				WindowPaciente ventanaPac = new WindowPaciente(pac, this);
+				ventanaPac.setVisible(true);
+				this.setVisible(false);
 				break;
 			case "farmacia":
 				Farmacia f1 = BBDDFarmacias.getFarmacia(user, password);

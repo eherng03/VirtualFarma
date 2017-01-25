@@ -30,9 +30,10 @@ public class StartWindow extends JFrame {
 	private JButton btnInitMedico;
 	private JButton btnAyuda;
 
-	private MySql db = new MySql();
+	private BBDD db;
 	private JPanel logoPanel;
 	private JButton btnRegistrarPaciente;
+	
 	
 	
 	public static void main(String[] args) {
@@ -55,11 +56,7 @@ public class StartWindow extends JFrame {
     	btnInitAdmin = new JButton();
     	btnInitMedico = new JButton();
     	
-    	//Conectar bbdd
-    	
-    
-    	
-		setResizable(false);
+    	db = BBDD.makeBBDD();
 		setTitle("Bienvenido");
 		setBackground(new Color(255, 255, 255));
 		setFont(new Font("Consolas", Font.PLAIN, 13));
@@ -200,12 +197,5 @@ public class StartWindow extends JFrame {
 		this.setVisible(false);
 	}
 
-	private void jButtonConnectActionPerformed(ActionEvent evt) {
-		db.MySQLConnection("root", "", "Gym");
-		
-        btnInitAdmin.setEnabled(true);
-        btnInitPaciente.setEnabled(true);
-        
-		
-	}
+	
 }

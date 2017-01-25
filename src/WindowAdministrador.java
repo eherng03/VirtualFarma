@@ -27,8 +27,11 @@ public class WindowAdministrador extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param iniciarSesion 
 	 */
-	public WindowAdministrador() {
+	public WindowAdministrador(IniciarSesion iniciarSesion) {
+		
+		
 		admin = new Administrador();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

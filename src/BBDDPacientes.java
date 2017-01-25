@@ -22,7 +22,8 @@ public class BBDDPacientes {
 	 * @param paciente
 	 */
 	public static void introducirPaciente(Paciente paciente) {
-		// TODO Auto-generated method stub
+		// TODO mirar si existen los datos
+		// TODO la contraseña no es valida
 		
 	}
 	
@@ -32,7 +33,7 @@ public class BBDDPacientes {
 	}
 	
 	public static void eliminarPaciente(Paciente paciente) {
-		// TODO Auto-generated method stub
+		// TODO comprobar dni en tabla pacientes y eliminar
 		
 	}
 

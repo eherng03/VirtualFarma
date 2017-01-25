@@ -3,9 +3,7 @@ public class Administrador {
 	private final String user = "admin";
 	private final String password = "EvAlba";
 	
-	public void crearFarmacia(){
-		
-	}
+	
 
 	public String getPassword() {
 		return password;
@@ -19,8 +17,27 @@ public class Administrador {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void editarMedico(Medico medico) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void eliminarMedico(Medico medico) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void crearFarmacia(){
+		
+	}
 
-	public void editarFarmacia() {
+	public void editarFarmacia(Farmacia farmacia) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void eliminarFarmacia(Farmacia farmacia) {
 		// TODO Auto-generated method stub
 		
 	}
