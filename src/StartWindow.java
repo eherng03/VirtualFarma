@@ -62,7 +62,7 @@ public class StartWindow extends JFrame {
 		setFont(new Font("Consolas", Font.PLAIN, 13));
 	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 573, 671);
+		setBounds(100, 100, 584, 671);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setBackground(new Color(255, 255, 255));

@@ -28,7 +28,7 @@ public class WindowPaciente extends JFrame {
 		this.paciente = paciente;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 722, 671);
+		setBounds(100, 100, 584, 671);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setBackground(new Color(255, 255, 255));
@@ -40,7 +40,7 @@ public class WindowPaciente extends JFrame {
 		 */
 		logoPanel = new ImagenVF(547, 382);
 		logoPanel.setBackground(Color.WHITE);
-		logoPanel.setBounds(86, 0, 547, 382);
+		logoPanel.setBounds(10, 0, 547, 382);
 		contentPane.add(logoPanel);
 		
 		JButton btnShowChemistry = new JButton("Ver lista de farmacias y/o \r\ndisponibilidad de un medicamento");
@@ -49,11 +49,11 @@ public class WindowPaciente extends JFrame {
 				showWindowChemistryList();
 			}
 		});
-		btnShowChemistry.setBounds(10, 405, 335, 34);
+		btnShowChemistry.setBounds(117, 449, 335, 34);
 		contentPane.add(btnShowChemistry);
 		
 		btnConsultarRecetas = new JButton("Consultar recetas");
-		btnConsultarRecetas.setBounds(361, 405, 335, 34);
+		btnConsultarRecetas.setBounds(117, 404, 335, 34);
 		contentPane.add(btnConsultarRecetas);
 		
 		JButton btnDarseDeBaja = new JButton("Darse de baja");
@@ -63,7 +63,7 @@ public class WindowPaciente extends JFrame {
 				paciente.eliminar();
 			}
 		});
-		btnDarseDeBaja.setBounds(10, 450, 335, 34);
+		btnDarseDeBaja.setBounds(117, 494, 335, 34);
 		contentPane.add(btnDarseDeBaja);
 		
 		

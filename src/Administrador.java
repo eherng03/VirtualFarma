@@ -1,19 +1,9 @@
-/**
- * Clase del administrador del sistema. Solo hay un administrador por lo que
- * es un singleton.
- * @author Alba y Eva.
- *
- */
+
 public class Administrador {
-	private final String user;
-	private final String password;
+	private final String user = "admin";
+	private final String password = "EvAlba";
 	private static Administrador admin;
 	
-	private Administrador(){
-		user = "admin";
-		password = "EvAlba";
-		admin = this;
-	}
 	
 	public static Administrador getAdmin(){
 		if(admin == null){
@@ -22,7 +12,7 @@ public class Administrador {
 			return admin;
 		}
 	}
-
+	
 	public String getPassword() {
 		return password;
 	}
@@ -50,7 +40,7 @@ public class Administrador {
 		
 	}
 
-	public void editarFarmacia(String cif) {
+	public void editarFarmacia(Farmacia farmacia) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -58,10 +48,6 @@ public class Administrador {
 	public void eliminarFarmacia(Farmacia farmacia) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	public boolean checkPassword(String password) {
-		return password.equals(this.password);
 	}
 	
 
