@@ -4,6 +4,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Images.EmptyFieldException;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -17,7 +20,7 @@ import java.awt.Font;
 public class FormPaciente extends JFrame {
 
 	private JPanel contentPane;
-	private JFrame padre;
+	private StartWindow startWindow;
 	private JTextField textNombre;
 	private JTextField textApellido1;
 	private JTextField textApellido2;
@@ -28,7 +31,10 @@ public class FormPaciente extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FormPaciente() {
+	public FormPaciente(StartWindow startWindow) {
+		
+		this.startWindow = startWindow;
+		
 		setBackground(Color.WHITE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 386, 274);
@@ -108,6 +114,11 @@ public class FormPaciente extends JFrame {
 		contentPane.add(passwordField);
 		
 		JButton btnAtrs = new JButton("Atrás");
+		btnAtrs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				volverAtras();
+			}
+		});
 		btnAtrs.setFont(new Font("Arial", Font.PLAIN, 11));
 		btnAtrs.setBounds(10, 189, 89, 23);
 		contentPane.add(btnAtrs);
@@ -129,15 +140,22 @@ public class FormPaciente extends JFrame {
 	}
 
 	protected void registrarPaciente() {
-		//TODO comprobar contraseña
-		
-		Paciente pac = new Paciente(textNombre.getText(), textDNI.getText(), textNumeroSS.getText(), passwordField.getPassword().toString());
-		//Creado con exito como lo confirmamos?
-		
+		try {
+			Paciente paciente = new Paciente(textNombre.getText() + " " + textApellido1.getText() + " " + textApellido2.getText(), textDNI.getText(), textNumeroSS.getText(), String.valueOf(passwordField.getPassword()));
+			javax.swing.JOptionPane.showMessageDialog(this, "Su cuenta ha sido creada con éxito");
+		} catch (EmptyFieldException e) {
+			javax.swing.JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+		} catch (IncorrectPasswordException e) {
+			javax.swing.JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+		} catch (IncorrectDNIException e) {
+			javax.swing.JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+		} catch (IncorrectSSNumberException e){
+			javax.swing.JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
-	//para poder volver atras
-	public void setPadre(JFrame startWindow) {
-		this.padre = startWindow;
+	private void volverAtras() {
+		startWindow.setVisible(true);
+		this.setVisible(false);
 	}
 }

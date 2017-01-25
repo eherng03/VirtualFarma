@@ -176,11 +176,8 @@ public class StartWindow extends JFrame {
 	}
 
 	
-
-
 	protected void registrarPaciente() {
-		FormPaciente registro = new FormPaciente();
-		registro.setPadre(this);
+		FormPaciente registro = new FormPaciente(this);
 		registro.setVisible(true);
 		this.setVisible(false);
 	}

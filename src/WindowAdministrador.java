@@ -90,8 +90,8 @@ public class WindowAdministrador extends JFrame {
 		JButton btnEditarFarmacia = new JButton("Editar farmacia.");
 		btnEditarFarmacia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				final JFrame passwordFrame = new JFrame("Contraseña");
-				JLabel jlbPassword = new JLabel("Introduzca la contraseña:  ");
+				final JFrame passwordFrame = new JFrame("ContraseÃ±a");
+				JLabel jlbPassword = new JLabel("Introduzca la contraseÃ±a:  ");
 				JPasswordField jpwName = new JPasswordField(10);
 				jpwName.setEchoChar('*');
 				jpwName.addActionListener(new ActionListener() {
@@ -99,13 +99,13 @@ public class WindowAdministrador extends JFrame {
 						JPasswordField input = (JPasswordField) e.getSource();
 						if (admin.checkPassword(input.getPassword().toString())) {
 							JOptionPane.showMessageDialog(passwordFrame,
-									"Contraseña correcta");
+									"ContraseÃ±a correcta");
 							String cif = JOptionPane.showInputDialog("Introduzca el CIF de la farmacia a editar");
 							FormFarmacia formFarmacia = new FormFarmacia(cif);
 							
 						} else {
 							JOptionPane.showMessageDialog(passwordFrame,
-									"Contraseña incorrecta", "Error",
+									"ContraseÃ±a incorrecta", "Error",
 									JOptionPane.ERROR_MESSAGE);
 						}
 					}
