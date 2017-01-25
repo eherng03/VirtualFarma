@@ -7,7 +7,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JSeparator;
@@ -16,7 +19,7 @@ public class WindowAdministrador extends JFrame {
 
 	/**
 	 * Ventana que se muestra al administrador del programa.
-	 * Contendra los métodos para registrar, dar de baja y editar los datos de los médicos y las farmacias, 
+	 * Contendra los metodos para registrar, dar de baja y editar los datos de los medicos y las farmacias, 
 	 * y hacer una copia de seguridad
 	 */
 	private static final long serialVersionUID = 1L;
@@ -32,7 +35,7 @@ public class WindowAdministrador extends JFrame {
 	public WindowAdministrador(IniciarSesion iniciarSesion) {
 		
 		
-		admin = new Administrador();
+		admin = Administrador.getAdmin();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 412, 548);
@@ -53,7 +56,7 @@ public class WindowAdministrador extends JFrame {
 		lblFarmacias.setBounds(81, 268, 69, 14);
 		contentPane.add(lblFarmacias);
 		
-		JLabel lblMdicos = new JLabel("Médicos");
+		JLabel lblMdicos = new JLabel("Medicos");
 		lblMdicos.setBounds(277, 268, 46, 14);
 		contentPane.add(lblMdicos);
 		
@@ -66,7 +69,7 @@ public class WindowAdministrador extends JFrame {
 		btnRegistrarFarmacia.setBounds(10, 293, 180, 34);
 		contentPane.add(btnRegistrarFarmacia);
 		
-		JButton btnRegistrarMdico = new JButton("Registrar médico");
+		JButton btnRegistrarMdico = new JButton("Registrar medico");
 		btnRegistrarMdico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				admin.crearMedico();
@@ -78,13 +81,17 @@ public class WindowAdministrador extends JFrame {
 		JButton btnEditarFarmacia = new JButton("Editar farmacia.");
 		btnEditarFarmacia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				admin.editarFarmacia();
+				String passwordIntroducida = JOptionPane.showInputDialog("Introduzca la contrase�a del administrador");
+				//TODO si esta bien te pide el CIF
+				String cif = JOptionPane.showInputDialog("Introduzca el CIF de la farmacia a editar");
+				FormFarmacia formFarmacia = new FormFarmacia();
+				admin.editarFarmacia(cif);
 			}
 		});
 		btnEditarFarmacia.setBounds(10, 338, 180, 34);
 		contentPane.add(btnEditarFarmacia);
 		
-		JButton btnEditarMdico = new JButton("Editar médico");
+		JButton btnEditarMdico = new JButton("Editar medico");
 		btnEditarMdico.setBounds(206, 338, 180, 34);
 		contentPane.add(btnEditarMdico);
 		
@@ -92,7 +99,7 @@ public class WindowAdministrador extends JFrame {
 		btnEliminarFarmacia.setBounds(10, 383, 180, 34);
 		contentPane.add(btnEliminarFarmacia);
 		
-		JButton btnEliminarMdico = new JButton("Eliminar médico");
+		JButton btnEliminarMdico = new JButton("Eliminar medico");
 		btnEliminarMdico.setBounds(206, 383, 180, 34);
 		contentPane.add(btnEliminarMdico);
 		

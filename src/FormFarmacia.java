@@ -9,8 +9,6 @@ public class FormFarmacia extends JFrame {
 
 	private JPanel contentPane;
 
-
-
 	/**
 	 * Create the frame.
 	 */
