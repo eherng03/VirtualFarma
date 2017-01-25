@@ -11,8 +11,6 @@ public class Paciente {
 	public Paciente(String nombre, String dni, String numeroSS, String contrasena) throws IncorrectPasswordException, EmptyFieldException, IncorrectSSNumberException, IncorrectDNIException{
 		checkStruct(nombre, dni, numeroSS, contrasena);
 		
-		
-		
 		//TODO Capturar excepcion de si los datos ya existen
 		BBDDPacientes.introducirPaciente(this);
 	}
@@ -34,8 +32,10 @@ public class Paciente {
 		if(!checkNumeroSS(numeroSS)){
 			throw new IncorrectSSNumberException();
 			
+		}else{
+			this.numeroSS = numeroSS;
 		}
-		this.numeroSS = numeroSS;
+		
 		char[] charContrasena = contrasena.toCharArray();
 		for(char caracter : charContrasena){
 			//La contraseña solo puede ser alfanumérica
