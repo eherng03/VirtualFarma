@@ -19,7 +19,7 @@ import com.mysql.jdbc.PreparedStatement;
  
 public class BBDD {
  
-    private static Connection conexion = null;
+    private static Connection conexion;
     //private Statement statement = null;
     //private PreparedStatement preparedStatement = null;
     //private ResultSet resultSet = null;
@@ -30,15 +30,22 @@ public class BBDD {
     		return database;
     	}else{
     		database = new BBDD();
+    		
 	        try {
-	            Class.forName("com.mysql.jdbc.Driver");
-	            conexion = DriverManager.getConnection("sql11.freemysqlhosting.net" + "sql11154818", "sql11154818", "VI5cXvvBIk");
+	        	Class.forName("com.mysql.jdbc.Driver");
+	            conexion = DriverManager.getConnection("jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11154818", "sql11154818", "VI5cXvvBIk");
 	            System.out.println("Se ha iniciado la conexión con el servidor de forma exitosa");
+	            BBDDPacientes.init(conexion);
+	            BBDDFarmacias.init(conexion);
+	            
 	        } catch (ClassNotFoundException ex) {
 	            Logger.getLogger(BBDD.class.getName()).log(Level.SEVERE, null, ex);
+	            
 	        } catch (SQLException ex) {
 	            Logger.getLogger(BBDD.class.getName()).log(Level.SEVERE, null, ex);
+	            
 	        }
+	        
 	        database.conexion = conexion;
 			return database;
     	}
@@ -53,20 +60,7 @@ public class BBDD {
         }
     }
  
- 
-    public void createTable(String name) {
-        try {
-            String Query = "CREATE TABLE " + name + ""
-                    + "(ID VARCHAR(25),Nombre VARCHAR(50), Apellido VARCHAR(50),"
-                    + " Edad VARCHAR(3), Sexo VARCHAR(1))";
-            JOptionPane.showMessageDialog(null, "Se ha creado la base de tabla " + name + " de forma exitosa");
-            Statement st = conexion.createStatement();
-            st.executeUpdate(Query);
-        } catch (SQLException ex) {
-            Logger.getLogger(BBDD.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
- 
+
     public void insertData(String table_name, String ID, String name, String lastname, String age, String gender) {
         try {
             String Query = "INSERT INTO " + table_name + " VALUES("

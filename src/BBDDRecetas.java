@@ -1,6 +1,12 @@
+import java.sql.Connection;
 
 public class BBDDRecetas {
 	
+	
+	
+	private static Connection conexion;
+
+
 	public static Receta[] getRecetas() {
 		//Todas las recetas
 		return null;
@@ -22,4 +28,8 @@ public class BBDDRecetas {
 		
 	}
 
+	
+	public static void init(Connection conexion2) {
+		conexion = conexion2;	
+	}
 }

@@ -1,5 +1,10 @@
+import java.sql.Connection;
 
 public class BBDDProductos {
+	
+	
+	private static Connection conexion;
+
 	/**
 	 * Cada Farmacia almacenada en la bbdd de farmacias tendra su propia bbdd de productos.
 	 * En esta clase van los metodos para añadir productos, eliminarlos, verlos etc
@@ -20,6 +25,10 @@ public class BBDDProductos {
 	
 	public void eliminarProducto(Producto producto){
 		
+	}
+	
+	public static void init(Connection conexion2) {
+		conexion = conexion2;	
 	}
 
 }
