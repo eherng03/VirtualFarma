@@ -5,13 +5,17 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JSeparator;
 
@@ -34,9 +38,16 @@ public class WindowAdministrador extends JFrame {
 	 */
 	public WindowAdministrador(IniciarSesion iniciarSesion) {
 		
+		iniciarSesion.setEnabled(false);
 		
 		admin = Administrador.getAdmin();
 		
+		initializeWindow();
+
+	}
+
+
+	private void initializeWindow() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 412, 548);
 		contentPane = new JPanel();
@@ -44,22 +55,20 @@ public class WindowAdministrador extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		/*
-		 * LOGO
-		 */
+		//logo
 		logoPanel = new ImagenVF(394, 257);
 		logoPanel.setBackground(Color.WHITE);
 		logoPanel.setBounds(0, 0, 394, 257);
 		contentPane.add(logoPanel);
 		
-		JLabel lblFarmacias = new JLabel("Farmacias");
-		lblFarmacias.setBounds(81, 268, 69, 14);
-		contentPane.add(lblFarmacias);
+		initializeLabel("Farmacias", 81, 268, 69, 14);
+		initializeLabel("Medicos", 277, 268, 46, 14);
 		
-		JLabel lblMdicos = new JLabel("Medicos");
-		lblMdicos.setBounds(277, 268, 46, 14);
-		contentPane.add(lblMdicos);
+		initializeButtons();
 		
+	}
+
+	private void initializeButtons() {
 		JButton btnRegistrarFarmacia = new JButton("Registrar farmacia");
 		btnRegistrarFarmacia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -81,11 +90,40 @@ public class WindowAdministrador extends JFrame {
 		JButton btnEditarFarmacia = new JButton("Editar farmacia.");
 		btnEditarFarmacia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String passwordIntroducida = JOptionPane.showInputDialog("Introduzca la contraseña del administrador");
-				//TODO si esta bien te pide el CIF
-				String cif = JOptionPane.showInputDialog("Introduzca el CIF de la farmacia a editar");
-				FormFarmacia formFarmacia = new FormFarmacia();
-				admin.editarFarmacia(cif);
+				final JFrame passwordFrame = new JFrame("Contraseña");
+				JLabel jlbPassword = new JLabel("Introduzca la contraseña:  ");
+				JPasswordField jpwName = new JPasswordField(10);
+				jpwName.setEchoChar('*');
+				jpwName.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						JPasswordField input = (JPasswordField) e.getSource();
+						if (admin.checkPassword(input.getPassword().toString())) {
+							JOptionPane.showMessageDialog(passwordFrame,
+									"Contraseña correcta");
+							String cif = JOptionPane.showInputDialog("Introduzca el CIF de la farmacia a editar");
+							FormFarmacia formFarmacia = new FormFarmacia(cif);
+							
+						} else {
+							JOptionPane.showMessageDialog(passwordFrame,
+									"Contraseña incorrecta", "Error",
+									JOptionPane.ERROR_MESSAGE);
+						}
+					}
+				});
+				JPanel jplContentPane = new JPanel(new BorderLayout());
+				jplContentPane.setBorder(BorderFactory.createEmptyBorder(20, 20,
+						20, 20));
+				jplContentPane.add(jlbPassword, BorderLayout.WEST);
+				jplContentPane.add(jpwName, BorderLayout.CENTER);
+				passwordFrame.setContentPane(jplContentPane);
+				passwordFrame.addWindowListener(new WindowAdapter() {
+
+						public void windowClosing(WindowEvent e) {
+							System.exit(0);
+						}
+					});
+				passwordFrame.pack();
+				passwordFrame.setVisible(true);
 			}
 		});
 		btnEditarFarmacia.setBounds(10, 338, 180, 34);
@@ -114,5 +152,12 @@ public class WindowAdministrador extends JFrame {
 		JButton btnAyuda = new JButton("Ayuda");
 		btnAyuda.setBounds(155, 475, 89, 23);
 		contentPane.add(btnAyuda);
+	}
+
+
+	private void initializeLabel(String string, int i, int j, int k, int l) {
+		JLabel lblFarmacias = new JLabel(string);
+		lblFarmacias.setBounds(i, j, k, l);
+		contentPane.add(lblFarmacias);
 	}
 }

@@ -59,6 +59,10 @@ public class Administrador {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public boolean checkPassword(String password) {
+		return password.equals(this.password);
+	}
 	
 
 }
