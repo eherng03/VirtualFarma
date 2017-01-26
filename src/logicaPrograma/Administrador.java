@@ -64,6 +64,10 @@ public class Administrador {
 	public boolean checkPassword(String password) {
 		return password.equals(this.password);
 	}
+
+	public boolean checkUser(String user) {
+		return user.equals(this.user);
+	}
 	
 
 }
