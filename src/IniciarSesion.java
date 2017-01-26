@@ -60,7 +60,7 @@ public class IniciarSesion extends JFrame {
 		contentPane.add(passwordField);
 		
 		JLabel lblUsuario = new JLabel("Usuario:");
-		lblUsuario.setBounds(50, 67, 46, 14);
+		lblUsuario.setBounds(50, 67, 76, 14);
 		contentPane.add(lblUsuario);
 		
 		JLabel lblContrasea = new JLabel("Contraseña:");
