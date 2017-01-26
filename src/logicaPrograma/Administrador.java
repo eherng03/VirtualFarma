@@ -1,5 +1,7 @@
 package logicaPrograma;
 
+import java.sql.SQLException;
+
 import excepciones.InvalidCIFException;
 import excepciones.InvalidCuentaException;
 import excepciones.InvalidNameException;
@@ -55,7 +57,7 @@ public class Administrador {
 	}
 	
 	public void crearFarmacia(String nombre, String cif, String horario, String direccion, 
-			String cuenta, String nombreDueno, String telefono, String email, String password) throws InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException, InvalidPasswordException{
+			String cuenta, String nombreDueno, String telefono, String email, String password) throws InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException, InvalidPasswordException, SQLException{
 		Farmacia farmacia = new Farmacia(nombre, cif, horario, direccion, cuenta, nombreDueno, telefono, email, password);
 	}
 

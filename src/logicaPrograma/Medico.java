@@ -1,9 +1,11 @@
 package logicaPrograma;
 
+import excepciones.InvalidCPFException;
 import excepciones.InvalidDNIException;
 import excepciones.InvalidNameException;
 import excepciones.InvalidPasswordException;
 import excepciones.InvalidSSNumberException;
+import persistencia.BBDDMedicos;
 import utils.Utils;
 
 public class Medico {
@@ -27,6 +29,8 @@ public class Medico {
 			this.email = email;
 			this.centroMedico = centroMedico;
 			this.password = password;
+			
+			BBDDMedicos.introducirMedico(nombre, dni, cpf, numeroSS, direccion, email, centroMedico, password);
 		}
 		
 	}
