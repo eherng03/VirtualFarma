@@ -54,7 +54,7 @@ public class BBDDFarmacias {
 	public static void introducirFarmacia(String cif, String nombre, String horario, String direccion, String numeroCuenta, String nombreDueno, String telefono, String email, String password) throws SQLException, InvalidPasswordException {
 		
 		//TODO Seleccionar de la tabla de pacientes el que el dni coincida con el introducido
-		String QuerySelect = "SELECT * FROM Farmacias WHERE CIF = " + cif;
+		String QuerySelect = "SELECT * FROM Farmacias WHERE CIF = '" + cif + "'";
         Statement stSelect = conexion.createStatement();
         java.sql.ResultSet resultSet;
         resultSet = stSelect.executeQuery(QuerySelect);

@@ -35,7 +35,7 @@ public class BBDD {
 	        try {
 	        	Class.forName("com.mysql.jdbc.Driver");
 	            conexion = DriverManager.getConnection("jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11154818", "sql11154818", "VI5cXvvBIk");
-	            System.out.println("Se ha iniciado la conexión con el servidor de forma exitosa");
+	           // System.out.println("Se ha iniciado la conexión con el servidor de forma exitosa");
 	            BBDDPacientes.init(conexion);
 	            BBDDFarmacias.init(conexion);
 	            

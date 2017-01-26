@@ -48,7 +48,7 @@ public class BBDDPacientes {
 	}
 	
 	/**
-	 * Accede a la bbdd y crea un objeto paciente con los datos obtenidos
+	 * Accede a la bbdd y crea un objeto paciente con los datos obtenidos a partir del dni
 	 * @param user
 	 * @param password
 	 * @throws SQLException 
