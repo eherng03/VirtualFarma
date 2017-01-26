@@ -54,7 +54,7 @@ public class Paciente {
 			return false;
 		}else{
 			for(int i = 0; i < charNumeroSSDNI.length; i++){
-				if(charNumeroSSDNI[i] < 64 || charNumeroSSDNI[i] > 91){
+				if(charNumeroSSDNI[i] < 47 || charNumeroSSDNI[i] > 54){
 					return false;
 				}
 			}
