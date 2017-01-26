@@ -60,23 +60,8 @@ public class BBDD {
         }
     }
  
-
-    public void insertData(String table_name, String ID, String name, String lastname, String age, String gender) {
-        try {
-            String Query = "INSERT INTO " + table_name + " VALUES("
-                    + "\"" + ID + "\", "
-                    + "\"" + name + "\", "
-                    + "\"" + lastname + "\", "
-                    + "\"" + age + "\", "
-                    + "\"" + gender + "\")";
-            Statement st = conexion.createStatement();
-            st.executeUpdate(Query);
-            JOptionPane.showMessageDialog(null, "Datos almacenados de forma exitosa");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error en el almacenamiento de datos");
-        }
-    }
  
+    /*
     public void getValues(String table_name) {
         try {
             String Query = "SELECT * FROM " + table_name;
@@ -95,7 +80,7 @@ public class BBDD {
             JOptionPane.showMessageDialog(null, "Error en la adquisición de datos");
         }
     }
- 
+ */
     //Vale para todas
     public void deleteRecord(String table_name, String ID) {
         try {

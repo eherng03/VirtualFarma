@@ -21,7 +21,7 @@ public class BBDDPacientes {
 	 */
 	public static Paciente getPaciente(String user, String password) {
 		return null;
-		// TODO Auto-generated method stub
+		// TODO select where user & password...
 	}
 
 	/**
@@ -29,6 +29,7 @@ public class BBDDPacientes {
 	 * @param paciente
 	 */
 	public static void introducirPaciente(String nombre, String DNI, String numeroSS, String contrasena) {
+		
 		//TODO Seleccionar de la tabla de pacientes el que el dni coincida con el introducido
 		//String Query = "SELECT * FROM Paciente";
         //Statement st = conexion.createStatement();
@@ -51,20 +52,16 @@ public class BBDDPacientes {
 		
 	}
 	
-	public static void editarPaciente(Paciente paciente) {
+	public static void editarPaciente(String DNI) {
 		// TODO Auto-generated method stub
 		
 	}
 	
-	public static void eliminarPaciente(Paciente paciente) {
+	public static void eliminarPaciente(String DNI) {
 		// TODO comprobar dni en tabla pacientes y eliminar
 		
 	}
 	
-	
-	 public void insertData(String table_name, String ID, String name, String lastname, String age, String gender) {
-	       
-	 }
 
 	public static void init(Connection conexion2) {
 		conexion = conexion2;
