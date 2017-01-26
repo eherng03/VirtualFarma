@@ -48,7 +48,7 @@ public class Farmacia {
 		if(!Utils.getUtils().checkCadenaLetrasNumerosOEspacios(nombreDueno)){
 			throw new InvalidNameException();
 		}
-		if(telefono.length() != 9){
+		if(!Utils.getUtils().checkTelefono(telefono)){
 			throw new InvalidTelefoneException();
 		}
 		if(!Utils.getUtils().checkCadenaLetrasNumerosOEspacios(password)){
