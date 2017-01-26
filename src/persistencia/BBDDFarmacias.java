@@ -5,7 +5,14 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
+import excepciones.InvalidCIFException;
+import excepciones.InvalidCuentaException;
+import excepciones.InvalidNameException;
+import excepciones.InvalidPasswordException;
+import excepciones.InvalidTelefoneException;
 import logicaPrograma.Farmacia;
+import logicaPrograma.Paciente;
+import utils.Utils;
 
 public class BBDDFarmacias {
 
@@ -16,30 +23,47 @@ public class BBDDFarmacias {
 	/**
 	 * Cada farmacia será almacenada en esta base de datos.
 	 *  Esta clase tendrálos metodos para añadir, eliminar y ver los datos de una farmacia
+	 * @throws SQLException 
+	 * @throws InvalidPasswordException 
+	 * @throws InvalidTelefoneException 
+	 * @throws InvalidCuentaException 
+	 * @throws InvalidCIFException 
+	 * @throws InvalidNameException 
 	 */
 
-	public static Farmacia getFarmacia(String user, String password) {
-		return null;
-		// busca en la bbdd la farmacia con esos datos y la devuelve
-		
+	public static Farmacia getFarmacia(String user, String password) throws InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException, InvalidPasswordException, SQLException {
+		Farmacia farmacia = null;
+		String QuerySelect = "SELECT * FROM Farmacias WHERE CIF = '" + user + "' AND Password = '" + password + "'";	
+        Statement stSelect = conexion.createStatement();
+        java.sql.ResultSet resultSet;
+        resultSet = stSelect.executeQuery(QuerySelect);
+        
+        while(resultSet.next()){
+        	farmacia = new Farmacia(resultSet.getString("Nombre"), resultSet.getString("CIF"), resultSet.getString("Horario"), resultSet.getString("Direccion"),
+        			resultSet.getString("NumeroCuenta"), resultSet.getString("NombreDueno"), resultSet.getString("Telefono"), resultSet.getString("email"), resultSet.getString("Password"));
+        }
+		return farmacia;
 	}
 	
 	/**
 	 * Introduce los datos del paciente en la bbdd
 	 * @param paciente
 	 * @throws SQLException 
+	 * @throws InvalidPasswordException 
 	 */
-	public static void introducirFarmacia(String cif, String nombre, String horario, String direccion, String numeroCuenta, String nombreDueno, String telefono, String email, String password) throws SQLException {
+	public static void introducirFarmacia(String cif, String nombre, String horario, String direccion, String numeroCuenta, String nombreDueno, String telefono, String email, String password) throws SQLException, InvalidPasswordException {
 		
 		//TODO Seleccionar de la tabla de pacientes el que el dni coincida con el introducido
 		String QuerySelect = "SELECT * FROM Farmacias WHERE CIF = " + cif;
         Statement stSelect = conexion.createStatement();
         java.sql.ResultSet resultSet;
         resultSet = stSelect.executeQuery(QuerySelect);
-        if(resultSet != null){
+        if(resultSet.next() == true){
         	 JOptionPane.showMessageDialog(null, "Los datos introducidos ya existen.");
         }else{
-        	// TODO comprobar contraseña
+        	if(!Utils.getUtils().checkCadenaLetrasNumerosOEspacios(password)){
+        		throw new InvalidPasswordException();
+        	}
    		 try {
    	            String Query = "INSERT INTO Farmacias VALUES("
    	                    + "\"" + cif + "\", "
