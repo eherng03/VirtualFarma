@@ -31,10 +31,13 @@ public class BBDDPacientes {
 	public static void introducirPaciente(String nombre, String DNI, String numeroSS, String contrasena) {
 		
 		//TODO Seleccionar de la tabla de pacientes el que el dni coincida con el introducido
-		//String Query = "SELECT * FROM Paciente";
-        //Statement st = conexion.createStatement();
-        //java.sql.ResultSet resultSet;
-        //resultSet = st.executeQuery(Query);
+		String QuerySelect = "SELECT * FROM Pacientes WHERE DNI = " + DNI;
+        Statement stSelect = conexion.createStatement();
+        java.sql.ResultSet resultSet;
+        resultSet = stSelect.executeQuery(QuerySelect);
+        if(resultSet != null){
+        	//TODO ya existen los datos
+        }
 		
 		// TODO la contraseña no es valida
 		 try {
