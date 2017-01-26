@@ -23,6 +23,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
+import java.awt.Font;
+import java.awt.SystemColor;
 
 public class WindowAdministrador extends JFrame {
 
@@ -51,22 +54,28 @@ public class WindowAdministrador extends JFrame {
 
 
 	private void initializeWindow() {
-		setResizable(false);
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 412, 548);
+		setBounds(100, 100, 584, 671);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBackground(Color.WHITE);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		//logo
-		logoPanel = new ImagenVF(394, 257);
+		setResizable(false);
+		
+		/*
+		 * LOGO
+		 */
+		logoPanel = new ImagenVF(547, 382);
 		logoPanel.setBackground(Color.WHITE);
-		logoPanel.setBounds(0, 0, 394, 257);
+		logoPanel.setBounds(10, 0, 547, 382);
 		contentPane.add(logoPanel);
 		
-		initializeLabel("Farmacias", 81, 268, 69, 14);
-		initializeLabel("Medicos", 277, 268, 46, 14);
+		
+		initializeLabels();
 		
 		initializeButtons();
 		
@@ -74,24 +83,30 @@ public class WindowAdministrador extends JFrame {
 
 	private void initializeButtons() {
 		JButton btnRegistrarFarmacia = new JButton("Registrar farmacia");
+		btnRegistrarFarmacia.setBackground(SystemColor.activeCaption);
+		btnRegistrarFarmacia.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnRegistrarFarmacia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				admin.crearFarmacia();
 			}
 		});
-		btnRegistrarFarmacia.setBounds(10, 293, 180, 34);
+		btnRegistrarFarmacia.setBounds(22, 415, 233, 34);
 		contentPane.add(btnRegistrarFarmacia);
 		
 		JButton btnRegistrarMdico = new JButton("Registrar medico");
+		btnRegistrarMdico.setBackground(SystemColor.activeCaption);
+		btnRegistrarMdico.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnRegistrarMdico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				admin.crearMedico();
 			}
 		});
-		btnRegistrarMdico.setBounds(206, 293, 180, 34);
+		btnRegistrarMdico.setBounds(324, 415, 233, 34);
 		contentPane.add(btnRegistrarMdico);
 		
-		JButton btnEditarFarmacia = new JButton("Editar farmacia.");
+		JButton btnEditarFarmacia = new JButton("Editar farmacia");
+		btnEditarFarmacia.setBackground(SystemColor.activeCaption);
+		btnEditarFarmacia.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnEditarFarmacia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				final JFrame passwordFrame = new JFrame("Contraseña");
@@ -130,38 +145,66 @@ public class WindowAdministrador extends JFrame {
 				passwordFrame.setVisible(true);
 			}
 		});
-		btnEditarFarmacia.setBounds(10, 338, 180, 34);
+		btnEditarFarmacia.setBounds(22, 460, 233, 34);
 		contentPane.add(btnEditarFarmacia);
 		
 		JButton btnEditarMdico = new JButton("Editar medico");
-		btnEditarMdico.setBounds(206, 338, 180, 34);
+		btnEditarMdico.setBackground(SystemColor.activeCaption);
+		btnEditarMdico.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnEditarMdico.setBounds(324, 460, 233, 34);
 		contentPane.add(btnEditarMdico);
 		
 		JButton btnEliminarFarmacia = new JButton("Eliminar farmacia");
-		btnEliminarFarmacia.setBounds(10, 383, 180, 34);
+		btnEliminarFarmacia.setBackground(SystemColor.activeCaption);
+		btnEliminarFarmacia.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnEliminarFarmacia.setBounds(22, 505, 233, 34);
 		contentPane.add(btnEliminarFarmacia);
 		
 		JButton btnEliminarMdico = new JButton("Eliminar medico");
-		btnEliminarMdico.setBounds(206, 383, 180, 34);
+		btnEliminarMdico.setBackground(SystemColor.activeCaption);
+		btnEliminarMdico.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnEliminarMdico.setBounds(324, 505, 233, 34);
 		contentPane.add(btnEliminarMdico);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 428, 376, 2);
+		separator.setBounds(22, 550, 535, 2);
 		contentPane.add(separator);
 		
 		JButton btnCrearCopiaDe = new JButton("Crear copia de seguridad del sistema");
-		btnCrearCopiaDe.setBounds(10, 441, 376, 23);
+		btnCrearCopiaDe.setBackground(SystemColor.activeCaption);
+		btnCrearCopiaDe.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnCrearCopiaDe.setBounds(22, 563, 535, 34);
 		contentPane.add(btnCrearCopiaDe);
 		
 		JButton btnAyuda = new JButton("Ayuda");
-		btnAyuda.setBounds(155, 475, 89, 23);
+		btnAyuda.setBackground(SystemColor.activeCaption);
+		btnAyuda.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnAyuda.setBounds(238, 608, 89, 23);
 		contentPane.add(btnAyuda);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setOrientation(SwingConstants.VERTICAL);
+		separator_1.setBounds(290, 415, 2, 137);
+		contentPane.add(separator_1);
+		
+		
 	}
 
 
-	private void initializeLabel(String string, int i, int j, int k, int l) {
-		JLabel lblFarmacias = new JLabel(string);
-		lblFarmacias.setBounds(i, j, k, l);
+	private void initializeLabels() {
+		
+		
+		JLabel lblFarmacias = new JLabel("Farmacias");
+		lblFarmacias.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblFarmacias.setBounds(115, 393, 69, 14);
 		contentPane.add(lblFarmacias);
+		
+		
+		JLabel lblMedicos = new JLabel("Medicos");
+		lblMedicos.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblMedicos.setBounds(415, 393, 69, 14);
+		contentPane.add(lblMedicos);
+		
+		
 	}
 }

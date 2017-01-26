@@ -2,6 +2,8 @@ package interfazUsuario;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.SystemColor;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -34,8 +36,7 @@ public class WindowPaciente extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 584, 671);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane = new JPanel();		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setBackground(new Color(255, 255, 255));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -51,27 +52,40 @@ public class WindowPaciente extends JFrame {
 		contentPane.add(logoPanel);
 		
 		JButton btnShowChemistry = new JButton("Ver lista de farmacias y/o \r\ndisponibilidad de un medicamento");
+		btnShowChemistry.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnShowChemistry.setBackground(SystemColor.activeCaption);
 		btnShowChemistry.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				showWindowChemistryList();
 			}
 		});
-		btnShowChemistry.setBounds(117, 449, 335, 34);
+		btnShowChemistry.setBounds(10, 449, 547, 34);
 		contentPane.add(btnShowChemistry);
 		
 		btnConsultarRecetas = new JButton("Consultar recetas");
-		btnConsultarRecetas.setBounds(117, 404, 335, 34);
+		btnConsultarRecetas.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnConsultarRecetas.setBackground(SystemColor.activeCaption);
+		btnConsultarRecetas.setBounds(10, 404, 547, 34);
 		contentPane.add(btnConsultarRecetas);
 		
 		JButton btnDarseDeBaja = new JButton("Darse de baja");
+		btnDarseDeBaja.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnDarseDeBaja.setBackground(SystemColor.activeCaption);
 		btnDarseDeBaja.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//TODO ventana de introduzca la contraseeña para comprobar su identidad.
 				paciente.eliminar();
 			}
 		});
-		btnDarseDeBaja.setBounds(117, 494, 335, 34);
+		btnDarseDeBaja.setBounds(10, 494, 547, 34);
 		contentPane.add(btnDarseDeBaja);
+		
+		
+		JButton btnAyuda = new JButton("Ayuda");
+		btnAyuda.setBackground(SystemColor.activeCaption);
+		btnAyuda.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnAyuda.setBounds(238, 608, 89, 23);
+		contentPane.add(btnAyuda);
 		
 		
 	}

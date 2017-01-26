@@ -15,6 +15,7 @@ import javax.swing.border.EmptyBorder;
 
 import images.ImagenVF;
 import persistencia.BBDD;
+import java.awt.SystemColor;
 
 
 
@@ -56,6 +57,7 @@ public class StartWindow extends JFrame {
     	
     	btnInitFarmacia = new JButton();
     	btnAyuda = new JButton();
+    	btnAyuda.setFont(new Font("Arial", Font.PLAIN, 12));
     	btnInitPaciente = new JButton();
     	btnInitAdmin = new JButton();
     	btnInitMedico = new JButton();
@@ -102,10 +104,10 @@ public class StartWindow extends JFrame {
 	 * ADMIN
 	 */
 		btnInitAdmin.setText("Iniciar sesión como administrador.");
-		btnInitAdmin.setForeground(new Color(139, 0, 0));
-		btnInitAdmin.setBackground(new Color(245, 245, 220));
-		btnInitAdmin.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 14));
-		btnInitAdmin.setBounds(141, 393, 269, 31);
+		btnInitAdmin.setForeground(new Color(128, 0, 0));
+		btnInitAdmin.setBackground(SystemColor.activeCaption);
+		btnInitAdmin.setFont(new Font("Arial", Font.PLAIN, 14));
+		btnInitAdmin.setBounds(20, 393, 537, 31);
 		btnInitAdmin.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			iniciarSesionX("Administrador");
@@ -117,10 +119,10 @@ public class StartWindow extends JFrame {
 	 * FARMACIA
 	 */
 		btnInitFarmacia.setText("Iniciar sesión como farmacia.");
-		btnInitFarmacia.setForeground(new Color(139, 0, 0));
-		btnInitFarmacia.setBackground(new Color(245, 245, 220));
-		btnInitFarmacia.setBounds(141, 435, 269, 31);
-		btnInitFarmacia.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 14));
+		btnInitFarmacia.setForeground(new Color(128, 0, 0));
+		btnInitFarmacia.setBackground(SystemColor.activeCaption);
+		btnInitFarmacia.setBounds(20, 435, 537, 31);
+		btnInitFarmacia.setFont(new Font("Arial", Font.PLAIN, 14));
 		btnInitFarmacia.setVisible(true);
 		btnInitFarmacia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -137,10 +139,10 @@ public class StartWindow extends JFrame {
 		
 		btnInitPaciente.setToolTipText("Si no tiene cuenta de usuario haga clic en crear cuenta de usuario");
 		btnInitPaciente.setText("Iniciar sesión como usuario.");
-		btnInitPaciente.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 14));
-		btnInitPaciente.setForeground(new Color(139, 0, 0));
-		btnInitPaciente.setBackground(new Color(245, 245, 220));
-		btnInitPaciente.setBounds(141, 520, 269, 31);
+		btnInitPaciente.setFont(new Font("Arial", Font.PLAIN, 14));
+		btnInitPaciente.setForeground(new Color(128, 0, 0));
+		btnInitPaciente.setBackground(SystemColor.activeCaption);
+		btnInitPaciente.setBounds(20, 520, 537, 31);
 		btnInitPaciente.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			iniciarSesionX("Paciente");
@@ -157,10 +159,10 @@ public class StartWindow extends JFrame {
 			}
 		});
 		btnRegistrarPaciente.setText("Crear cuenta de usuario.");
-		btnRegistrarPaciente.setForeground(new Color(139, 0, 0));
-		btnRegistrarPaciente.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 14));
-		btnRegistrarPaciente.setBackground(new Color(245, 245, 220));
-		btnRegistrarPaciente.setBounds(141, 562, 269, 31);
+		btnRegistrarPaciente.setForeground(new Color(128, 0, 0));
+		btnRegistrarPaciente.setFont(new Font("Arial", Font.PLAIN, 14));
+		btnRegistrarPaciente.setBackground(SystemColor.activeCaption);
+		btnRegistrarPaciente.setBounds(20, 562, 537, 31);
 		contentPane.add(btnRegistrarPaciente);
 	
 	/*
@@ -173,10 +175,10 @@ public class StartWindow extends JFrame {
 		});
 		btnInitMedico.setToolTipText("Si no tiene cuenta de médico pongase en contacto con administración.");
 		btnInitMedico.setText("Iniciar sesión como médico.");
-		btnInitMedico.setForeground(new Color(139, 0, 0));
-		btnInitMedico.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 14));
-		btnInitMedico.setBackground(new Color(245, 245, 220));
-		btnInitMedico.setBounds(141, 478, 269, 31);
+		btnInitMedico.setForeground(new Color(128, 0, 0));
+		btnInitMedico.setFont(new Font("Arial", Font.PLAIN, 14));
+		btnInitMedico.setBackground(SystemColor.activeCaption);
+		btnInitMedico.setBounds(20, 478, 537, 31);
 		contentPane.add(btnInitMedico);
 			
 	}
