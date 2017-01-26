@@ -4,8 +4,10 @@ import java.sql.SQLException;
 
 import excepciones.InvalidCIFException;
 import excepciones.InvalidCuentaException;
+import excepciones.InvalidDNIException;
 import excepciones.InvalidNameException;
 import excepciones.InvalidPasswordException;
+import excepciones.InvalidSSNumberException;
 import excepciones.InvalidTelefoneException;
 
 /**
@@ -41,8 +43,9 @@ public class Administrador {
 		return user;
 	}
 
-	public void crearMedico() {
-		// TODO Auto-generated method stub
+	public void crearMedico(String nombre, String dni, String numeroSS, String direccion, 
+			String email, String centroMedico, String password) throws InvalidNameException, InvalidDNIException, InvalidSSNumberException, InvalidPasswordException {
+		Medico medico = new Medico(nombre, dni, numeroSS, direccion, email, centroMedico, password);
 		
 	}
 	

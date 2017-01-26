@@ -148,22 +148,14 @@ public class FormPaciente extends JFrame {
 		contentPane.add(btnConfirmar);
 	}
 
-	protected void registrarPaciente() {
+	private void registrarPaciente() {
 		try {
 			Paciente paciente = new Paciente(textNombre.getText() + " " + textApellido1.getText() + " " + textApellido2.getText(), textDNI.getText(), textNumeroSS.getText(), String.valueOf(passwordField.getPassword()));
 			javax.swing.JOptionPane.showMessageDialog(this, "Su cuenta ha sido creada con éxito");
-		} catch (SQLException e) {
+		} catch(InvalidPasswordException | EmptyFieldException | InvalidNameException | InvalidDNIException | InvalidSSNumberException e){
+			javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+		}catch (SQLException e) {
 			javax.swing.JOptionPane.showMessageDialog(this, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-		} catch (InvalidPasswordException e) {
-			javax.swing.JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-		}catch (EmptyFieldException e) {
-			javax.swing.JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-		}catch (InvalidNameException e) {
-			javax.swing.JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-		} catch (InvalidDNIException e) {
-			javax.swing.JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-		} catch (InvalidSSNumberException e){
-			javax.swing.JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 		}
 	}
 

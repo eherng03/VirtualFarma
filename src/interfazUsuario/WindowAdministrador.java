@@ -38,6 +38,7 @@ public class WindowAdministrador extends JFrame {
 	private JPanel contentPane;
 	private JPanel logoPanel;
 	private Administrador admin;
+	private WindowAdministrador windowAdministrador;
 	
 
 	/**
@@ -45,9 +46,9 @@ public class WindowAdministrador extends JFrame {
 	 * @param iniciarSesion 
 	 */
 	public WindowAdministrador(IniciarSesion iniciarSesion) {
-		iniciarSesion.setEnabled(false);
+		iniciarSesion.setVisible(false);
 		admin = Administrador.getAdmin();
-		
+		windowAdministrador = this;
 		initializeWindow();
 
 	}
@@ -89,41 +90,19 @@ public class WindowAdministrador extends JFrame {
 		btnRegistrarFarmacia.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnRegistrarFarmacia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FormFarmacia formularioFarmacia = new FormFarmacia(null);
-			}
-		});
-		btnRegistrarFarmacia.setBounds(22, 415, 233, 34);
-		contentPane.add(btnRegistrarFarmacia);
-		
-		JButton btnRegistrarMdico = new JButton("Registrar medico");
-		btnRegistrarMdico.setBackground(SystemColor.activeCaption);
-		btnRegistrarMdico.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnRegistrarMdico.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				admin.crearMedico();
-			}
-		});
-		btnRegistrarMdico.setBounds(324, 415, 233, 34);
-		contentPane.add(btnRegistrarMdico);
-		
-		JButton btnEditarFarmacia = new JButton("Editar farmacia");
-		btnEditarFarmacia.setBackground(SystemColor.activeCaption);
-		btnEditarFarmacia.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnEditarFarmacia.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				final JFrame passwordFrame = new JFrame("Contraseña");
+				JFrame passwordFrame = new JFrame("Contraseña");
+				passwordFrame.setBounds(100, 100, 584, 671);
 				JLabel jlbPassword = new JLabel("Introduzca la contraseña:  ");
 				JPasswordField jpwName = new JPasswordField(10);
 				jpwName.setEchoChar('*');
 				jpwName.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						JPasswordField input = (JPasswordField) e.getSource();
-						if (admin.checkPassword(input.getPassword().toString())) {
-							JOptionPane.showMessageDialog(passwordFrame,
-									"Contraseña correcta");
-							String cif = JOptionPane.showInputDialog("Introduzca el CIF de la farmacia a editar");
-							FormFarmacia formFarmacia = new FormFarmacia(cif);
-							
+						if (admin.checkPassword(String.valueOf(input.getPassword()))) {
+							passwordFrame.setVisible(false);
+							windowAdministrador.setVisible(false);
+							FormFarmacia formFarmacia = new FormFarmacia(null);
+							formFarmacia.setVisible(true);
 						} else {
 							JOptionPane.showMessageDialog(passwordFrame,
 									"Contraseña incorrecta", "Error",
@@ -137,12 +116,81 @@ public class WindowAdministrador extends JFrame {
 				jplContentPane.add(jlbPassword, BorderLayout.WEST);
 				jplContentPane.add(jpwName, BorderLayout.CENTER);
 				passwordFrame.setContentPane(jplContentPane);
-				passwordFrame.addWindowListener(new WindowAdapter() {
-
-						public void windowClosing(WindowEvent e) {
-							System.exit(0);
+				passwordFrame.pack();
+				passwordFrame.setVisible(true);
+			}
+		});
+		btnRegistrarFarmacia.setBounds(22, 415, 233, 34);
+		contentPane.add(btnRegistrarFarmacia);
+		
+		JButton btnRegistrarMdico = new JButton("Registrar medico");
+		btnRegistrarMdico.setBackground(SystemColor.activeCaption);
+		btnRegistrarMdico.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnRegistrarMdico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame passwordFrame = new JFrame("Contraseña");
+				passwordFrame.setBounds(100, 100, 584, 671);
+				JLabel jlbPassword = new JLabel("Introduzca la contraseña:  ");
+				JPasswordField jpwName = new JPasswordField(10);
+				jpwName.setEchoChar('*');
+				jpwName.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						JPasswordField input = (JPasswordField) e.getSource();
+						if (admin.checkPassword(String.valueOf(input.getPassword()))) {
+							passwordFrame.setVisible(false);
+							windowAdministrador.setVisible(false);
+							FormMedico formMedico = new FormMedico(null);
+						} else {
+							JOptionPane.showMessageDialog(passwordFrame,
+									"Contraseña incorrecta", "Error",
+									JOptionPane.ERROR_MESSAGE);
 						}
-					});
+					}
+				});
+				JPanel jplContentPane = new JPanel(new BorderLayout());
+				jplContentPane.setBorder(BorderFactory.createEmptyBorder(20, 20,
+						20, 20));
+				jplContentPane.add(jlbPassword, BorderLayout.WEST);
+				jplContentPane.add(jpwName, BorderLayout.CENTER);
+				passwordFrame.setContentPane(jplContentPane);
+				passwordFrame.pack();
+				passwordFrame.setVisible(true);
+			}
+		});
+		btnRegistrarMdico.setBounds(324, 415, 233, 34);
+		contentPane.add(btnRegistrarMdico);
+		
+		JButton btnEditarFarmacia = new JButton("Editar farmacia");
+		btnEditarFarmacia.setBackground(SystemColor.activeCaption);
+		btnEditarFarmacia.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnEditarFarmacia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFrame passwordFrame = new JFrame("Contraseña");
+				passwordFrame.setBounds(100, 100, 584, 671);
+				JLabel jlbPassword = new JLabel("Introduzca la contraseña:  ");
+				JPasswordField jpwName = new JPasswordField(10);
+				jpwName.setEchoChar('*');
+				jpwName.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						JPasswordField input = (JPasswordField) e.getSource();
+						if (admin.checkPassword(String.valueOf(input.getPassword()))) {
+							passwordFrame.setVisible(false);
+							windowAdministrador.setVisible(false);
+							String cif = JOptionPane.showInputDialog("Introduzca el CIF de la farmacia a editar");
+							FormFarmacia formFarmacia = new FormFarmacia(cif);
+						} else {
+							JOptionPane.showMessageDialog(passwordFrame,
+									"Contraseña incorrecta", "Error",
+									JOptionPane.ERROR_MESSAGE);
+						}
+					}
+				});
+				JPanel jplContentPane = new JPanel(new BorderLayout());
+				jplContentPane.setBorder(BorderFactory.createEmptyBorder(20, 20,
+						20, 20));
+				jplContentPane.add(jlbPassword, BorderLayout.WEST);
+				jplContentPane.add(jpwName, BorderLayout.CENTER);
+				passwordFrame.setContentPane(jplContentPane);
 				passwordFrame.pack();
 				passwordFrame.setVisible(true);
 			}

@@ -9,8 +9,10 @@ import javax.swing.border.EmptyBorder;
 
 import excepciones.InvalidCIFException;
 import excepciones.InvalidCuentaException;
+import excepciones.InvalidDNIException;
 import excepciones.InvalidNameException;
 import excepciones.InvalidPasswordException;
+import excepciones.InvalidSSNumberException;
 import excepciones.InvalidTelefoneException;
 import images.ImagenVF;
 import logicaPrograma.Administrador;
@@ -22,6 +24,7 @@ import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class FormMedico extends JFrame {
@@ -110,7 +113,7 @@ public class FormMedico extends JFrame {
 		JButton button = new JButton("Atras");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				registrarMedico();
 			}
 		});
 		button.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -170,5 +173,15 @@ public class FormMedico extends JFrame {
 		textEmail.setBounds(62, 526, 357, 20);
 		contentPane.add(textEmail);
 		textEmail.setColumns(10);
+	}
+	private void registrarMedico() {
+		try {
+			admin.crearMedico(textNombre.getText(), textDNI.getText(), textNumeroSS.getText(), textDireccion.getText(), textEmail.getText(), textCentroMedico.getText(), String.valueOf(passwordField));
+			javax.swing.JOptionPane.showMessageDialog(this, "La cuenta ha sido creada con éxito");
+		} catch (InvalidNameException | InvalidDNIException | InvalidSSNumberException | InvalidPasswordException e) {
+			javax.swing.JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+		} /*catch (SQLException e) {
+			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+		}*/
 	}
 }

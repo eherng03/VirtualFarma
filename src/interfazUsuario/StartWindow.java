@@ -38,7 +38,7 @@ public class StartWindow extends JFrame {
 	private BBDD db;
 	private JPanel logoPanel;
 	private JButton btnRegistrarPaciente;
-	
+	private StartWindow startWindow;
 	
 	
 	public static void main(String[] args) {
@@ -54,6 +54,8 @@ public class StartWindow extends JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+    	
+    	startWindow = this;
     	
     	btnInitFarmacia = new JButton();
     	btnAyuda = new JButton();
@@ -111,6 +113,7 @@ public class StartWindow extends JFrame {
 		btnInitAdmin.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			iniciarSesionX("Administrador");
+    			startWindow.setVisible(false);
     		}
     	});
 		contentPane.add(btnInitAdmin);
@@ -127,6 +130,7 @@ public class StartWindow extends JFrame {
 		btnInitFarmacia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				iniciarSesionX("Farmacia");
+				startWindow.setVisible(false);
 			}
 		});
 		contentPane.add(btnInitFarmacia);	
@@ -146,6 +150,7 @@ public class StartWindow extends JFrame {
 		btnInitPaciente.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			iniciarSesionX("Paciente");
+    			startWindow.setVisible(false);
     		}
     	});
 		contentPane.add(btnInitPaciente);

@@ -171,25 +171,10 @@ public class FormFarmacia extends JFrame {
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				if(cif != null){
-					admin.editarFarmacia(null);
+					admin.editarFarmacia(cif);
 				}else{
-					try {
-						admin.crearFarmacia(textNombre.getText(), textCIF.getText(), textHorario.getText(), textDireccion.getText(), textCuentaBancaria.getText(),
-								textNombre.getText(), textTelefono.getText(), textEmail.getText(), String.valueOf(passwordField));
-					} catch (InvalidNameException e) {
-						javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-					} catch (InvalidCIFException e) {
-						javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-					} catch (InvalidCuentaException e) {
-						javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-					} catch (InvalidTelefoneException e) {
-						javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-					} catch (InvalidPasswordException e) {
-						javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					registrarFarmacia();
+					
 				}
 			}
 		});
@@ -208,5 +193,17 @@ public class FormFarmacia extends JFrame {
 		button.setBackground(SystemColor.activeCaption);
 		button.setBounds(446, 515, 89, 23);
 		contentPane.add(button);
+	}
+	
+	private void registrarFarmacia() {
+		try {
+			admin.crearFarmacia(textNombre.getText(), textCIF.getText(), textHorario.getText(), textDireccion.getText(), textCuentaBancaria.getText(),
+					textNombre.getText(), textTelefono.getText(), textEmail.getText(), String.valueOf(passwordField));
+			javax.swing.JOptionPane.showMessageDialog(this, "La cuenta ha sido creada con éxito");
+		} catch (InvalidNameException | InvalidCIFException | InvalidCuentaException | InvalidTelefoneException | InvalidPasswordException e) {
+			javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+		} catch (SQLException e) {
+			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }
