@@ -37,6 +37,8 @@ public class FormFarmacia extends JFrame {
 	public FormFarmacia(String cif) {
 		admin = Administrador.getAdmin();
 		
+		setResizable(false);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 584, 671);
 		contentPane = new JPanel();

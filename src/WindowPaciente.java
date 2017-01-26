@@ -35,6 +35,8 @@ public class WindowPaciente extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		setResizable(false);
+		
 		/*
 		 * LOGO
 		 */

@@ -30,7 +30,6 @@ public class IniciarSesion extends JFrame {
 	private JButton btnAyuda;
 	private JButton btnIniciarSes;
 	
-	private String rol;
 	private String user;
 	private String password;
 
@@ -38,10 +37,10 @@ public class IniciarSesion extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public IniciarSesion(String flag) {
+	public IniciarSesion(String rol) {
+		setResizable(false);
 		
-		this.rol = flag;
-		this.setTitle("Iniciar sesión como " + flag);
+		setTitle("Iniciar sesión como " + rol);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 393, 266);
 		contentPane = new JPanel();
@@ -92,7 +91,7 @@ public class IniciarSesion extends JFrame {
 		btnIniciarSes = new JButton("Iniciar sesión");
 		btnIniciarSes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				accionIniciarSesion();
+				accionIniciarSesion(rol);
 			}
 		});
 		btnIniciarSes.setBounds(196, 126, 129, 23);
@@ -114,7 +113,7 @@ public class IniciarSesion extends JFrame {
 	/**
 	 * Dependiendo del rol seleccionado se buscará el usuario y contraseña en una BBDD determinada
 	 */
-	private void accionIniciarSesion() {
+	private void accionIniciarSesion(String rol) {
 		user = userField.getText();
 		password = passwordField.getPassword().toString();
 		

@@ -56,6 +56,8 @@ public class StartWindow extends JFrame {
     	btnInitAdmin = new JButton();
     	btnInitMedico = new JButton();
     	
+    	setResizable(false);
+    	
     	db = BBDD.makeBBDD();
 		setTitle("Bienvenido");
 		setBackground(new Color(255, 255, 255));

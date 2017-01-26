@@ -37,9 +37,7 @@ public class WindowAdministrador extends JFrame {
 	 * @param iniciarSesion 
 	 */
 	public WindowAdministrador(IniciarSesion iniciarSesion) {
-		
 		iniciarSesion.setEnabled(false);
-		
 		admin = Administrador.getAdmin();
 		
 		initializeWindow();
@@ -48,6 +46,7 @@ public class WindowAdministrador extends JFrame {
 
 
 	private void initializeWindow() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 412, 548);
 		contentPane = new JPanel();
