@@ -1,6 +1,5 @@
 package logicaPrograma;
 
-import excepciones.InvalidCPFException;
 import excepciones.InvalidDNIException;
 import excepciones.InvalidNameException;
 import excepciones.InvalidPasswordException;
@@ -11,41 +10,37 @@ import utils.Utils;
 public class Medico {
 	private String nombre;
 	private String dni;
-	private String cpf;
 	private String numeroSS;
 	private String direccion;
 	private String email;
 	private String centroMedico;
 	private String password;
 	
-	public Medico(String nombre, String dni, String cpf, String numeroSS, String direccion, 
-			String email, String centroMedico, String password) throws InvalidNameException, InvalidDNIException, InvalidSSNumberException, InvalidPasswordException, InvalidCPFException{
-		if(checkDatos(nombre, dni, cpf, numeroSS, password)){
+	public Medico(String nombre, String dni, String numeroSS, String direccion, 
+			String email, String centroMedico, String password) throws InvalidNameException, InvalidDNIException, InvalidSSNumberException, InvalidPasswordException{
+		if(checkDatos(nombre, dni, numeroSS, password)){
 			this.nombre = nombre;
 			this.dni = dni;
-			this.cpf = cpf;
 			this.numeroSS = numeroSS;
 			this.direccion = direccion;
 			this.email = email;
 			this.centroMedico = centroMedico;
 			this.password = password;
 			
-			BBDDMedicos.introducirMedico(nombre, dni, cpf, numeroSS, direccion, email, centroMedico, password);
+			BBDDMedicos.introducirMedico(nombre, dni, numeroSS, direccion, email, centroMedico, password);
 		}
 		
 	}
 
 	
-	private boolean checkDatos(String nombre, String dni, String cpf, String numeroSS, String password) throws InvalidNameException, InvalidDNIException, InvalidSSNumberException, InvalidPasswordException, InvalidCPFException{
+	private boolean checkDatos(String nombre, String dni, String numeroSS, String password) throws InvalidNameException, InvalidDNIException, InvalidSSNumberException, InvalidPasswordException{
 		if(!Utils.getUtils().checkCadenaLetrasNumerosOEspacios(nombre)){
 			throw new InvalidNameException();
 		}
 		if(!Utils.getUtils().checkDNI(dni)){
 			throw new InvalidDNIException();
 		}
-		if(!Utils.getUtils().checkCPF(cpf)){
-			throw new InvalidCPFException();
-		}
+
 		if(!Utils.getUtils().checkNumeroSS(numeroSS)){
 			throw new InvalidSSNumberException();
 		}

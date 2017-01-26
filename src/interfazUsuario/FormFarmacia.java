@@ -22,6 +22,7 @@ import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class FormFarmacia extends JFrame {
@@ -168,20 +169,7 @@ public class FormFarmacia extends JFrame {
 		
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(cif != null){
-				
-				}
-			}
-		});
-		btnAceptar.setBackground(SystemColor.activeCaption);
-		btnAceptar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnAceptar.setBounds(446, 418, 89, 23);
-		contentPane.add(btnAceptar);
-		
-		JButton button = new JButton("Atras");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent ev) {
 				if(cif != null){
 					admin.editarFarmacia(null);
 				}else{
@@ -198,8 +186,22 @@ public class FormFarmacia extends JFrame {
 						javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 					} catch (InvalidPasswordException e) {
 						javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				}
+			}
+		});
+		btnAceptar.setBackground(SystemColor.activeCaption);
+		btnAceptar.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnAceptar.setBounds(446, 418, 89, 23);
+		contentPane.add(btnAceptar);
+		
+		JButton button = new JButton("Atras");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
 			}
 		});
 		button.setFont(new Font("Arial", Font.PLAIN, 12));

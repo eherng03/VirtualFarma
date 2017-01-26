@@ -17,10 +17,6 @@ public class BBDDMedicos {
 		return null;
 	}
 	
-	public static void introducirMedico(String nombre, String dni, String cpf, String numeroSS, 
-			String direccion, String email, String centroMedico, String password){
-		
-	}
 	
 	public static void editarMedico(String dni){
 		
@@ -32,6 +28,14 @@ public class BBDDMedicos {
 
 	public static void init(Connection conexion2) {
 		conexion = conexion2;	
+	}
+
+
+
+	public static void introducirMedico(String nombre, String dni, String numeroSS, String direccion, String email,
+			String centroMedico, String password) {
+		// TODO Auto-generated method stub
+		
 	}
 
 
