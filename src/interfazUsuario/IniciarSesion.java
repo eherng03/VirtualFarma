@@ -11,6 +11,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import excepciones.EmptyFieldException;
+import excepciones.IncorrectUserOrPasswordException;
+import logicaPrograma.Administrador;
 import logicaPrograma.Farmacia;
 import logicaPrograma.Medico;
 import logicaPrograma.Paciente;
@@ -100,7 +103,13 @@ public class IniciarSesion extends JFrame {
 		btnIniciarSes = new JButton("Iniciar sesión");
 		btnIniciarSes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				accionIniciarSesion(rol);
+				try {
+					accionIniciarSesion(rol);
+				} catch (EmptyFieldException e) {
+					javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+				} catch (IncorrectUserOrPasswordException e) {
+					javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		btnIniciarSes.setBounds(196, 126, 129, 23);
@@ -121,29 +130,37 @@ public class IniciarSesion extends JFrame {
 	
 	/**
 	 * Dependiendo del rol seleccionado se buscará el usuario y contraseña en una BBDD determinada
+	 * @throws EmptyFieldException 
+	 * @throws IncorrectUserOrPasswordException 
 	 */
-	private void accionIniciarSesion(String rol) {
+	private void accionIniciarSesion(String rol) throws EmptyFieldException, IncorrectUserOrPasswordException {
 		user = userField.getText();
-		password = passwordField.getPassword().toString();
+		password = String.valueOf(passwordField.getPassword());
 		
 		switch(rol){
-			case "admin":
-				//Comprobar que usuario y contraseña sean los de admin
-				WindowAdministrador ventanaAdmin = new WindowAdministrador(this);
-				ventanaAdmin.setVisible(true);
-				this.setVisible(false);
+			case "Administrador":
+				if(user.equals("") || password.equals("")){
+					throw new EmptyFieldException();
+				}
+				if(Administrador.getAdmin().checkUser(user) && Administrador.getAdmin().checkPassword(password)){
+					WindowAdministrador ventanaAdmin = new WindowAdministrador(this);
+					ventanaAdmin.setVisible(true);
+					this.setVisible(false);
+				}else{
+					throw new IncorrectUserOrPasswordException();
+				}
 				break;
-			case "paciente":
+			case "Paciente":
 				Paciente pac = BBDDPacientes.getPaciente(user, password);
 				WindowPaciente ventanaPac = new WindowPaciente(pac, this);
 				ventanaPac.setVisible(true);
 				this.setVisible(false);
 				break;
-			case "farmacia":
+			case "Farmacia":
 				Farmacia f1 = BBDDFarmacias.getFarmacia(user, password);
 				//Abrir la ventana de farmacia
 				break;
-			case "medico":
+			case "Medico":
 				Medico m1 = BBDDMedicos.getMedico(user, password);
 				//abrir la ventana de medico
 				break;
