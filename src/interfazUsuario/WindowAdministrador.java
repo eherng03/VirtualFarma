@@ -101,7 +101,7 @@ public class WindowAdministrador extends JFrame {
 						if (admin.checkPassword(String.valueOf(input.getPassword()))) {
 							passwordFrame.setVisible(false);
 							windowAdministrador.setVisible(false);
-							FormFarmacia formFarmacia = new FormFarmacia(null);
+							FormFarmacia formFarmacia = new FormFarmacia(null, windowAdministrador);
 							formFarmacia.setVisible(true);
 						} else {
 							JOptionPane.showMessageDialog(passwordFrame,
@@ -139,7 +139,7 @@ public class WindowAdministrador extends JFrame {
 						if (admin.checkPassword(String.valueOf(input.getPassword()))) {
 							passwordFrame.setVisible(false);
 							windowAdministrador.setVisible(false);
-							FormMedico formMedico = new FormMedico(null);
+							FormMedico formMedico = new FormMedico(null, windowAdministrador);
 						} else {
 							JOptionPane.showMessageDialog(passwordFrame,
 									"Contraseña incorrecta", "Error",
@@ -177,7 +177,8 @@ public class WindowAdministrador extends JFrame {
 							passwordFrame.setVisible(false);
 							windowAdministrador.setVisible(false);
 							String cif = JOptionPane.showInputDialog("Introduzca el CIF de la farmacia a editar");
-							FormFarmacia formFarmacia = new FormFarmacia(cif);
+							//TODO llamar a la BBDD para ver si existe el cif y devolverlo sino dar error 
+							FormFarmacia formFarmacia = new FormFarmacia(cif, windowAdministrador);
 						} else {
 							JOptionPane.showMessageDialog(passwordFrame,
 									"Contraseña incorrecta", "Error",
@@ -199,6 +200,39 @@ public class WindowAdministrador extends JFrame {
 		contentPane.add(btnEditarFarmacia);
 		
 		JButton btnEditarMdico = new JButton("Editar medico");
+		btnEditarMdico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame passwordFrame = new JFrame("Contraseña");
+				passwordFrame.setBounds(100, 100, 584, 671);
+				JLabel jlbPassword = new JLabel("Introduzca la contraseña:  ");
+				JPasswordField jpwName = new JPasswordField(10);
+				jpwName.setEchoChar('*');
+				jpwName.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						JPasswordField input = (JPasswordField) e.getSource();
+						if (admin.checkPassword(String.valueOf(input.getPassword()))) {
+							passwordFrame.setVisible(false);
+							windowAdministrador.setVisible(false);
+							String dni = JOptionPane.showInputDialog("Introduzca el dni del médico a editar");
+							//TODO llamar a la BBDD para ver si existe el dni y devolverlo sino dar error 
+							FormMedico formMedico = new FormMedico(dni, windowAdministrador);
+						} else {
+							JOptionPane.showMessageDialog(passwordFrame,
+									"Contraseña incorrecta", "Error",
+									JOptionPane.ERROR_MESSAGE);
+						}
+					}
+				});
+				JPanel jplContentPane = new JPanel(new BorderLayout());
+				jplContentPane.setBorder(BorderFactory.createEmptyBorder(20, 20,
+						20, 20));
+				jplContentPane.add(jlbPassword, BorderLayout.WEST);
+				jplContentPane.add(jpwName, BorderLayout.CENTER);
+				passwordFrame.setContentPane(jplContentPane);
+				passwordFrame.pack();
+				passwordFrame.setVisible(true);
+			}
+		});
 		btnEditarMdico.setBackground(SystemColor.activeCaption);
 		btnEditarMdico.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnEditarMdico.setBounds(324, 460, 233, 34);

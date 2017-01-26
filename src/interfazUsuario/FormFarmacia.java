@@ -39,13 +39,16 @@ public class FormFarmacia extends JFrame {
 	private JTextField textCIF;
 	private JTextField textNombre;
 	private Administrador admin;
+	private FormFarmacia formFarmacia;
 
 
 
 	/**
 	 * Create the frame.
 	 */
-	public FormFarmacia(String cif) {
+	public FormFarmacia(String cif, WindowAdministrador windowAdministrador) {
+		formFarmacia = this;
+		
 		admin = Administrador.getAdmin();
 		
 		setResizable(false);
@@ -186,7 +189,8 @@ public class FormFarmacia extends JFrame {
 		JButton button = new JButton("Atras");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				formFarmacia.setVisible(false);
+				windowAdministrador.setVisible(true);
 			}
 		});
 		button.setFont(new Font("Arial", Font.PLAIN, 12));

@@ -9,6 +9,7 @@ import excepciones.InvalidNameException;
 import excepciones.InvalidPasswordException;
 import excepciones.InvalidSSNumberException;
 import excepciones.InvalidTelefoneException;
+import interfazUsuario.WindowAdministrador;
 
 /**
  * Clase del administrador del sistema. Solo hay un administrador por lo que
@@ -19,6 +20,7 @@ import excepciones.InvalidTelefoneException;
 public class Administrador {
 	private final String user;
 	private final String password;
+	private WindowAdministrador windowAdministrador;
 	private static Administrador admin;
 	
 	private Administrador(){

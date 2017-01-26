@@ -40,13 +40,16 @@ public class FormMedico extends JFrame {
 	private JTextField textCentroMedico;
 	private JTextField textDireccion;
 	private JTextField textEmail;
+	private FormMedico formMedico;
 
 
 
 	/**
 	 * Create the frame.
 	 */
-	public FormMedico(String cif) {
+	public FormMedico(String dni, WindowAdministrador windowAdministrador) {
+		formMedico = this;
+		
 		admin = Administrador.getAdmin();
 		
 		setResizable(false);
@@ -102,7 +105,7 @@ public class FormMedico extends JFrame {
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
-				
+				registrarMedico();
 			}
 		});
 		btnAceptar.setBackground(SystemColor.activeCaption);
@@ -113,7 +116,8 @@ public class FormMedico extends JFrame {
 		JButton button = new JButton("Atras");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				registrarMedico();
+				formMedico.setVisible(false);
+				windowAdministrador.setVisible(true);
 			}
 		});
 		button.setFont(new Font("Arial", Font.PLAIN, 12));
