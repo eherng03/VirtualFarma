@@ -95,7 +95,32 @@ public class Utils {
 			}
 		}
 		return true;
-		
+	}
+	
+	public boolean checkTelefono(String telefono) {
+		char[] charTelefono = telefono.toCharArray();
+		if(telefono.length() != 9){
+			return false;
+		}
+		for(char caracter : charTelefono){
+			if(!esNumero(caracter)){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public boolean checkCPF(String cpf) {
+		char[] charCPF = cpf.toCharArray();
+		if(cpf.length() != 7){
+			return false;
+		}
+		for(char caracter : charCPF){
+			if(!esNumero(caracter)){
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	public boolean esLetra(char caracter){
@@ -117,4 +142,5 @@ public class Utils {
 	public boolean esEspacio(char caracter){
 		return caracter == 32;
 	}
+
 }
