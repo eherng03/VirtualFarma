@@ -7,9 +7,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import excepciones.EmptyFieldException;
-import excepciones.IncorrectDNIException;
-import excepciones.IncorrectPasswordException;
-import excepciones.IncorrectSSNumberException;
+import excepciones.InvalidDNIException;
+import excepciones.InvalidPasswordException;
+import excepciones.InvalidSSNumberException;
 import excepciones.InvalidNameException;
 import logicaPrograma.Paciente;
 
@@ -154,15 +154,15 @@ public class FormPaciente extends JFrame {
 			javax.swing.JOptionPane.showMessageDialog(this, "Su cuenta ha sido creada con éxito");
 		} catch (SQLException e) {
 			javax.swing.JOptionPane.showMessageDialog(this, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-		} catch (IncorrectPasswordException e) {
+		} catch (InvalidPasswordException e) {
 			javax.swing.JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 		}catch (EmptyFieldException e) {
 			javax.swing.JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 		}catch (InvalidNameException e) {
 			javax.swing.JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-		} catch (IncorrectDNIException e) {
+		} catch (InvalidDNIException e) {
 			javax.swing.JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-		} catch (IncorrectSSNumberException e){
+		} catch (InvalidSSNumberException e){
 			javax.swing.JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 		}
 	}

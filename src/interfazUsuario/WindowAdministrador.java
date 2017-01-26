@@ -80,6 +80,8 @@ public class WindowAdministrador extends JFrame {
 		initializeButtons();
 		
 	}
+	
+
 
 	private void initializeButtons() {
 		JButton btnRegistrarFarmacia = new JButton("Registrar farmacia");
@@ -87,7 +89,7 @@ public class WindowAdministrador extends JFrame {
 		btnRegistrarFarmacia.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnRegistrarFarmacia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				admin.crearFarmacia();
+				FormFarmacia formularioFarmacia = new FormFarmacia(null);
 			}
 		});
 		btnRegistrarFarmacia.setBounds(22, 415, 233, 34);

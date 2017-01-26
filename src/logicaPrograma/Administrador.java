@@ -1,4 +1,11 @@
 package logicaPrograma;
+
+import excepciones.InvalidCIFException;
+import excepciones.InvalidCuentaException;
+import excepciones.InvalidNameException;
+import excepciones.InvalidPasswordException;
+import excepciones.InvalidTelefoneException;
+
 /**
  * Clase del administrador del sistema. Solo hay un administrador por lo que
  * es un singleton.
@@ -47,8 +54,9 @@ public class Administrador {
 		
 	}
 	
-	public void crearFarmacia(){
-		
+	public void crearFarmacia(String nombre, String cif, String horario, String direccion, 
+			String cuenta, String nombreDueno, String telefono, String email, String password) throws InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException, InvalidPasswordException{
+		Farmacia farmacia = new Farmacia(nombre, cif, horario, direccion, cuenta, nombreDueno, telefono, email, password);
 	}
 
 	public void editarFarmacia(String cif) {

@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import excepciones.EmptyFieldException;
-import excepciones.IncorrectUserOrPasswordException;
+import excepciones.InvalidUserOrPasswordException;
 import logicaPrograma.Administrador;
 import logicaPrograma.Farmacia;
 import logicaPrograma.Medico;
@@ -107,7 +107,7 @@ public class IniciarSesion extends JFrame {
 					accionIniciarSesion(rol);
 				} catch (EmptyFieldException e) {
 					javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-				} catch (IncorrectUserOrPasswordException e) {
+				} catch (InvalidUserOrPasswordException e) {
 					javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -131,9 +131,9 @@ public class IniciarSesion extends JFrame {
 	/**
 	 * Dependiendo del rol seleccionado se buscará el usuario y contraseña en una BBDD determinada
 	 * @throws EmptyFieldException 
-	 * @throws IncorrectUserOrPasswordException 
+	 * @throws InvalidUserOrPasswordException 
 	 */
-	private void accionIniciarSesion(String rol) throws EmptyFieldException, IncorrectUserOrPasswordException {
+	private void accionIniciarSesion(String rol) throws EmptyFieldException, InvalidUserOrPasswordException {
 		user = userField.getText();
 		password = String.valueOf(passwordField.getPassword());
 		
@@ -147,7 +147,7 @@ public class IniciarSesion extends JFrame {
 					ventanaAdmin.setVisible(true);
 					this.setVisible(false);
 				}else{
-					throw new IncorrectUserOrPasswordException();
+					throw new InvalidUserOrPasswordException();
 				}
 				break;
 			case "Paciente":

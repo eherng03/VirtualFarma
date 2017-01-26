@@ -7,6 +7,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import excepciones.InvalidCIFException;
+import excepciones.InvalidCuentaException;
+import excepciones.InvalidNameException;
+import excepciones.InvalidPasswordException;
+import excepciones.InvalidTelefoneException;
 import images.ImagenVF;
 import logicaPrograma.Administrador;
 
@@ -25,7 +30,7 @@ public class FormFarmacia extends JFrame {
 	private JPanel logoPanel;
 	private JPasswordField passwordField;
 	private JTextField textEmail;
-	private JTextField textPassword;
+	private JTextField textTelefono;
 	private JTextField textDueno;
 	private JTextField textCuentaBancaria;
 	private JTextField textDireccion;
@@ -114,10 +119,10 @@ public class FormFarmacia extends JFrame {
 		contentPane.add(textEmail);
 		textEmail.setColumns(10);
 		
-		textPassword = new JTextField();
-		textPassword.setBounds(141, 540, 278, 20);
-		contentPane.add(textPassword);
-		textPassword.setColumns(10);
+		textTelefono = new JTextField();
+		textTelefono.setBounds(141, 540, 278, 20);
+		contentPane.add(textTelefono);
+		textTelefono.setColumns(10);
 		
 		textDueno = new JTextField();
 		textDueno.setBounds(119, 515, 300, 20);
@@ -178,10 +183,22 @@ public class FormFarmacia extends JFrame {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(cif != null){
-					//TODO pasarle los datos de la farmacia y cambiar el metodo en admin
 					admin.editarFarmacia(null);
 				}else{
-					admin.crearFarmacia();
+					try {
+						admin.crearFarmacia(textNombre.getText(), textCIF.getText(), textHorario.getText(), textDireccion.getText(), textCuentaBancaria.getText(),
+								textNombre.getText(), textTelefono.getText(), textEmail.getText(), String.valueOf(passwordField));
+					} catch (InvalidNameException e) {
+						javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+					} catch (InvalidCIFException e) {
+						javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+					} catch (InvalidCuentaException e) {
+						javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+					} catch (InvalidTelefoneException e) {
+						javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+					} catch (InvalidPasswordException e) {
+						javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			}
 		});
