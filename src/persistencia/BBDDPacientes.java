@@ -24,7 +24,7 @@ public class BBDDPacientes {
 	 */
 	
 	/**
-	 * Accede a la bbdd y crea un objeto paciente con los datos obtenidos
+	 * Accede a la bbdd y crea un objeto paciente con los datos obtenidos mediante user(DNI) y password
 	 * @param user
 	 * @param password
 	 * @throws SQLException 
@@ -36,7 +36,31 @@ public class BBDDPacientes {
 	 */
 	public static Paciente getPaciente(String user, String password) throws SQLException, InvalidPasswordException, EmptyFieldException, InvalidSSNumberException, InvalidDNIException, InvalidNameException {
 		Paciente paciente = null;
-		String QuerySelect = "SELECT * FROM Pacientes WHERE DNI = '" + user + "'";
+		String QuerySelect = "SELECT * FROM Pacientes WHERE DNI = '" + user + "' AND Password = '" + password + "'";
+        Statement stSelect = conexion.createStatement();
+        java.sql.ResultSet resultSet;
+        resultSet = stSelect.executeQuery(QuerySelect);
+        
+        while(resultSet.next()){
+        	paciente = new Paciente(resultSet.getString("Nombre"), resultSet.getString("DNI"), resultSet.getString("NumeroSS"), resultSet.getString("Password"));
+        }
+		return paciente;
+	}
+	
+	/**
+	 * Accede a la bbdd y crea un objeto paciente con los datos obtenidos
+	 * @param user
+	 * @param password
+	 * @throws SQLException 
+	 * @throws InvalidNameException 
+	 * @throws InvalidDNIException 
+	 * @throws InvalidSSNumberException 
+	 * @throws EmptyFieldException 
+	 * @throws InvalidPasswordException 
+	 */
+	public static Paciente getPaciente(String dni) throws SQLException, InvalidPasswordException, EmptyFieldException, InvalidSSNumberException, InvalidDNIException, InvalidNameException {
+		Paciente paciente = null;
+		String QuerySelect = "SELECT * FROM Pacientes WHERE DNI = '" + dni + "'";
         Statement stSelect = conexion.createStatement();
         java.sql.ResultSet resultSet;
         resultSet = stSelect.executeQuery(QuerySelect);

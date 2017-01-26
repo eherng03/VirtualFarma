@@ -17,15 +17,16 @@ public class BBDDMedicos {
 		return null;
 	}
 	
-	public static void introducirMedico(Medico medico){
+	public static void introducirMedico(String nombre, String dni, String cpf, String numeroSS, 
+			String direccion, String email, String centroMedico, String password){
 		
 	}
 	
-	public static void editarMedico(Medico medico){
+	public static void editarMedico(String dni){
 		
 	}
 	
-	public static void eliminarMedico(Medico medico){
+	public static void eliminarMedico(String dni){
 		
 	}
 
