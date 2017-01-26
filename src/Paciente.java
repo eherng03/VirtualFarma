@@ -20,7 +20,7 @@ public class Paciente {
 			throw new EmptyFieldException();
 		}else{
 			for(char caracter : nombre.toCharArray()){
-				if(caracter != 32 || caracter < 64 || (caracter > 91 && caracter < 96) || caracter > 123){
+				if(caracter != 32 && ( caracter < 65 || (caracter > 90 && caracter < 97) || caracter > 122)){
 					throw new InvalidNameException();
 				}
 			}
@@ -57,7 +57,7 @@ public class Paciente {
 			return false;
 		}else{
 			for(int i = 0; i < charNumeroSSDNI.length; i++){
-				if(charNumeroSSDNI[i] < 47 || charNumeroSSDNI[i] > 54){
+				if(charNumeroSSDNI[i] < 48 || charNumeroSSDNI[i] > 57){
 					return false;
 				}
 			}
@@ -71,11 +71,11 @@ public class Paciente {
 		
 		if(charDNI.length == 9){
 			for(int i = 0; i < 8; i++){
-				if(charDNI[i] < 47 || charDNI[i] > 58){
+				if(charDNI[i] < 48 || charDNI[i] > 58){
 					return false;
 				}
 			}
-			if(charDNI[8] < 64 || charDNI[8] > 91){
+			if(charDNI[8] < 65 || charDNI[8] > 90){
 				return false;
 			}else{
 				Integer valor= new Integer(dni.substring(0, 8));
@@ -96,7 +96,7 @@ public class Paciente {
 
 	public void eliminar() {
 		//TODO capturar excepcion de que no exista o no se elimine bien
-		BBDDPacientes.eliminarPaciente(this);
+		BBDDPacientes.eliminarPaciente(this.dni);
 		
 	}
 
