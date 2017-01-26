@@ -40,22 +40,24 @@ public class BBDDPacientes {
         java.sql.ResultSet resultSet;
         resultSet = stSelect.executeQuery(QuerySelect);
         if(resultSet != null){
-        	//TODO ya existen los datos
+        	JOptionPane.showMessageDialog(null, "Los datos introducidos ya existen.");
+        }else{
+        	// TODO la contraseña no es valida
+   		 try {
+   	            String Query = "INSERT INTO Pacientes VALUES("
+   	                    + "\"" + DNI + "\", "
+   	                    + "\"" + nombre + "\", "
+   	                    + "\"" + numeroSS + "\", "
+   	                    + "\"" + contrasena + "\")";
+   	            Statement st = conexion.createStatement();
+   	            st.executeUpdate(Query);
+   	            JOptionPane.showMessageDialog(null, "Datos almacenados de forma exitosa.");
+   	        } catch (SQLException ex) {
+   	            JOptionPane.showMessageDialog(null, "Error en el almacenamiento de datos");
+   	        }
         }
 		
-		// TODO la contraseña no es valida
-		 try {
-	            String Query = "INSERT INTO Pacientes VALUES("
-	                    + "\"" + DNI + "\", "
-	                    + "\"" + nombre + "\", "
-	                    + "\"" + numeroSS + "\", "
-	                    + "\"" + contrasena + "\")";
-	            Statement st = conexion.createStatement();
-	            st.executeUpdate(Query);
-	            JOptionPane.showMessageDialog(null, "Datos almacenados de forma exitosa");
-	        } catch (SQLException ex) {
-	            JOptionPane.showMessageDialog(null, "Error en el almacenamiento de datos");
-	        }
+		
 		
 	}
 	
@@ -65,7 +67,17 @@ public class BBDDPacientes {
 	}
 	
 	public static void eliminarPaciente(String DNI) {
-		// TODO comprobar dni en tabla pacientes y eliminar
+		
+		String QuerySelect = "DELETE FROM Pacientes WHERE DNI = " + DNI;
+        Statement stSelect;
+		try {
+			stSelect = conexion.createStatement();
+			java.sql.ResultSet resultSet;
+	        resultSet = stSelect.executeQuery(QuerySelect);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Error al eliminar los datos");
+		}
+        
 		
 	}
 	

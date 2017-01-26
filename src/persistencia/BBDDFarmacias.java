@@ -1,5 +1,9 @@
 package persistencia;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import javax.swing.JOptionPane;
 
 import logicaPrograma.Farmacia;
 
@@ -20,15 +24,58 @@ public class BBDDFarmacias {
 		
 	}
 	
-	public void introducirFarmacia(Farmacia farmacia){
+	/**
+	 * Introduce los datos del paciente en la bbdd
+	 * @param paciente
+	 * @throws SQLException 
+	 */
+	public static void introducirFarmacia(String cif, String nombre, String horario, String direccion, String numeroCuenta, String nombreDueno, String telefono, String email, String password) throws SQLException {
+		
+		//TODO Seleccionar de la tabla de pacientes el que el dni coincida con el introducido
+		String QuerySelect = "SELECT * FROM Farmacias WHERE CIF = " + cif;
+        Statement stSelect = conexion.createStatement();
+        java.sql.ResultSet resultSet;
+        resultSet = stSelect.executeQuery(QuerySelect);
+        if(resultSet != null){
+        	 JOptionPane.showMessageDialog(null, "Los datos introducidos ya existen.");
+        }else{
+        	// TODO comprobar contraseña
+   		 try {
+   	            String Query = "INSERT INTO Farmacias VALUES("
+   	                    + "\"" + cif + "\", "
+   	                    + "\"" + nombre + "\", "
+   	                    + "\"" + horario + "\", "
+   	                    + "\"" + direccion + "\", "
+   	                    + "\"" + numeroCuenta + "\", "
+   	                    + "\"" + nombreDueno + "\", "
+   	                    + "\"" + telefono + "\", "
+   	                    + "\"" + email + "\", "
+   	                    + "\"" + password + "\")";
+   	            Statement st = conexion.createStatement();
+   	            st.executeUpdate(Query);
+   	            JOptionPane.showMessageDialog(null, "Datos almacenados de forma exitosa");
+   	        } catch (SQLException ex) {
+   	            JOptionPane.showMessageDialog(null, "Error en el almacenamiento de datos");
+   	        }
+        }
+		
 		
 	}
 	
-	public void editarFarmacia(Farmacia farmacia){
+	public void editarFarmacia(String cif){
 		
 	}
 	
-	public void eliminarFarmacia(Farmacia farmacia){
+	public void eliminarFarmacia(String cif){
+		String QuerySelect = "DELETE FROM Pacientes WHERE CIF = " + cif;
+        Statement stSelect;
+		try {
+			stSelect = conexion.createStatement();
+			java.sql.ResultSet resultSet;
+	        resultSet = stSelect.executeQuery(QuerySelect);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Error al eliminar los datos");
+		}
 		
 	}
 
