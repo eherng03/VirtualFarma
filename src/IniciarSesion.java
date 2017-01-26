@@ -41,7 +41,7 @@ public class IniciarSesion extends JFrame {
 	public IniciarSesion(String flag) {
 		
 		this.rol = flag;
-		
+		this.setTitle("Iniciar sesión como " + flag);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 393, 266);
 		contentPane = new JPanel();

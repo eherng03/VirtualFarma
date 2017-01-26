@@ -102,7 +102,7 @@ public class StartWindow extends JFrame {
 		btnInitAdmin.setBounds(141, 393, 269, 31);
 		btnInitAdmin.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			iniciarSesionX("admin");
+    			iniciarSesionX("Administrador");
     		}
     	});
 		contentPane.add(btnInitAdmin);
@@ -118,7 +118,7 @@ public class StartWindow extends JFrame {
 		btnInitFarmacia.setVisible(true);
 		btnInitFarmacia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				iniciarSesionX("farmacia");
+				iniciarSesionX("Farmacia");
 			}
 		});
 		contentPane.add(btnInitFarmacia);	
@@ -137,7 +137,7 @@ public class StartWindow extends JFrame {
 		btnInitPaciente.setBounds(141, 520, 269, 31);
 		btnInitPaciente.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			iniciarSesionX("paciente");
+    			iniciarSesionX("Paciente");
     		}
     	});
 		contentPane.add(btnInitPaciente);
@@ -162,7 +162,7 @@ public class StartWindow extends JFrame {
 	 */
 		btnInitMedico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				iniciarSesionX("medico");
+				iniciarSesionX("Médico");
 			}
 		});
 		btnInitMedico.setToolTipText("Si no tiene cuenta de médico pongase en contacto con administración.");
