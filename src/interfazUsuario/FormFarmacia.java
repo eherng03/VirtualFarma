@@ -100,13 +100,13 @@ public class FormFarmacia extends JFrame {
 		lblEmail.setBounds(10, 568, 46, 14);
 		contentPane.add(lblEmail);
 		
-		JLabel lblPassword = new JLabel("Password");
+		JLabel lblPassword = new JLabel("Contraseña");
 		lblPassword.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblPassword.setBounds(10, 593, 57, 14);
+		lblPassword.setBounds(10, 593, 89, 14);
 		contentPane.add(lblPassword);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(76, 590, 343, 20);
+		passwordField.setBounds(90, 590, 329, 20);
 		contentPane.add(passwordField);
 		
 		textEmail = new JTextField();
