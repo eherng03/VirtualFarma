@@ -4,6 +4,7 @@ package interfazUsuario;
 import java.awt.EventQueue;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 
@@ -12,6 +13,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import excepciones.EmptyFieldException;
+import excepciones.InvalidCIFException;
+import excepciones.InvalidCuentaException;
+import excepciones.InvalidDNIException;
+import excepciones.InvalidNameException;
+import excepciones.InvalidPasswordException;
+import excepciones.InvalidSSNumberException;
+import excepciones.InvalidTelefoneException;
 import excepciones.InvalidUserOrPasswordException;
 import logicaPrograma.Administrador;
 import logicaPrograma.Farmacia;
@@ -109,6 +117,30 @@ public class IniciarSesion extends JFrame {
 					javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 				} catch (InvalidUserOrPasswordException e) {
 					javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+				} catch (SQLException e) {
+					// TODO error al acceder a los datos
+					e.printStackTrace();
+				} catch (InvalidPasswordException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvalidSSNumberException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvalidDNIException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvalidNameException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvalidCIFException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvalidCuentaException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvalidTelefoneException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 		});
@@ -132,8 +164,16 @@ public class IniciarSesion extends JFrame {
 	 * Dependiendo del rol seleccionado se buscará el usuario y contraseña en una BBDD determinada
 	 * @throws EmptyFieldException 
 	 * @throws InvalidUserOrPasswordException 
+	 * @throws InvalidNameException 
+	 * @throws InvalidDNIException 
+	 * @throws InvalidSSNumberException 
+	 * @throws InvalidPasswordException 
+	 * @throws SQLException 
+	 * @throws InvalidTelefoneException 
+	 * @throws InvalidCuentaException 
+	 * @throws InvalidCIFException 
 	 */
-	private void accionIniciarSesion(String rol) throws EmptyFieldException, InvalidUserOrPasswordException {
+	private void accionIniciarSesion(String rol) throws EmptyFieldException, InvalidUserOrPasswordException, SQLException, InvalidPasswordException, InvalidSSNumberException, InvalidDNIException, InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException {
 		user = userField.getText();
 		password = String.valueOf(passwordField.getPassword());
 		
