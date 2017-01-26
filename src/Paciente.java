@@ -1,4 +1,4 @@
-import Images.EmptyFieldException;
+
 
 public class Paciente {
 	
@@ -8,44 +8,47 @@ public class Paciente {
 	private String contrasena;
 	//Nombre y apellidos, DNI, número de la seguridad social  y contraseña
 	
-	public Paciente(String nombre, String dni, String numeroSS, String contrasena) throws IncorrectPasswordException, EmptyFieldException, IncorrectSSNumberException, IncorrectDNIException{
+	public Paciente(String nombre, String dni, String numeroSS, String contrasena) throws IncorrectPasswordException, EmptyFieldException, IncorrectSSNumberException, IncorrectDNIException, InvalidNameException{
 		checkStruct(nombre, dni, numeroSS, contrasena);
 		
 		//TODO Capturar excepcion de si los datos ya existen
-		BBDDPacientes.introducirPaciente(this);
+		BBDDPacientes.introducirPaciente(nombre, dni, numeroSS, contrasena);
 	}
 
-	private void checkStruct(String nombre, String dni, String numeroSS, String contrasena) throws EmptyFieldException, IncorrectPasswordException, IncorrectSSNumberException, IncorrectDNIException {
+	private void checkStruct(String nombre, String dni, String numeroSS, String contrasena) throws EmptyFieldException, IncorrectPasswordException, IncorrectSSNumberException, IncorrectDNIException, InvalidNameException {
 		if(nombre.equals("") || dni.equals("") || numeroSS.equals("") || contrasena.equals("")){
 			throw new EmptyFieldException();
 		}else{
+			for(char caracter : nombre.toCharArray()){
+				if(caracter != 32 || caracter < 64 || (caracter > 91 && caracter < 96) || caracter > 123){
+					throw new InvalidNameException();
+				}
+			}
 			this.nombre = nombre;
-		}
-		
-		
-		if(!checkDNI(dni)){
-			throw new IncorrectDNIException();
-		}else{
-			this.dni = dni;
-		}
-		
-		if(!checkNumeroSS(numeroSS)){
-			throw new IncorrectSSNumberException();
 			
-		}else{
-			this.numeroSS = numeroSS;
-		}
-		
-		char[] charContrasena = contrasena.toCharArray();
-		for(char caracter : charContrasena){
-			//La contraseña solo puede ser alfanumérica
-			if((caracter > 47 && caracter < 58) || (caracter > 64 && caracter < 91) || (caracter > 96 && caracter < 123)){
-				this.contrasena = contrasena;
+			if(!checkDNI(dni)){
+				throw new IncorrectDNIException();
 			}else{
-				throw new IncorrectPasswordException();
+				this.dni = dni;
+			}
+			
+			if(!checkNumeroSS(numeroSS)){
+				throw new IncorrectSSNumberException();
+				
+			}else{
+				this.numeroSS = numeroSS;
+			}
+			
+			char[] charContrasena = contrasena.toCharArray();
+			for(char caracter : charContrasena){
+				//La contraseña solo puede ser alfanumérica
+				if((caracter > 47 && caracter < 58) || (caracter > 64 && caracter < 91) || (caracter > 96 && caracter < 123)){
+					this.contrasena = contrasena;
+				}else{
+					throw new IncorrectPasswordException();
+				}
 			}
 		}
-		
 	}
 
 	private boolean checkNumeroSS(String numeroSS) {
