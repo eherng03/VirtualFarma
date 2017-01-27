@@ -21,6 +21,7 @@ import images.ImagenVF;
 import logicaPrograma.Administrador;
 import logicaPrograma.Farmacia;
 import logicaPrograma.Medico;
+import persistencia.BBDD;
 import persistencia.BBDDFarmacias;
 import persistencia.BBDDMedicos;
 
@@ -294,35 +295,42 @@ public class WindowAdministrador extends JFrame {
 		btnEliminarFarmacia.setBounds(22, 505, 233, 34);
 		btnEliminarFarmacia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame passwordFrame = new JFrame("Contraseña");
-				passwordFrame.setBounds(100, 100, 584, 671);
-				JLabel jlbPassword = new JLabel("Introduzca la contraseña:  ");
-				JPasswordField jpwName = new JPasswordField(10);
-				jpwName.setEchoChar('*');
-				passwordFrame.setVisible(true);
-				jpwName.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						JPasswordField input = (JPasswordField) e.getSource();
-						if (admin.checkPassword(String.valueOf(input.getPassword()))) {
-							passwordFrame.setVisible(false);
-							windowAdministrador.setVisible(false);
-							String cif = JOptionPane.showInputDialog("Introduzca el CIF de la farmacia a eliminar");
-							try {
-								BBDDFarmacias.getInstance().eliminarFarmacia(cif);
-								windowAdministrador.setVisible(true);
-							} catch (SQLException e1) {
-								javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias",
-										"ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+					JFrame passwordFrame = new JFrame("Contraseña");
+					passwordFrame.setBounds(100, 100, 584, 671);
+					JLabel jlbPassword = new JLabel("Introduzca la contraseña:  ");
+					JPasswordField jpwName = new JPasswordField(10);
+					jpwName.setEchoChar('*');
+					jpwName.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							JPasswordField input = (JPasswordField) e.getSource();
+							if (admin.checkPassword(String.valueOf(input.getPassword()))) {
+								passwordFrame.setVisible(false);
+								windowAdministrador.setVisible(false);
+								String cif = JOptionPane.showInputDialog("Introduzca el CIF de la farmacia a eliminar");
+								try {
+									BBDDFarmacias.getInstance().eliminarFarmacia(cif);
+									javax.swing.JOptionPane.showMessageDialog(windowAdministrador, "La farmacia se ha eliminado con éxito");
+									windowAdministrador.setVisible(false);
+								} catch (SQLException e1) {
+									javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+								}
+							} else {
+								JOptionPane.showMessageDialog(passwordFrame,
+										"Contraseña incorrecta", "Error",
+										JOptionPane.ERROR_MESSAGE);
 							}
-						} else {
-							JOptionPane.showMessageDialog(passwordFrame,
-									"Contraseña incorrecta", "Error",
-									JOptionPane.ERROR_MESSAGE);
 						}
-					}
-				});
-			}
-		});
+					});
+					JPanel jplContentPane = new JPanel(new BorderLayout());
+					jplContentPane.setBorder(BorderFactory.createEmptyBorder(20, 20,
+							20, 20));
+					jplContentPane.add(jlbPassword, BorderLayout.WEST);
+					jplContentPane.add(jpwName, BorderLayout.CENTER);
+					passwordFrame.setContentPane(jplContentPane);
+					passwordFrame.pack();
+					passwordFrame.setVisible(true);
+				}
+			});
 		
 		contentPane.add(btnEliminarFarmacia);
 		
@@ -333,33 +341,40 @@ public class WindowAdministrador extends JFrame {
 		JButton btnEliminarMdico = new JButton("Eliminar medico");
 		btnEliminarMdico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					JFrame passwordFrame = new JFrame("Contraseña");
-					passwordFrame.setBounds(100, 100, 584, 671);
-					JLabel jlbPassword = new JLabel("Introduzca la contraseña:  ");
-					JPasswordField jpwName = new JPasswordField(10);
-					jpwName.setEchoChar('*');
-					passwordFrame.setVisible(true);
-					jpwName.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							JPasswordField input = (JPasswordField) e.getSource();
-							if (admin.checkPassword(String.valueOf(input.getPassword()))) {
-								passwordFrame.setVisible(false);
+				JFrame passwordFrame = new JFrame("Contraseña");
+				passwordFrame.setBounds(100, 100, 584, 671);
+				JLabel jlbPassword = new JLabel("Introduzca la contraseña:  ");
+				JPasswordField jpwName = new JPasswordField(10);
+				jpwName.setEchoChar('*');
+				jpwName.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						JPasswordField input = (JPasswordField) e.getSource();
+						if (admin.checkPassword(String.valueOf(input.getPassword()))) {
+							passwordFrame.setVisible(false);
+							windowAdministrador.setVisible(false);
+							String dni = JOptionPane.showInputDialog("Introduzca el DNI del médico a eliminar");
+							try {
+								BBDDMedicos.getInstance().eliminarMedico(dni);
+								javax.swing.JOptionPane.showMessageDialog(windowAdministrador, "El médico se ha eliminado con éxito");
 								windowAdministrador.setVisible(false);
-								String dni = JOptionPane.showInputDialog("Introduzca el DNI del medico a eliminar");
-								try {
-									BBDDMedicos.getInstance().eliminarMedico(dni);
-									windowAdministrador.setVisible(true);
-								} catch (SQLException e1) {
-									javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias",
-											"ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-								}
-							} else {
-								JOptionPane.showMessageDialog(passwordFrame,
-										"Contraseña incorrecta", "Error",
-										JOptionPane.ERROR_MESSAGE);
+							} catch (SQLException e1) {
+								javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 							}
+						} else {
+							JOptionPane.showMessageDialog(passwordFrame,
+									"Contraseña incorrecta", "Error",
+									JOptionPane.ERROR_MESSAGE);
 						}
-					});
+					}
+				});
+				JPanel jplContentPane = new JPanel(new BorderLayout());
+				jplContentPane.setBorder(BorderFactory.createEmptyBorder(20, 20,
+						20, 20));
+				jplContentPane.add(jlbPassword, BorderLayout.WEST);
+				jplContentPane.add(jpwName, BorderLayout.CENTER);
+				passwordFrame.setContentPane(jplContentPane);
+				passwordFrame.pack();
+				passwordFrame.setVisible(true);
 			}
 		});
 		btnEliminarMdico.setBackground(SystemColor.activeCaption);
