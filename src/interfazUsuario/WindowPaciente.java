@@ -6,12 +6,23 @@ import java.awt.Font;
 import java.awt.SystemColor;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
+import excepciones.InvalidCIFException;
+import excepciones.InvalidCuentaException;
+import excepciones.InvalidNameException;
+import excepciones.InvalidPasswordException;
+import excepciones.InvalidTelefoneException;
 import images.ImagenVF;
+import logicaPrograma.Farmacia;
 import logicaPrograma.Paciente;
+import persistencia.BBDDFarmacias;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -23,7 +34,7 @@ public class WindowPaciente extends JFrame {
 	private JPanel logoPanel;
 	private JButton btnConsultarRecetas;
 	private Paciente paciente;
-	private IniciarSesion padre;
+	private IniciarSesion iniciarSesion;
 
 
 	/**
@@ -32,7 +43,7 @@ public class WindowPaciente extends JFrame {
 	 */
 	public WindowPaciente(Paciente paciente, IniciarSesion iniciarSesion) {
 		
-		this.padre = iniciarSesion;
+		this.iniciarSesion = iniciarSesion;
 		this.paciente = paciente;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,12 +85,35 @@ public class WindowPaciente extends JFrame {
 		btnDarseDeBaja.setBackground(SystemColor.activeCaption);
 		btnDarseDeBaja.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//TODO ventana de introduzca la contraseeña para comprobar su identidad.
-				try {
-					paciente.eliminar();
-				} catch (SQLException e) {
-					javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-				}
+				JFrame passwordFrame = new JFrame("Contraseña");
+				passwordFrame.setBounds(100, 100, 584, 671);
+				JLabel jlbPassword = new JLabel("Introduzca la contraseña:  ");
+				JPasswordField jpwName = new JPasswordField(10);
+				jpwName.setEchoChar('*');
+				jpwName.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						JPasswordField input = (JPasswordField) e.getSource();
+						if (paciente.checkPassword(String.valueOf(input.getPassword()))) {
+							try {
+								paciente.eliminar();
+							} catch (SQLException e1) {
+								javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+							}
+						} else {
+							JOptionPane.showMessageDialog(passwordFrame,
+									"Contraseña incorrecta", "Error",
+									JOptionPane.ERROR_MESSAGE);
+						}
+					}
+				});
+				JPanel jplContentPane = new JPanel(new BorderLayout());
+				jplContentPane.setBorder(BorderFactory.createEmptyBorder(20, 20,
+						20, 20));
+				jplContentPane.add(jlbPassword, BorderLayout.WEST);
+				jplContentPane.add(jpwName, BorderLayout.CENTER);
+				passwordFrame.setContentPane(jplContentPane);
+				passwordFrame.pack();
+				passwordFrame.setVisible(true);
 			}
 		});
 		btnDarseDeBaja.setBounds(10, 494, 547, 34);

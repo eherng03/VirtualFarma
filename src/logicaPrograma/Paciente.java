@@ -24,8 +24,7 @@ public class Paciente {
 			this.password = password;
 		}
 		
-		//TODO Capturar excepcion de si los datos ya existen
-		BBDDPacientes.introducirPaciente(nombre, dni, numeroSS, password);
+		BBDDPacientes.getInstance().introducirPaciente(nombre, dni, numeroSS, password);
 	}
 
 	private boolean checkStruct(String nombre, String dni, String numeroSS, String password) throws EmptyFieldException, InvalidPasswordException, InvalidSSNumberException, InvalidDNIException, InvalidNameException {
@@ -56,6 +55,10 @@ public class Paciente {
 	public void eliminar() throws SQLException {
 		BBDDPacientes.getInstance().eliminarPaciente(this.dni);
 		
+	}
+
+	public boolean checkPassword(String password) {
+		return this.password.equals(password);
 	}
 
 	

@@ -113,34 +113,10 @@ public class IniciarSesion extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					accionIniciarSesion(rol);
-				} catch (EmptyFieldException e) {
-					javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-				} catch (InvalidUserOrPasswordException e) {
-					javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 				} catch (SQLException e) {
-					// TODO error al acceder a los datos
-					e.printStackTrace();
-				} catch (InvalidPasswordException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InvalidSSNumberException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InvalidDNIException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InvalidNameException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InvalidCIFException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InvalidCuentaException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InvalidTelefoneException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+				}catch(EmptyFieldException | InvalidUserOrPasswordException | InvalidPasswordException | InvalidSSNumberException | InvalidDNIException | InvalidNameException | InvalidCIFException | InvalidCuentaException | InvalidTelefoneException e){
+					javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

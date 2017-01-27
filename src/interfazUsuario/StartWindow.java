@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 import java.awt.event.ActionListener;
-
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 
@@ -66,7 +66,11 @@ public class StartWindow extends JFrame {
     	
     	setResizable(false);
     	
-    	db = BBDD.makeBBDD();
+    	try {
+			db = BBDD.getInstance().makeBBDD();
+		} catch (ClassNotFoundException | SQLException e1) {
+			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+		}
 		setTitle("Bienvenido");
 		setBackground(new Color(255, 255, 255));
 		setFont(new Font("Consolas", Font.PLAIN, 13));
