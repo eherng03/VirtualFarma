@@ -28,6 +28,10 @@ public class BBDDPacientes {
 		conexion = conexion2;
 	}
 	
+	/**
+	 * Devuelve la unica instancia de la clase, ya que es un singleton
+	 * @return
+	 */
 	public static BBDDPacientes getInstance(){
 		if(bbddPacientes != null){
 			return bbddPacientes;
@@ -36,44 +40,17 @@ public class BBDDPacientes {
 		return bbddPacientes;
 	}
 
-	/**
-	 * Accede a la bbdd y crea un objeto paciente con los datos obtenidos mediante user(DNI) y password
-	 * @param user
-	 * @param password
-	 * @throws SQLException 
-	 * @throws InvalidNameException 
-	 * @throws InvalidDNIException 
-	 * @throws InvalidSSNumberException 
-	 * @throws EmptyFieldException 
-	 * @throws InvalidPasswordException 
-	 */
-	public static Paciente getPaciente(String user, String password) throws SQLException, InvalidPasswordException, EmptyFieldException, InvalidSSNumberException, InvalidDNIException, InvalidNameException {
-		String QuerySelect = "SELECT * FROM Pacientes WHERE DNI = '" + user + "' AND Password = '" + password + "'";
-		return devolverDatosPaciente(QuerySelect);
-	}
 	
-
+	//----------------------------------INSERT-------------------------------------------
+	
 	/**
-	 * Accede a la bbdd y crea un objeto paciente con los datos obtenidos a partir del dni
-	 * @param user
+	 * Introduce los datos del nuevo paciente en la base de datos, comprobando antes si estos ya existian
+	 * @param nombre
+	 * @param DNI
+	 * @param numeroSS
 	 * @param password
-	 * @throws SQLException 
-	 * @throws InvalidNameException 
-	 * @throws InvalidDNIException 
-	 * @throws InvalidSSNumberException 
-	 * @throws EmptyFieldException 
-	 * @throws InvalidPasswordException 
-	 */
-	public static Paciente getPaciente(String dni) throws SQLException, InvalidPasswordException, EmptyFieldException, InvalidSSNumberException, InvalidDNIException, InvalidNameException {
-		String QuerySelect = "SELECT * FROM Pacientes WHERE DNI = '" + dni + "'";
-		return devolverDatosPaciente(QuerySelect);
-	}
-
-	/**
-	 * Introduce los datos del paciente en la bbdd
-	 * @param paciente
-	 * @throws SQLException 
-	 * @throws InvalidPasswordException 
+	 * @throws SQLException
+	 * @throws InvalidPasswordException
 	 */
 	public static void introducirPaciente(String nombre, String DNI, String numeroSS, String password) throws SQLException, InvalidPasswordException {
 		
@@ -98,10 +75,45 @@ public class BBDDPacientes {
         }		
 	}
 	
-	public static void editarPaciente(String DNI) {
-		// TODO Auto-generated method stub
-		
+	
+	//----------------------------------GETS-------------------------------------------
+	
+	/**
+	 * Accede a la bbdd y crea un objeto paciente con los datos obtenidos mediante user(DNI) y password
+	 * @param user
+	 * @param password
+	 * @throws SQLException 
+	 * @throws InvalidNameException 
+	 * @throws InvalidDNIException 
+	 * @throws InvalidSSNumberException 
+	 * @throws EmptyFieldException 
+	 * @throws InvalidPasswordException 
+	 */
+	public static Paciente getPaciente(String user, String password) throws SQLException, InvalidPasswordException, EmptyFieldException, InvalidSSNumberException, InvalidDNIException, InvalidNameException {
+		String QuerySelect = "SELECT * FROM Pacientes WHERE DNI = '" + user + "' AND Password = '" + password + "'";
+		return devolverDatosPaciente(QuerySelect);
 	}
+	
+
+	/**
+	 * Accede a la bbdd y crea un objeto paciente con los datos obtenidos a partir del dni
+	 * @param dni
+	 * @return Paciente
+	 * @throws SQLException
+	 * @throws InvalidPasswordException
+	 * @throws EmptyFieldException
+	 * @throws InvalidSSNumberException
+	 * @throws InvalidDNIException
+	 * @throws InvalidNameException
+	 */
+	public static Paciente getPaciente(String dni) throws SQLException, InvalidPasswordException, EmptyFieldException, InvalidSSNumberException, InvalidDNIException, InvalidNameException {
+		String QuerySelect = "SELECT * FROM Pacientes WHERE DNI = '" + dni + "'";
+		return devolverDatosPaciente(QuerySelect);
+	}
+
+
+	//----------------------------------DELETE-------------------------------------------
+	
 	
 	/**
 	 * Método que elimina un paciente de la base de datos a partir de su dni
@@ -109,14 +121,26 @@ public class BBDDPacientes {
 	 * @throws SQLException
 	 */
 	public static void eliminarPaciente(String DNI) throws SQLException {
-		
 		String QuerySelect = "DELETE FROM Pacientes WHERE DNI = '" + DNI + "'";
         Statement stSelect;
 		stSelect = conexion.createStatement();
 		stSelect.executeUpdate(QuerySelect);
-	
 	}
 	
+	
+	//----------------------------------UTILS-------------------------------------------
+	
+	/**
+	 * Ejecuta una Query sql que devuelve los datos del paciente almacenados en la tabla
+	 * @param querySelect
+	 * @return Paciente
+	 * @throws SQLException
+	 * @throws InvalidPasswordException
+	 * @throws EmptyFieldException
+	 * @throws InvalidSSNumberException
+	 * @throws InvalidDNIException
+	 * @throws InvalidNameException
+	 */
 	private static Paciente devolverDatosPaciente(String querySelect) throws SQLException, InvalidPasswordException, EmptyFieldException, InvalidSSNumberException, InvalidDNIException, InvalidNameException {
 		Paciente paciente = null;
 		Statement stSelect = conexion.createStatement();

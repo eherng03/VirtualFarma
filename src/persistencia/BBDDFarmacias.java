@@ -11,7 +11,6 @@ import excepciones.InvalidNameException;
 import excepciones.InvalidPasswordException;
 import excepciones.InvalidTelefoneException;
 import logicaPrograma.Farmacia;
-import logicaPrograma.Paciente;
 import utils.Utils;
 
 
@@ -36,7 +35,10 @@ public class BBDDFarmacias {
 		conexion = conexion2;	
 	}
 	
-	
+	/**
+	 * Devuelve la unica instancia de la clase
+	 * @return
+	 */
 	public static BBDDFarmacias getInstance(){
 		if(bbddFarmacias != null){
 			return bbddFarmacias;
@@ -45,23 +47,8 @@ public class BBDDFarmacias {
 		return bbddFarmacias;
 	}
 	
-	//---------------------------------------GETS---------------------------------------
-
-
-	public static Farmacia getFarmacia(String user, String password) throws InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException, InvalidPasswordException, SQLException {
-		String QuerySelect = "SELECT * FROM Farmacias WHERE CIF = '" + user + "' AND Password = '" + password + "'";	
-		return devolverDatosFarmacia(QuerySelect);
-	}
-	
-
-
-	public static Farmacia getFarmacia(String cif) throws SQLException, InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException, InvalidPasswordException  {
-		String QuerySelect = "SELECT * FROM Farmacias WHERE CIF = '" + cif + "'";
-		return devolverDatosFarmacia(QuerySelect);
-	}
 	
 	//-----------------------------------INSERT--------------------------------------------
-
 
 
 	/**
@@ -70,7 +57,7 @@ public class BBDDFarmacias {
 	 * @throws SQLException 
 	 * @throws InvalidPasswordException 
 	 */
-	public static void introducirFarmacia(String cif, String nombre, String horario, String direccion, String numeroCuenta, String nombreDueno, String telefono, String email, String password) throws SQLException, InvalidPasswordException {
+	public void introducirFarmacia(String cif, String nombre, String horario, String direccion, String numeroCuenta, String nombreDueno, String telefono, String email, String password) throws SQLException, InvalidPasswordException {
 		
 		String QuerySelect = "SELECT * FROM Farmacias WHERE CIF = '" + cif + "'";
         Statement stSelect = conexion.createStatement();
@@ -82,44 +69,89 @@ public class BBDDFarmacias {
         	if(!Utils.getUtils().checkCadenaLetrasNumerosOEspacios(password)){
         		throw new InvalidPasswordException();
         	}
-   		 try {
-   	            String Query = "INSERT INTO Farmacias VALUES("
-   	                    + "\"" + cif + "\", "
-   	                    + "\"" + nombre + "\", "
-   	                    + "\"" + horario + "\", "
-   	                    + "\"" + direccion + "\", "
-   	                    + "\"" + numeroCuenta + "\", "
-   	                    + "\"" + nombreDueno + "\", "
-   	                    + "\"" + telefono + "\", "
-   	                    + "\"" + email + "\", "
-   	                    + "\"" + password + "\")";
-   	            Statement st = conexion.createStatement();
-   	            st.executeUpdate(Query);
-   	            JOptionPane.showMessageDialog(null, "Datos almacenados de forma exitosa");
-   	        } catch (SQLException ex) {
-   	            JOptionPane.showMessageDialog(null, "Error en el almacenamiento de datos");
-   	        }
+   		
+            String Query = "INSERT INTO Farmacias VALUES("
+                    + "\"" + cif + "\", "
+                    + "\"" + nombre + "\", "
+                    + "\"" + horario + "\", "
+                    + "\"" + direccion + "\", "
+                    + "\"" + numeroCuenta + "\", "
+                    + "\"" + nombreDueno + "\", "
+                    + "\"" + telefono + "\", "
+                    + "\"" + email + "\", "
+                    + "\"" + password + "\")";
+            Statement st = conexion.createStatement();
+            st.executeUpdate(Query);
+            JOptionPane.showMessageDialog(null, "Datos almacenados de forma exitosa");
+   	        
         }
 	}
 	
 	
-	
-	public void editarFarmacia(String cif){
-		//TODO 
+	//---------------------------------------GETS---------------------------------------
+
+	/**
+	 * Devuelve los datos almacenados en la base de datos del medico, a partir de usuario (CIF) y contraseña
+	 * @param user
+	 * @param password
+	 * @return farmacia
+	 * @throws InvalidNameException
+	 * @throws InvalidCIFException
+	 * @throws InvalidCuentaException
+	 * @throws InvalidTelefoneException
+	 * @throws InvalidPasswordException
+	 * @throws SQLException
+	 */
+	public Farmacia getFarmacia(String user, String password) throws InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException, InvalidPasswordException, SQLException {
+		String QuerySelect = "SELECT * FROM Farmacias WHERE CIF = '" + user + "' AND Password = '" + password + "'";	
+		return devolverDatosFarmacia(QuerySelect);
 	}
 	
+
+	/**
+	 * Devuelve los datos almacenados en la base de datos del medico, a partir de usuario (CIF)
+	 * @param cif
+	 * @return farmacia
+	 * @throws SQLException
+	 * @throws InvalidNameException
+	 * @throws InvalidCIFException
+	 * @throws InvalidCuentaException
+	 * @throws InvalidTelefoneException
+	 * @throws InvalidPasswordException
+	 */
+	public Farmacia getFarmacia(String cif) throws SQLException, InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException, InvalidPasswordException  {
+		String QuerySelect = "SELECT * FROM Farmacias WHERE CIF = '" + cif + "'";
+		return devolverDatosFarmacia(QuerySelect);
+	}
+	
+
+	
+	//----------------------------------DELETE-------------------------------------------
+	/**
+	 * Elimina la farmacia de la base de datos que tenga el mismo cif que el introducido
+	 * @param cif
+	 * @throws SQLException
+	 */
 	public void eliminarFarmacia(String cif) throws SQLException{
-		String QuerySelect = "DELETE FROM Pacientes WHERE CIF = '" + cif + "'";
-        Statement stSelect;
-		stSelect = conexion.createStatement();
-		java.sql.ResultSet resultSet;
-	    resultSet = stSelect.executeQuery(QuerySelect);
-		
+		String query = "DELETE FROM Farmacias WHERE CIF = '" + cif + "'";
+        Statement statement;
+        statement = conexion.createStatement();
+        statement.executeUpdate(query);
 	}
 
-
-	
-	private static Farmacia devolverDatosFarmacia(String querySelect) throws SQLException, InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException, InvalidPasswordException {
+	//----------------------------------UTILS-------------------------------------------
+	/**
+	 *  Ejecuta una Query sql que devuelve los datos de la farmacia almacenados en la tabla
+	 * @param querySelect
+	 * @return farmacia
+	 * @throws SQLException
+	 * @throws InvalidNameException
+	 * @throws InvalidCIFException
+	 * @throws InvalidCuentaException
+	 * @throws InvalidTelefoneException
+	 * @throws InvalidPasswordException
+	 */
+	private Farmacia devolverDatosFarmacia(String querySelect) throws SQLException, InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException, InvalidPasswordException {
 		Farmacia farmacia = null;
 		Statement stSelect = conexion.createStatement();
 	    java.sql.ResultSet resultSet;
