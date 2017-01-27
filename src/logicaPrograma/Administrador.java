@@ -10,6 +10,8 @@ import excepciones.InvalidPasswordException;
 import excepciones.InvalidSSNumberException;
 import excepciones.InvalidTelefoneException;
 import interfazUsuario.WindowAdministrador;
+import persistencia.BBDDFarmacias;
+import persistencia.BBDDMedicos;
 
 /**
  * Clase del administrador del sistema. Solo hay un administrador por lo que
@@ -46,18 +48,20 @@ public class Administrador {
 	}
 
 	public void crearMedico(String nombre, String dni, String numeroSS, String direccion, 
-			String email, String centroMedico, String password) throws InvalidNameException, InvalidDNIException, InvalidSSNumberException, InvalidPasswordException {
+			String email, String centroMedico, String password) throws InvalidNameException, InvalidDNIException, InvalidSSNumberException, InvalidPasswordException, SQLException {
 		Medico medico = new Medico(nombre, dni, numeroSS, direccion, email, centroMedico, password);
 		
 	}
 	
-	public void editarMedico(Medico medico) {
-		// TODO Auto-generated method stub
+	public void editarMedico(Medico medico, String nombre, String dni, String numeroSS, String direccion, 
+			String email, String centroMedico) throws InvalidPasswordException, SQLException {
+		eliminarMedico(medico);
+		BBDDMedicos.getInstance().introducirMedico(nombre, dni, numeroSS, direccion, email, centroMedico, medico.getPassword());
 		
 	}
 	
-	public void eliminarMedico(Medico medico) {
-		// TODO Auto-generated method stub
+	public void eliminarMedico(Medico medico) throws SQLException {
+		BBDDMedicos.getInstance().eliminarMedico(medico.getDNI());
 		
 	}
 	
@@ -66,13 +70,13 @@ public class Administrador {
 		Farmacia farmacia = new Farmacia(nombre, cif, horario, direccion, cuenta, nombreDueno, telefono, email, password);
 	}
 
-	public void editarFarmacia(String cif) {
-		// TODO Auto-generated method stub
-		
+	public void editarFarmacia(Farmacia farmacia, String cif, String nombre, String horario, String direccion, String numeroCuenta, String nombreDueno, String telefono, String email) throws SQLException, InvalidPasswordException {
+		eliminarFarmacia(farmacia);
+		BBDDFarmacias.getInstance().introducirFarmacia(cif, nombre, horario, direccion, numeroCuenta, nombreDueno, telefono, email, farmacia.getPassword());
 	}
 	
-	public void eliminarFarmacia(Farmacia farmacia) {
-		// TODO Auto-generated method stub
+	public void eliminarFarmacia(Farmacia farmacia) throws SQLException {
+		BBDDFarmacias.getInstance().eliminarFarmacia(farmacia.getCIF());
 		
 	}
 

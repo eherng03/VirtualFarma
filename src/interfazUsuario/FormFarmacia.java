@@ -14,6 +14,7 @@ import excepciones.InvalidPasswordException;
 import excepciones.InvalidTelefoneException;
 import images.ImagenVF;
 import logicaPrograma.Administrador;
+import logicaPrograma.Farmacia;
 
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
@@ -32,7 +33,7 @@ public class FormFarmacia extends JFrame {
 	private JPasswordField passwordField;
 	private JTextField textEmail;
 	private JTextField textTelefono;
-	private JTextField textDueno;
+	private JTextField textNombreDueno;
 	private JTextField textCuentaBancaria;
 	private JTextField textDireccion;
 	private JTextField textHorario;
@@ -46,7 +47,7 @@ public class FormFarmacia extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FormFarmacia(String cif, WindowAdministrador windowAdministrador) {
+	public FormFarmacia(Farmacia farmacia, WindowAdministrador windowAdministrador) {
 		formFarmacia = this;
 		
 		admin = Administrador.getAdmin();
@@ -108,16 +109,16 @@ public class FormFarmacia extends JFrame {
 		lblEmail.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblEmail.setBounds(10, 568, 46, 14);
 		contentPane.add(lblEmail);
-		
-		JLabel lblPassword = new JLabel("Contraseña");
-		lblPassword.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblPassword.setBounds(10, 593, 89, 14);
-		contentPane.add(lblPassword);
-		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(90, 590, 329, 20);
-		contentPane.add(passwordField);
-		
+		if(farmacia == null){
+			JLabel lblPassword = new JLabel("Contraseña");
+			lblPassword.setFont(new Font("Arial", Font.PLAIN, 12));
+			lblPassword.setBounds(10, 593, 89, 14);
+			contentPane.add(lblPassword);
+			
+			passwordField = new JPasswordField();
+			passwordField.setBounds(90, 590, 329, 20);
+			contentPane.add(passwordField);
+		}
 		textEmail = new JTextField();
 		textEmail.setBounds(66, 565, 353, 20);
 		contentPane.add(textEmail);
@@ -128,10 +129,10 @@ public class FormFarmacia extends JFrame {
 		contentPane.add(textTelefono);
 		textTelefono.setColumns(10);
 		
-		textDueno = new JTextField();
-		textDueno.setBounds(119, 515, 300, 20);
-		contentPane.add(textDueno);
-		textDueno.setColumns(10);
+		textNombreDueno = new JTextField();
+		textNombreDueno.setBounds(119, 515, 300, 20);
+		contentPane.add(textNombreDueno);
+		textNombreDueno.setColumns(10);
 		
 		textCuentaBancaria = new JTextField();
 		textCuentaBancaria.setBounds(172, 490, 247, 20);
@@ -158,6 +159,17 @@ public class FormFarmacia extends JFrame {
 		contentPane.add(textNombre);
 		textNombre.setColumns(10);
 		
+		if(farmacia != null){
+			textEmail.setText(farmacia.getEmail());
+			textTelefono.setText(farmacia.getTelefono());
+			textNombreDueno.setText(farmacia.getNombreDueno());
+			textCuentaBancaria.setText(farmacia.getNumeroCuenta());
+			textDireccion.setText(farmacia.getDireccion());
+			textHorario.setText(farmacia.getHorario());
+			textCIF.setText(farmacia.getCIF());
+			textNombre.setText(farmacia.getNombre());
+		}
+		
 		JButton btnAyuda = new JButton("Ayuda");
 		btnAyuda.setBackground(SystemColor.activeCaption);
 		btnAyuda.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -173,11 +185,18 @@ public class FormFarmacia extends JFrame {
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
-				if(cif != null){
-					admin.editarFarmacia(cif);
+				if(farmacia != null){
+					try {
+						admin.editarFarmacia(farmacia, textCIF.getText(), textNombre.getText(), textHorario.getText(),
+								textDireccion.getText(), textCuentaBancaria.getText(), textNombreDueno.getText(), 
+								textTelefono.getText(), textEmail.getText());
+					} catch (SQLException e) {
+						javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+					} catch (InvalidPasswordException e) {
+						javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+					}
 				}else{
 					registrarFarmacia();
-					
 				}
 			}
 		});
@@ -197,6 +216,8 @@ public class FormFarmacia extends JFrame {
 		button.setBackground(SystemColor.activeCaption);
 		button.setBounds(446, 515, 89, 23);
 		contentPane.add(button);
+	
+	
 	}
 	
 	private void registrarFarmacia() {

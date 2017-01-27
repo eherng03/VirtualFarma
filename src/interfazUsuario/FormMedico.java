@@ -16,6 +16,7 @@ import excepciones.InvalidSSNumberException;
 import excepciones.InvalidTelefoneException;
 import images.ImagenVF;
 import logicaPrograma.Administrador;
+import logicaPrograma.Medico;
 
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
@@ -29,17 +30,16 @@ import java.awt.event.ActionEvent;
 
 public class FormMedico extends JFrame {
 
+	private Administrador admin;
 	private JPanel contentPane;
 	private JPanel logoPanel;
 	private JTextField textDNI;
 	private JTextField textNombre;
-	private Administrador admin;
-	private JTextField textCPF;
 	private JTextField textNumeroSS;
-	private JPasswordField passwordField;
 	private JTextField textCentroMedico;
 	private JTextField textDireccion;
 	private JTextField textEmail;
+	private JPasswordField passwordField;
 	private FormMedico formMedico;
 
 
@@ -47,7 +47,7 @@ public class FormMedico extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FormMedico(String dni, WindowAdministrador windowAdministrador) {
+	public FormMedico(Medico medico, WindowAdministrador windowAdministrador) {
 		formMedico = this;
 		
 		admin = Administrador.getAdmin();
@@ -105,7 +105,19 @@ public class FormMedico extends JFrame {
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
-				registrarMedico();
+				if(medico != null){
+					try {
+						admin.editarMedico(medico, textNombre.getText(), textDNI.getText(), textNumeroSS.getText(), 
+								textDireccion.getText(), textEmail.getText(), textCentroMedico.getText());
+					} catch (InvalidPasswordException e) {
+						javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+					} catch (SQLException e) {
+						javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+
+					}
+				}else{
+					registrarMedico();
+				}
 			}
 		});
 		btnAceptar.setBackground(SystemColor.activeCaption);
@@ -125,14 +137,6 @@ public class FormMedico extends JFrame {
 		button.setBounds(446, 515, 89, 23);
 		contentPane.add(button);
 		
-		JLabel lblCpf = new JLabel("CPF");
-		lblCpf.setBounds(10, 446, 46, 14);
-		contentPane.add(lblCpf);
-		
-		textCPF = new JTextField();
-		textCPF.setBounds(44, 443, 375, 20);
-		contentPane.add(textCPF);
-		textCPF.setColumns(10);
 		
 		JLabel lblNumeross = new JLabel("NumeroSS");
 		lblNumeross.setBounds(10, 473, 64, 14);
@@ -155,13 +159,15 @@ public class FormMedico extends JFrame {
 		lblCentroMdico.setBounds(10, 560, 76, 14);
 		contentPane.add(lblCentroMdico);
 		
-		JLabel lblContrasea = new JLabel("Contraseña");
-		lblContrasea.setBounds(10, 588, 64, 14);
-		contentPane.add(lblContrasea);
-		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(80, 585, 339, 20);
-		contentPane.add(passwordField);
+		if(medico == null){
+			JLabel lblContrasea = new JLabel("Contraseña");
+			lblContrasea.setBounds(10, 588, 64, 14);
+			contentPane.add(lblContrasea);
+			
+			passwordField = new JPasswordField();
+			passwordField.setBounds(80, 585, 339, 20);
+			contentPane.add(passwordField);
+		}
 		
 		textCentroMedico = new JTextField();
 		textCentroMedico.setBounds(96, 557, 323, 20);
@@ -177,6 +183,17 @@ public class FormMedico extends JFrame {
 		textEmail.setBounds(62, 526, 357, 20);
 		contentPane.add(textEmail);
 		textEmail.setColumns(10);
+		
+		if(medico != null){
+			textDNI.setText(medico.getDNI());
+			textNombre.setText(medico.getNombre());
+			textNumeroSS.setText(medico.getNumeroSS());
+			textCentroMedico.setText(medico.getCentroMedico());
+			textDireccion.setText(medico.getDireccion());
+			textEmail.setText(medico.getEmail());
+		}
+		
+		
 	}
 	private void registrarMedico() {
 		try {
@@ -184,8 +201,8 @@ public class FormMedico extends JFrame {
 			javax.swing.JOptionPane.showMessageDialog(this, "La cuenta ha sido creada con éxito");
 		} catch (InvalidNameException | InvalidDNIException | InvalidSSNumberException | InvalidPasswordException e) {
 			javax.swing.JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-		} /*catch (SQLException e) {
+		} catch (SQLException e) {
 			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-		}*/
+		}
 	}
 }

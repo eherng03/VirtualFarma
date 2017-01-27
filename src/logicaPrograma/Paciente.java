@@ -53,9 +53,8 @@ public class Paciente {
 
 
 
-	public void eliminar() {
-		//TODO capturar excepcion de que no exista o no se elimine bien
-		BBDDPacientes.eliminarPaciente(this.dni);
+	public void eliminar() throws SQLException {
+		BBDDPacientes.getInstance().eliminarPaciente(this.dni);
 		
 	}
 

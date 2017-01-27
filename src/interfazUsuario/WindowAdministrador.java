@@ -9,8 +9,19 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
+import excepciones.InvalidCIFException;
+import excepciones.InvalidCuentaException;
+import excepciones.InvalidDNIException;
+import excepciones.InvalidNameException;
+import excepciones.InvalidPasswordException;
+import excepciones.InvalidSSNumberException;
+import excepciones.InvalidTelefoneException;
 import images.ImagenVF;
 import logicaPrograma.Administrador;
+import logicaPrograma.Farmacia;
+import logicaPrograma.Medico;
+import persistencia.BBDDFarmacias;
+import persistencia.BBDDMedicos;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -21,6 +32,7 @@ import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
@@ -177,8 +189,14 @@ public class WindowAdministrador extends JFrame {
 							passwordFrame.setVisible(false);
 							windowAdministrador.setVisible(false);
 							String cif = JOptionPane.showInputDialog("Introduzca el CIF de la farmacia a editar");
-							//TODO llamar a la BBDD para ver si existe el cif y devolverlo sino dar error 
-							FormFarmacia formFarmacia = new FormFarmacia(cif, windowAdministrador);
+							try {
+								Farmacia farmacia = BBDDFarmacias.getInstance().getFarmacia(cif);
+								FormFarmacia formFarmacia = new FormFarmacia(farmacia, windowAdministrador);
+							}catch (InvalidNameException | InvalidCIFException | InvalidCuentaException | InvalidTelefoneException | InvalidPasswordException e1){
+								javax.swing.JOptionPane.showMessageDialog(null, e1.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+							} catch (SQLException e1) {
+								javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+							}
 						} else {
 							JOptionPane.showMessageDialog(passwordFrame,
 									"Contraseña incorrecta", "Error",
@@ -213,9 +231,15 @@ public class WindowAdministrador extends JFrame {
 						if (admin.checkPassword(String.valueOf(input.getPassword()))) {
 							passwordFrame.setVisible(false);
 							windowAdministrador.setVisible(false);
-							String dni = JOptionPane.showInputDialog("Introduzca el dni del médico a editar");
-							//TODO llamar a la BBDD para ver si existe el dni y devolverlo sino dar error 
-							FormMedico formMedico = new FormMedico(dni, windowAdministrador);
+							String  dni = JOptionPane.showInputDialog("Introduzca el dni del médico a editar");
+							try {
+								Medico medico = BBDDMedicos.getInstance().getMedico(dni);
+								FormMedico formMedico = new FormMedico(medico, windowAdministrador);
+							}catch (InvalidNameException | InvalidDNIException | InvalidSSNumberException | InvalidPasswordException e1){
+								javax.swing.JOptionPane.showMessageDialog(null, e1.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+							} catch (SQLException e1) {
+								javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+							}
 						} else {
 							JOptionPane.showMessageDialog(passwordFrame,
 									"Contraseña incorrecta", "Error",

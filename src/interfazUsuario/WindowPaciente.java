@@ -14,6 +14,7 @@ import logicaPrograma.Paciente;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class WindowPaciente extends JFrame {
@@ -74,7 +75,11 @@ public class WindowPaciente extends JFrame {
 		btnDarseDeBaja.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//TODO ventana de introduzca la contraseeña para comprobar su identidad.
-				paciente.eliminar();
+				try {
+					paciente.eliminar();
+				} catch (SQLException e) {
+					javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		btnDarseDeBaja.setBounds(10, 494, 547, 34);

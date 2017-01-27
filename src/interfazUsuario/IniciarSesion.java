@@ -197,11 +197,11 @@ public class IniciarSesion extends JFrame {
 				this.setVisible(false);
 				break;
 			case "Farmacia":
-				Farmacia f1 = BBDDFarmacias.getFarmacia(user, password);
+				Farmacia f1 = BBDDFarmacias.getInstance().getFarmacia(user, password);
 				//Abrir la ventana de farmacia
 				break;
 			case "Medico":
-				Medico m1 = BBDDMedicos.getMedico(user, password);
+				Medico m1 = BBDDMedicos.getInstance().getMedico(user, password);
 				//abrir la ventana de medico
 				break;
 		}

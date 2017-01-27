@@ -5,7 +5,6 @@ public class Producto {
 	private double precio;
 	private int cuantia;
 	
-	
 	public Producto(String nombre, double precio, int cuantia){
 		this.nombre = nombre;
 		this.precio = precio;
