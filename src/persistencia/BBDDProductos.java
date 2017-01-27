@@ -51,7 +51,7 @@ public class BBDDProductos {
 	 * @throws SQLException
 	 * @throws AlreadyExistException 
 	 */
-	public void introducirProducto(String cif, String nombre, String precio, String cuantia) throws SQLException, AlreadyExistException{
+	public void introducirProducto(String cif, String nombre, double precio, int cuantia) throws SQLException, AlreadyExistException{
 		String QuerySelect = "SELECT * FROM Productos WHERE Nombre = '" + nombre + "'";
         Statement stSelect = conexion.createStatement();
         java.sql.ResultSet resultSet;
@@ -62,8 +62,8 @@ public class BBDDProductos {
    	        String Query = "INSERT INTO Pacientes VALUES("
    	        			+ "\"" + cif + "\", "
    	                    + "\"" + nombre + "\", "
-   	                    + "\"" + precio + "\", "
-   	                    + "\"" + cuantia + "\")";
+   	                    +  precio + ", "
+   	                    + cuantia + ")";
    	        Statement st = conexion.createStatement();
    	        st.executeUpdate(Query);
    	        JOptionPane.showMessageDialog(null, "Datos almacenados de forma exitosa.");
