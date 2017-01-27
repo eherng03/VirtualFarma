@@ -13,16 +13,29 @@ import excepciones.InvalidSSNumberException;
 import logicaPrograma.Paciente;
 import utils.Utils;
 
+
+/**
+ * Todos los pacientes se almacenarán en una única tabla de la base de datos, esta clase contendrá los metodos para 
+ * interactuar con dicha tabla
+ */
 public class BBDDPacientes {
 	
 	
-	 private static Connection conexion;
+	private static Connection conexion;
+	private static BBDDPacientes bbddPacientes;
+	 
+	public static void init(Connection conexion2) {
+		conexion = conexion2;
+	}
 	
-	/**
-	 * Todos los pacientes se almacenarán en una única base de datos, esta clase contendrá los metodos para 
-	 * interactuar con esta bbdd
-	 */
-	
+	public static BBDDPacientes getInstance(){
+		if(bbddPacientes != null){
+			return bbddPacientes;
+		}
+		bbddPacientes = new BBDDPacientes();
+		return bbddPacientes;
+	}
+
 	/**
 	 * Accede a la bbdd y crea un objeto paciente con los datos obtenidos mediante user(DNI) y password
 	 * @param user
@@ -35,18 +48,11 @@ public class BBDDPacientes {
 	 * @throws InvalidPasswordException 
 	 */
 	public static Paciente getPaciente(String user, String password) throws SQLException, InvalidPasswordException, EmptyFieldException, InvalidSSNumberException, InvalidDNIException, InvalidNameException {
-		Paciente paciente = null;
 		String QuerySelect = "SELECT * FROM Pacientes WHERE DNI = '" + user + "' AND Password = '" + password + "'";
-        Statement stSelect = conexion.createStatement();
-        java.sql.ResultSet resultSet;
-        resultSet = stSelect.executeQuery(QuerySelect);
-        
-        while(resultSet.next()){
-        	paciente = new Paciente(resultSet.getString("Nombre"), resultSet.getString("DNI"), resultSet.getString("NumeroSS"), resultSet.getString("Password"));
-        }
-		return paciente;
+		return devolverDatosPaciente(QuerySelect);
 	}
 	
+
 	/**
 	 * Accede a la bbdd y crea un objeto paciente con los datos obtenidos a partir del dni
 	 * @param user
@@ -59,16 +65,8 @@ public class BBDDPacientes {
 	 * @throws InvalidPasswordException 
 	 */
 	public static Paciente getPaciente(String dni) throws SQLException, InvalidPasswordException, EmptyFieldException, InvalidSSNumberException, InvalidDNIException, InvalidNameException {
-		Paciente paciente = null;
 		String QuerySelect = "SELECT * FROM Pacientes WHERE DNI = '" + dni + "'";
-        Statement stSelect = conexion.createStatement();
-        java.sql.ResultSet resultSet;
-        resultSet = stSelect.executeQuery(QuerySelect);
-        
-        while(resultSet.next()){
-        	paciente = new Paciente(resultSet.getString("Nombre"), resultSet.getString("DNI"), resultSet.getString("NumeroSS"), resultSet.getString("Password"));
-        }
-		return paciente;
+		return devolverDatosPaciente(QuerySelect);
 	}
 
 	/**
@@ -79,7 +77,6 @@ public class BBDDPacientes {
 	 */
 	public static void introducirPaciente(String nombre, String DNI, String numeroSS, String password) throws SQLException, InvalidPasswordException {
 		
-		//TODO Seleccionar de la tabla de pacientes el que el dni coincida con el introducido
 		String QuerySelect = "SELECT * FROM Pacientes WHERE DNI = '" + DNI + "'";
         Statement stSelect = conexion.createStatement();
         java.sql.ResultSet resultSet;
@@ -90,22 +87,15 @@ public class BBDDPacientes {
         	if(!Utils.getUtils().checkCadenaLetrasNumerosOEspacios(password)){
         		throw new InvalidPasswordException();
         	}
-   		 try {
-   	            String Query = "INSERT INTO Pacientes VALUES("
+   	        String Query = "INSERT INTO Pacientes VALUES("
    	                    + "\"" + DNI + "\", "
    	                    + "\"" + nombre + "\", "
    	                    + "\"" + numeroSS + "\", "
    	                    + "\"" + password + "\")";
-   	            Statement st = conexion.createStatement();
-   	            st.executeUpdate(Query);
-   	            JOptionPane.showMessageDialog(null, "Datos almacenados de forma exitosa.");
-   	        } catch (SQLException ex) {
-   	            JOptionPane.showMessageDialog(null, "Error en el almacenamiento de datos");
-   	        }
-        }
-		
-		
-		
+   	        Statement st = conexion.createStatement();
+   	        st.executeUpdate(Query);
+   	        JOptionPane.showMessageDialog(null, "Datos almacenados de forma exitosa.");
+        }		
 	}
 	
 	public static void editarPaciente(String DNI) {
@@ -113,24 +103,34 @@ public class BBDDPacientes {
 		
 	}
 	
-	public static void eliminarPaciente(String DNI) {
+	/**
+	 * Método que elimina un paciente de la base de datos a partir de su dni
+	 * @param DNI
+	 * @throws SQLException
+	 */
+	public static void eliminarPaciente(String DNI) throws SQLException {
 		
-		String QuerySelect = "DELETE FROM Pacientes WHERE DNI = " + DNI;
+		String QuerySelect = "DELETE FROM Pacientes WHERE DNI = '" + DNI + "'";
         Statement stSelect;
-		try {
-			stSelect = conexion.createStatement();
-			java.sql.ResultSet resultSet;
-	        resultSet = stSelect.executeQuery(QuerySelect);
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Error al eliminar los datos");
-		}
-        
-		
+		stSelect = conexion.createStatement();
+		stSelect.executeUpdate(QuerySelect);
+	
 	}
 	
-
-	public static void init(Connection conexion2) {
-		conexion = conexion2;
+	private static Paciente devolverDatosPaciente(String querySelect) throws SQLException, InvalidPasswordException, EmptyFieldException, InvalidSSNumberException, InvalidDNIException, InvalidNameException {
+		Paciente paciente = null;
+		Statement stSelect = conexion.createStatement();
+        java.sql.ResultSet resultSet;
+        resultSet = stSelect.executeQuery(querySelect);
+        
+        while(resultSet.next()){
+        	paciente = new Paciente(resultSet.getString("Nombre"), resultSet.getString("DNI"), resultSet.getString("NumeroSS"), resultSet.getString("Password"));
+        }
+		return paciente;
 	}
+
+	
+
+
 
 }
