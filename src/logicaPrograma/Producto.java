@@ -4,8 +4,10 @@ public class Producto {
 	private String nombre;
 	private double precio;
 	private int cuantia;
+	private String cif;
 	
-	public Producto(String nombre, double precio, int cuantia){
+	public Producto(String cif, String nombre, double precio, int cuantia){
+		this.cif = cif;
 		this.nombre = nombre;
 		this.precio = precio;
 		this.cuantia = cuantia;
