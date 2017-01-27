@@ -155,8 +155,8 @@ public class BBDDMedicos {
 	    resultSet = stSelect.executeQuery(querySelect);
 	    
 	    while(resultSet.next()){
-	      medico = new Medico(resultSet.getString("Nombre"), resultSet.getString("CIF"), resultSet.getString("Horario"), resultSet.getString("Direccion"),
-	      			resultSet.getString("NumeroCuenta"), resultSet.getString("NombreDueno"), resultSet.getString("Telefono"), false);
+	      medico = new Medico(resultSet.getString("Nombre"), resultSet.getString("DNI"), resultSet.getString("NumeroSS") , resultSet.getString("Direccion"), 
+	    		  resultSet.getString("email"), resultSet.getString("CentroMedico"), resultSet.getString("Password"), false);
 	    }
 	    return medico;
 	}

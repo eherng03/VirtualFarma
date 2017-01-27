@@ -197,7 +197,7 @@ public class FormMedico extends JFrame {
 	}
 	private void registrarMedico() {
 		try {
-			admin.crearMedico(textNombre.getText(), textDNI.getText(), textNumeroSS.getText(), textDireccion.getText(), textEmail.getText(), textCentroMedico.getText(), String.valueOf(passwordField));
+			admin.crearMedico(textNombre.getText(), textDNI.getText(), textNumeroSS.getText(), textDireccion.getText(), textEmail.getText(), textCentroMedico.getText(), String.valueOf(passwordField.getPassword()));
 			javax.swing.JOptionPane.showMessageDialog(this, "La cuenta ha sido creada con éxito");
 		} catch (InvalidNameException | InvalidDNIException | InvalidSSNumberException | InvalidPasswordException | AlreadyExistException e) {
 			javax.swing.JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);

@@ -216,7 +216,7 @@ public class WindowAdministrador extends JFrame {
 								try {
 									BBDDFarmacias.getInstance().eliminarFarmacia(cif);
 									javax.swing.JOptionPane.showMessageDialog(windowAdministrador, "La farmacia se ha eliminado con éxito");
-									windowAdministrador.setVisible(false);
+									windowAdministrador.setVisible(true);
 								} catch (SQLException e1) {
 									javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 								}
@@ -357,7 +357,7 @@ public class WindowAdministrador extends JFrame {
 							try {
 								BBDDMedicos.getInstance().eliminarMedico(dni);
 								javax.swing.JOptionPane.showMessageDialog(windowAdministrador, "El médico se ha eliminado con éxito");
-								windowAdministrador.setVisible(false);
+								windowAdministrador.setVisible(true);
 							} catch (SQLException e1) {
 								javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 							}

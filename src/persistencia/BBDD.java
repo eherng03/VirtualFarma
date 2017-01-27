@@ -40,6 +40,9 @@ public class BBDD {
            // System.out.println("Se ha iniciado la conexión con el servidor de forma exitosa");
             BBDDPacientes.init(conexion);
             BBDDFarmacias.init(conexion);  
+            BBDDMedicos.init(conexion);
+            BBDDProductos.init(conexion);
+            BBDDRecetas.init(conexion);
 	        
 	        database.conexion = conexion;
     	return database;
