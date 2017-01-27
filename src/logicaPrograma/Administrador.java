@@ -2,6 +2,7 @@ package logicaPrograma;
 
 import java.sql.SQLException;
 
+import excepciones.AlreadyExistException;
 import excepciones.InvalidCIFException;
 import excepciones.InvalidCuentaException;
 import excepciones.InvalidDNIException;
@@ -48,13 +49,13 @@ public class Administrador {
 	}
 
 	public void crearMedico(String nombre, String dni, String numeroSS, String direccion, 
-			String email, String centroMedico, String password) throws InvalidNameException, InvalidDNIException, InvalidSSNumberException, InvalidPasswordException, SQLException {
+			String email, String centroMedico, String password) throws InvalidNameException, InvalidDNIException, InvalidSSNumberException, InvalidPasswordException, SQLException, AlreadyExistException {
 		Medico medico = new Medico(nombre, dni, numeroSS, direccion, email, centroMedico, password);
 		
 	}
 	
 	public void editarMedico(Medico medico, String nombre, String dni, String numeroSS, String direccion, 
-			String email, String centroMedico) throws InvalidPasswordException, SQLException {
+			String email, String centroMedico) throws InvalidPasswordException, SQLException, AlreadyExistException {
 		eliminarMedico(medico);
 		BBDDMedicos.getInstance().introducirMedico(nombre, dni, numeroSS, direccion, email, centroMedico, medico.getPassword());
 		
@@ -66,11 +67,11 @@ public class Administrador {
 	}
 	
 	public void crearFarmacia(String nombre, String cif, String horario, String direccion, 
-			String cuenta, String nombreDueno, String telefono, String email, String password) throws InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException, InvalidPasswordException, SQLException{
+			String cuenta, String nombreDueno, String telefono, String email, String password) throws InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException, InvalidPasswordException, SQLException, AlreadyExistException{
 		Farmacia farmacia = new Farmacia(nombre, cif, horario, direccion, cuenta, nombreDueno, telefono, email, password);
 	}
 
-	public void editarFarmacia(Farmacia farmacia, String cif, String nombre, String horario, String direccion, String numeroCuenta, String nombreDueno, String telefono, String email) throws SQLException, InvalidPasswordException {
+	public void editarFarmacia(Farmacia farmacia, String cif, String nombre, String horario, String direccion, String numeroCuenta, String nombreDueno, String telefono, String email) throws SQLException, InvalidPasswordException, AlreadyExistException {
 		eliminarFarmacia(farmacia);
 		BBDDFarmacias.getInstance().introducirFarmacia(cif, nombre, horario, direccion, numeroCuenta, nombreDueno, telefono, email, farmacia.getPassword());
 	}

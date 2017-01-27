@@ -1,6 +1,7 @@
 package logicaPrograma;
 import java.sql.SQLException;
 
+import excepciones.AlreadyExistException;
 import excepciones.EmptyFieldException;
 import excepciones.InvalidDNIException;
 import excepciones.InvalidPasswordException;
@@ -17,7 +18,7 @@ public class Paciente {
 	private String password;
 	//Nombre y apellidos, DNI, número de la seguridad social  y contraseña
 	
-	public Paciente(String nombre, String dni, String numeroSS, String password) throws InvalidPasswordException, EmptyFieldException, InvalidSSNumberException, InvalidDNIException, InvalidNameException, SQLException{
+	public Paciente(String nombre, String dni, String numeroSS, String password) throws InvalidPasswordException, EmptyFieldException, InvalidSSNumberException, InvalidDNIException, InvalidNameException, SQLException, AlreadyExistException{
 		if(checkStruct(nombre, dni, numeroSS, password)){
 			this.nombre = nombre;
 			this.numeroSS = numeroSS;

@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import excepciones.AlreadyExistException;
 import excepciones.EmptyFieldException;
 import excepciones.InvalidDNIException;
 import excepciones.InvalidPasswordException;
@@ -152,7 +153,7 @@ public class FormPaciente extends JFrame {
 		try {
 			Paciente paciente = new Paciente(textNombre.getText() + " " + textApellido1.getText() + " " + textApellido2.getText(), textDNI.getText(), textNumeroSS.getText(), String.valueOf(passwordField.getPassword()));
 			javax.swing.JOptionPane.showMessageDialog(this, "Su cuenta ha sido creada con éxito");
-		} catch(InvalidPasswordException | EmptyFieldException | InvalidNameException | InvalidDNIException | InvalidSSNumberException e){
+		} catch(InvalidPasswordException | EmptyFieldException | InvalidNameException | InvalidDNIException | InvalidSSNumberException | AlreadyExistException e){
 			javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 		}catch (SQLException e) {
 			javax.swing.JOptionPane.showMessageDialog(this, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);

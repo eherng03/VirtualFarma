@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
+import excepciones.AlreadyExistException;
 import excepciones.InvalidCIFException;
 import excepciones.InvalidCuentaException;
 import excepciones.InvalidDNIException;
@@ -192,7 +193,7 @@ public class WindowAdministrador extends JFrame {
 							try {
 								Farmacia farmacia = BBDDFarmacias.getInstance().getFarmacia(cif);
 								FormFarmacia formFarmacia = new FormFarmacia(farmacia, windowAdministrador);
-							}catch (InvalidNameException | InvalidCIFException | InvalidCuentaException | InvalidTelefoneException | InvalidPasswordException e1){
+							}catch (InvalidNameException | InvalidCIFException | InvalidCuentaException | InvalidTelefoneException | InvalidPasswordException | AlreadyExistException e1){
 								javax.swing.JOptionPane.showMessageDialog(null, e1.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 							} catch (SQLException e1) {
 								javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
@@ -235,7 +236,7 @@ public class WindowAdministrador extends JFrame {
 							try {
 								Medico medico = BBDDMedicos.getInstance().getMedico(dni);
 								FormMedico formMedico = new FormMedico(medico, windowAdministrador);
-							}catch (InvalidNameException | InvalidDNIException | InvalidSSNumberException | InvalidPasswordException e1){
+							}catch (InvalidNameException | InvalidDNIException | InvalidSSNumberException | InvalidPasswordException | AlreadyExistException e1){
 								javax.swing.JOptionPane.showMessageDialog(null, e1.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 							} catch (SQLException e1) {
 								javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);

@@ -2,6 +2,7 @@ package logicaPrograma;
 
 import java.sql.SQLException;
 
+import excepciones.AlreadyExistException;
 import excepciones.InvalidDNIException;
 import excepciones.InvalidNameException;
 import excepciones.InvalidPasswordException;
@@ -18,7 +19,7 @@ public class Medico {
 	private String password;
 	
 	public Medico(String nombre, String dni, String numeroSS, String direccion, 
-			String email, String centroMedico, String password) throws InvalidNameException, InvalidDNIException, InvalidSSNumberException, InvalidPasswordException, SQLException{
+			String email, String centroMedico, String password) throws InvalidNameException, InvalidDNIException, InvalidSSNumberException, InvalidPasswordException, SQLException, AlreadyExistException{
 		if(checkDatos(nombre, dni, numeroSS, password)){
 			this.nombre = nombre;
 			this.dni = dni;

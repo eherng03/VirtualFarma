@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import excepciones.AlreadyExistException;
 import excepciones.EmptyFieldException;
 import excepciones.InvalidCIFException;
 import excepciones.InvalidCuentaException;
@@ -167,19 +168,32 @@ public class IniciarSesion extends JFrame {
 				}
 				break;
 			case "Paciente":
-				Paciente pac = BBDDPacientes.getPaciente(user, password);
+			Paciente pac;
+			try {
+				pac = BBDDPacientes.getInstance().getPaciente(user, password);
 				WindowPaciente ventanaPac = new WindowPaciente(pac, this);
 				ventanaPac.setVisible(true);
 				this.setVisible(false);
 				break;
+			} catch (AlreadyExistException e) {
+				javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+			}
 			case "Farmacia":
+			try {
 				Farmacia f1 = BBDDFarmacias.getInstance().getFarmacia(user, password);
-				//Abrir la ventana de farmacia
+				//TODO Abrir la ventana de farmacia
 				break;
+			} catch (AlreadyExistException e) {
+				javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+			}
 			case "Medico":
+			try {
 				Medico m1 = BBDDMedicos.getInstance().getMedico(user, password);
-				//abrir la ventana de medico
+				//TODO abrir la ventana de medico
 				break;
+			} catch (AlreadyExistException e) {
+				javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+			}
 		}
 		
 	}

@@ -104,8 +104,9 @@ public class BBDDFarmacias {
 	 * @throws InvalidTelefoneException
 	 * @throws InvalidPasswordException
 	 * @throws SQLException
+	 * @throws AlreadyExistException 
 	 */
-	public Farmacia getFarmacia(String user, String password) throws InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException, InvalidPasswordException, SQLException {
+	public Farmacia getFarmacia(String user, String password) throws InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException, InvalidPasswordException, SQLException, AlreadyExistException {
 		String QuerySelect = "SELECT * FROM Farmacias WHERE CIF = '" + user + "' AND Password = '" + password + "'";	
 		return devolverDatosFarmacia(QuerySelect);
 	}
@@ -121,8 +122,9 @@ public class BBDDFarmacias {
 	 * @throws InvalidCuentaException
 	 * @throws InvalidTelefoneException
 	 * @throws InvalidPasswordException
+	 * @throws AlreadyExistException 
 	 */
-	public Farmacia getFarmacia(String cif) throws SQLException, InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException, InvalidPasswordException  {
+	public Farmacia getFarmacia(String cif) throws SQLException, InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException, InvalidPasswordException, AlreadyExistException  {
 		String QuerySelect = "SELECT * FROM Farmacias WHERE CIF = '" + cif + "'";
 		return devolverDatosFarmacia(QuerySelect);
 	}
@@ -153,8 +155,9 @@ public class BBDDFarmacias {
 	 * @throws InvalidCuentaException
 	 * @throws InvalidTelefoneException
 	 * @throws InvalidPasswordException
+	 * @throws AlreadyExistException 
 	 */
-	private Farmacia devolverDatosFarmacia(String querySelect) throws SQLException, InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException, InvalidPasswordException {
+	private Farmacia devolverDatosFarmacia(String querySelect) throws SQLException, InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException, InvalidPasswordException, AlreadyExistException {
 		Farmacia farmacia = null;
 		Statement stSelect = conexion.createStatement();
 	    java.sql.ResultSet resultSet;

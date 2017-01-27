@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import excepciones.AlreadyExistException;
 import excepciones.InvalidCIFException;
 import excepciones.InvalidCuentaException;
 import excepciones.InvalidNameException;
@@ -192,7 +193,7 @@ public class FormFarmacia extends JFrame {
 								textTelefono.getText(), textEmail.getText());
 					} catch (SQLException e) {
 						javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-					} catch (InvalidPasswordException e) {
+					} catch (InvalidPasswordException | AlreadyExistException e) {
 						javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 					}
 				}else{
@@ -225,7 +226,7 @@ public class FormFarmacia extends JFrame {
 			admin.crearFarmacia(textNombre.getText(), textCIF.getText(), textHorario.getText(), textDireccion.getText(), textCuentaBancaria.getText(),
 					textNombre.getText(), textTelefono.getText(), textEmail.getText(), String.valueOf(passwordField));
 			javax.swing.JOptionPane.showMessageDialog(this, "La cuenta ha sido creada con éxito");
-		} catch (InvalidNameException | InvalidCIFException | InvalidCuentaException | InvalidTelefoneException | InvalidPasswordException e) {
+		} catch (InvalidNameException | InvalidCIFException | InvalidCuentaException | InvalidTelefoneException | InvalidPasswordException | AlreadyExistException e) {
 			javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 		} catch (SQLException e) {
 			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);

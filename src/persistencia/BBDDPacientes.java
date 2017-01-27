@@ -93,8 +93,9 @@ public class BBDDPacientes {
 	 * @throws InvalidSSNumberException 
 	 * @throws EmptyFieldException 
 	 * @throws InvalidPasswordException 
+	 * @throws AlreadyExistException 
 	 */
-	public Paciente getPaciente(String user, String password) throws SQLException, InvalidPasswordException, EmptyFieldException, InvalidSSNumberException, InvalidDNIException, InvalidNameException {
+	public Paciente getPaciente(String user, String password) throws SQLException, InvalidPasswordException, EmptyFieldException, InvalidSSNumberException, InvalidDNIException, InvalidNameException, AlreadyExistException {
 		String QuerySelect = "SELECT * FROM Pacientes WHERE DNI = '" + user + "' AND Password = '" + password + "'";
 		return devolverDatosPaciente(QuerySelect);
 	}
@@ -110,8 +111,9 @@ public class BBDDPacientes {
 	 * @throws InvalidSSNumberException
 	 * @throws InvalidDNIException
 	 * @throws InvalidNameException
+	 * @throws AlreadyExistException 
 	 */
-	public Paciente getPaciente(String dni) throws SQLException, InvalidPasswordException, EmptyFieldException, InvalidSSNumberException, InvalidDNIException, InvalidNameException {
+	public Paciente getPaciente(String dni) throws SQLException, InvalidPasswordException, EmptyFieldException, InvalidSSNumberException, InvalidDNIException, InvalidNameException, AlreadyExistException {
 		String QuerySelect = "SELECT * FROM Pacientes WHERE DNI = '" + dni + "'";
 		return devolverDatosPaciente(QuerySelect);
 	}
@@ -145,8 +147,9 @@ public class BBDDPacientes {
 	 * @throws InvalidSSNumberException
 	 * @throws InvalidDNIException
 	 * @throws InvalidNameException
+	 * @throws AlreadyExistException 
 	 */
-	private Paciente devolverDatosPaciente(String querySelect) throws SQLException, InvalidPasswordException, EmptyFieldException, InvalidSSNumberException, InvalidDNIException, InvalidNameException {
+	private Paciente devolverDatosPaciente(String querySelect) throws SQLException, InvalidPasswordException, EmptyFieldException, InvalidSSNumberException, InvalidDNIException, InvalidNameException, AlreadyExistException {
 		Paciente paciente = null;
 		Statement stSelect = conexion.createStatement();
         java.sql.ResultSet resultSet;

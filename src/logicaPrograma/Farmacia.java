@@ -2,6 +2,7 @@ package logicaPrograma;
 
 import java.sql.SQLException;
 
+import excepciones.AlreadyExistException;
 import excepciones.InvalidCIFException;
 import excepciones.InvalidCuentaException;
 import excepciones.InvalidNameException;
@@ -22,7 +23,7 @@ public class Farmacia {
 	private String password;
 	
 	public Farmacia(String nombre, String cif, String horario, String direccion, 
-			String numeroCuenta, String nombreDueno, String telefono, String email, String password) throws InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException, InvalidPasswordException, SQLException {
+			String numeroCuenta, String nombreDueno, String telefono, String email, String password) throws InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException, InvalidPasswordException, SQLException, AlreadyExistException {
 		if(checkDatos(nombre, cif, numeroCuenta, nombreDueno, telefono, password)){
 			this.nombre = nombre;
 			this.cif = cif;

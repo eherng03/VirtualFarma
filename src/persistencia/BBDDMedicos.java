@@ -94,8 +94,9 @@ public class BBDDMedicos {
 	 * @throws InvalidDNIException
 	 * @throws InvalidSSNumberException
 	 * @throws InvalidPasswordException
+	 * @throws AlreadyExistException 
 	 */
-	public Medico getMedico(String user, String password) throws SQLException, InvalidNameException, InvalidDNIException, InvalidSSNumberException, InvalidPasswordException {
+	public Medico getMedico(String user, String password) throws SQLException, InvalidNameException, InvalidDNIException, InvalidSSNumberException, InvalidPasswordException, AlreadyExistException {
 		String QuerySelect = "SELECT * FROM Medicos WHERE DNI = '" + user + "' AND Password = '" + password + "'";	
 		return devolverDatosMedico(QuerySelect);
 	}
@@ -111,8 +112,9 @@ public class BBDDMedicos {
 	 * @throws InvalidDNIException
 	 * @throws InvalidSSNumberException
 	 * @throws InvalidPasswordException
+	 * @throws AlreadyExistException 
 	 */
-	public Medico getMedico(String user) throws SQLException, InvalidNameException, InvalidDNIException, InvalidSSNumberException, InvalidPasswordException {
+	public Medico getMedico(String user) throws SQLException, InvalidNameException, InvalidDNIException, InvalidSSNumberException, InvalidPasswordException, AlreadyExistException {
 		String QuerySelect = "SELECT * FROM Medicos WHERE DNI = '" + user + "'";	
 		return devolverDatosMedico(QuerySelect);
 	}
@@ -144,8 +146,9 @@ public class BBDDMedicos {
 	 * @throws InvalidDNIException
 	 * @throws InvalidSSNumberException
 	 * @throws InvalidPasswordException
+	 * @throws AlreadyExistException 
 	 */
-	private Medico devolverDatosMedico(String querySelect) throws SQLException, InvalidNameException, InvalidDNIException, InvalidSSNumberException, InvalidPasswordException {
+	private Medico devolverDatosMedico(String querySelect) throws SQLException, InvalidNameException, InvalidDNIException, InvalidSSNumberException, InvalidPasswordException, AlreadyExistException {
 		Medico medico = null;
 		Statement stSelect = conexion.createStatement();
 	    java.sql.ResultSet resultSet;
