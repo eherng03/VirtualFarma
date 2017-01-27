@@ -2,7 +2,10 @@ package persistencia;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import excepciones.AlreadyExistException;
@@ -86,6 +89,26 @@ public class BBDDProductos {
         	producto = new Producto(resultSet.getString("CIF_Farmacia"), resultSet.getString("Nombre"), resultSet.getDouble("Precio"), resultSet.getInt("Cuantia"), false);
         }
 		return producto;
+	}
+	
+	/**
+	 * Devuelve una lista con todos los productos de la farmacia.
+	 * @param cif
+	 * @return
+	 * @throws SQLException
+	 */
+	public DefaultListModel<Producto> getProductos(String cif) throws SQLException{
+		DefaultListModel<Producto> lista = new DefaultListModel<>();
+		String querySelect = "SELECT * FROM Productos WHERE CIF_Farmacia = '" + cif + "'";
+		Statement stSelect = conexion.createStatement();
+        java.sql.ResultSet resultSet;
+        resultSet = stSelect.executeQuery(querySelect);
+        
+        while(resultSet.next()){
+        	lista.addElement(new Producto(resultSet.getString("CIF_Farmacia"), resultSet.getString("Nombre"), resultSet.getDouble("Precio"), resultSet.getInt("Cuantia"), false));
+        }
+        
+        return lista;
 	}
 	
 	

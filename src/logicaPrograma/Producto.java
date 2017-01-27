@@ -7,7 +7,7 @@ public class Producto {
 	private String cif;
 	
 	public Producto(String cif, String nombre, double precio, int cuantia, boolean nuevo){
-		this.cif = cif;
+		this.setCif(cif);
 		this.nombre = nombre;
 		this.precio = precio;
 		this.cuantia = cuantia;
@@ -23,6 +23,14 @@ public class Producto {
 	
 	public String getNombre() {
 		return nombre;
+	}
+
+	public String getCif() {
+		return cif;
+	}
+
+	public void setCif(String cif) {
+		this.cif = cif;
 	}
 	
 }

@@ -1,6 +1,8 @@
 package interfazUsuario;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.SystemColor;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,14 +17,16 @@ public class FormProducto extends JFrame {
 	 * Create the frame.
 	 */
 	public FormProducto() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
-		
 		setResizable(false);
+		
+		setBackground(Color.WHITE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 386, 274);
+		contentPane = new JPanel();
+		contentPane.setBackground(SystemColor.window);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
 	}
 
 }

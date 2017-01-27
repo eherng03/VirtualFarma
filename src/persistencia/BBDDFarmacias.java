@@ -3,6 +3,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import excepciones.AlreadyExistException;
@@ -12,6 +14,7 @@ import excepciones.InvalidNameException;
 import excepciones.InvalidPasswordException;
 import excepciones.InvalidTelefoneException;
 import logicaPrograma.Farmacia;
+import logicaPrograma.Producto;
 import utils.Utils;
 
 
@@ -168,6 +171,23 @@ public class BBDDFarmacias {
 	      			resultSet.getString("NumeroCuenta"), resultSet.getString("NombreDueno"), resultSet.getString("Telefono"), resultSet.getString("email"), resultSet.getString("Password"), false);
 	    }
 		return farmacia;
+	}
+
+	
+	public DefaultListModel<Farmacia> getFarmacias() throws SQLException, InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException, InvalidPasswordException, AlreadyExistException {
+		String querySelect = "SELECT * FROM Farmacias";
+		DefaultListModel<Farmacia> lista = new DefaultListModel<>();
+		
+		Statement stSelect = conexion.createStatement();
+	    java.sql.ResultSet resultSet;
+	    resultSet = stSelect.executeQuery(querySelect);
+	    
+		while(resultSet.next()){
+		      lista.addElement(new Farmacia(resultSet.getString("Nombre"), resultSet.getString("CIF"), resultSet.getString("Horario"), resultSet.getString("Direccion"),
+		      			resultSet.getString("NumeroCuenta"), resultSet.getString("NombreDueno"), resultSet.getString("Telefono"), resultSet.getString("email"), resultSet.getString("Password"), false));
+		}
+
+		return lista;
 	}
 
 }
