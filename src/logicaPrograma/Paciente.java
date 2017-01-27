@@ -16,12 +16,15 @@ public class Paciente {
 	private String dni;
 	private String numeroSS;
 	private String password;
+
+
+	
 	//Nombre y apellidos, DNI, número de la seguridad social  y contraseña
 	
 	public Paciente(String nombre, String dni, String numeroSS, String password, boolean nuevo) throws InvalidPasswordException, EmptyFieldException, InvalidSSNumberException, InvalidDNIException, InvalidNameException, SQLException, AlreadyExistException{
 		if(checkStruct(nombre, dni, numeroSS, password)){
 			this.nombre = nombre;
-			this.numeroSS = numeroSS;
+			this.setNumeroSS(numeroSS);
 			this.password = password;
 		}
 		if(nuevo){
@@ -63,6 +66,20 @@ public class Paciente {
 		return this.password.equals(password);
 	}
 
-	
+	public String getNumeroSS() {
+		return numeroSS;
+	}
+
+	public void setNumeroSS(String numeroSS) {
+		this.numeroSS = numeroSS;
+	}
+
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
 
 }
