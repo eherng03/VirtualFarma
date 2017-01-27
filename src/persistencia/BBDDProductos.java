@@ -83,7 +83,7 @@ public class BBDDProductos {
         resultSet = stSelect.executeQuery(querySelect);
         
         while(resultSet.next()){
-        	producto = new Producto(resultSet.getString("CIF_Farmacia"), resultSet.getString("Nombre"), resultSet.getDouble("Precio"), resultSet.getInt("Cuantia"));
+        	producto = new Producto(resultSet.getString("CIF_Farmacia"), resultSet.getString("Nombre"), resultSet.getDouble("Precio"), resultSet.getInt("Cuantia"), false);
         }
 		return producto;
 	}

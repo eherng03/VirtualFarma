@@ -19,7 +19,7 @@ public class Medico {
 	private String password;
 	
 	public Medico(String nombre, String dni, String numeroSS, String direccion, 
-			String email, String centroMedico, String password) throws InvalidNameException, InvalidDNIException, InvalidSSNumberException, InvalidPasswordException, SQLException, AlreadyExistException{
+			String email, String centroMedico, String password, boolean nuevo) throws InvalidNameException, InvalidDNIException, InvalidSSNumberException, InvalidPasswordException, SQLException, AlreadyExistException{
 		if(checkDatos(nombre, dni, numeroSS, password)){
 			this.nombre = nombre;
 			this.dni = dni;
@@ -28,10 +28,10 @@ public class Medico {
 			this.email = email;
 			this.centroMedico = centroMedico;
 			this.password = password;
-			
-			BBDDMedicos.getInstance().introducirMedico(nombre, dni, numeroSS, direccion, email, centroMedico, password);
+			if(nuevo){
+				BBDDMedicos.getInstance().introducirMedico(nombre, dni, numeroSS, direccion, email, centroMedico, password);
+			}
 		}
-		
 	}
 
 	

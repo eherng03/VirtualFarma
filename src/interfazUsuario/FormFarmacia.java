@@ -224,7 +224,7 @@ public class FormFarmacia extends JFrame {
 	private void registrarFarmacia() {
 		try {
 			admin.crearFarmacia(textNombre.getText(), textCIF.getText(), textHorario.getText(), textDireccion.getText(), textCuentaBancaria.getText(),
-					textNombre.getText(), textTelefono.getText(), textEmail.getText(), String.valueOf(passwordField));
+					textNombre.getText(), textTelefono.getText(), textEmail.getText(), String.valueOf(passwordField.getPassword()));
 			javax.swing.JOptionPane.showMessageDialog(this, "La cuenta ha sido creada con éxito");
 		} catch (InvalidNameException | InvalidCIFException | InvalidCuentaException | InvalidTelefoneException | InvalidPasswordException | AlreadyExistException e) {
 			javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);

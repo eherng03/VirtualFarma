@@ -165,7 +165,7 @@ public class BBDDFarmacias {
 	        
 	    while(resultSet.next()){
 	      farmacia = new Farmacia(resultSet.getString("Nombre"), resultSet.getString("CIF"), resultSet.getString("Horario"), resultSet.getString("Direccion"),
-	      			resultSet.getString("NumeroCuenta"), resultSet.getString("NombreDueno"), resultSet.getString("Telefono"), resultSet.getString("email"), resultSet.getString("Password"));
+	      			resultSet.getString("NumeroCuenta"), resultSet.getString("NombreDueno"), resultSet.getString("Telefono"), resultSet.getString("email"), resultSet.getString("Password"), false);
 	    }
 		return farmacia;
 	}

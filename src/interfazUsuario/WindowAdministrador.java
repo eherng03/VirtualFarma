@@ -98,6 +98,10 @@ public class WindowAdministrador extends JFrame {
 
 
 	private void initializeButtons() {
+		
+		/*
+		 * -----------------------REGISTRAR FARMACIA-----------------------------------
+		 */
 		JButton btnRegistrarFarmacia = new JButton("Registrar farmacia");
 		btnRegistrarFarmacia.setBackground(SystemColor.activeCaption);
 		btnRegistrarFarmacia.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -136,6 +140,10 @@ public class WindowAdministrador extends JFrame {
 		btnRegistrarFarmacia.setBounds(22, 415, 233, 34);
 		contentPane.add(btnRegistrarFarmacia);
 		
+		
+		/*
+		 * -----------------------REGISTRAR MEDICO-----------------------------------
+		 */
 		JButton btnRegistrarMdico = new JButton("Registrar medico");
 		btnRegistrarMdico.setBackground(SystemColor.activeCaption);
 		btnRegistrarMdico.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -173,6 +181,10 @@ public class WindowAdministrador extends JFrame {
 		btnRegistrarMdico.setBounds(324, 415, 233, 34);
 		contentPane.add(btnRegistrarMdico);
 		
+		
+		/*
+		 * -----------------------EDITAR FARMACIA-----------------------------------
+		 */
 		JButton btnEditarFarmacia = new JButton("Editar farmacia");
 		btnEditarFarmacia.setBackground(SystemColor.activeCaption);
 		btnEditarFarmacia.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -193,6 +205,7 @@ public class WindowAdministrador extends JFrame {
 							try {
 								Farmacia farmacia = BBDDFarmacias.getInstance().getFarmacia(cif);
 								FormFarmacia formFarmacia = new FormFarmacia(farmacia, windowAdministrador);
+								formFarmacia.setVisible(true);
 							}catch (InvalidNameException | InvalidCIFException | InvalidCuentaException | InvalidTelefoneException | InvalidPasswordException | AlreadyExistException e1){
 								javax.swing.JOptionPane.showMessageDialog(null, e1.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 							} catch (SQLException e1) {
@@ -218,6 +231,10 @@ public class WindowAdministrador extends JFrame {
 		btnEditarFarmacia.setBounds(22, 460, 233, 34);
 		contentPane.add(btnEditarFarmacia);
 		
+		
+		/*
+		 * -----------------------EDITAR MEDICO-----------------------------------
+		 */
 		JButton btnEditarMdico = new JButton("Editar medico");
 		btnEditarMdico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -263,38 +280,89 @@ public class WindowAdministrador extends JFrame {
 		btnEditarMdico.setBounds(324, 460, 233, 34);
 		contentPane.add(btnEditarMdico);
 		
+		
+		/*
+		 * -----------------------ELIMINAR FARMACIA-----------------------------------
+		 */
 		JButton btnEliminarFarmacia = new JButton("Eliminar farmacia");
+		btnEliminarFarmacia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame passwordFrame = new JFrame("Contraseña");
+				passwordFrame.setBounds(100, 100, 584, 671);
+				JLabel jlbPassword = new JLabel("Introduzca la contraseña:  ");
+				JPasswordField jpwName = new JPasswordField(10);
+				jpwName.setEchoChar('*');
+				jpwName.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						JPasswordField input = (JPasswordField) e.getSource();
+						if (admin.checkPassword(String.valueOf(input.getPassword()))) {
+							passwordFrame.setVisible(false);
+							windowAdministrador.setVisible(false);
+							String cif = JOptionPane.showInputDialog("Introduzca el CIF de la farmacia a eliminar");
+							try {
+								BBDDFarmacias.getInstance().eliminarFarmacia(cif);
+							} catch (SQLException e1) {
+								javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias",
+										"ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+							}
+						} else {
+							JOptionPane.showMessageDialog(passwordFrame,
+									"Contraseña incorrecta", "Error",
+									JOptionPane.ERROR_MESSAGE);
+						}
+					}
+				});
+			}
+		});
 		btnEliminarFarmacia.setBackground(SystemColor.activeCaption);
 		btnEliminarFarmacia.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnEliminarFarmacia.setBounds(22, 505, 233, 34);
 		contentPane.add(btnEliminarFarmacia);
 		
+		
+		/*
+		 * -----------------------ELIMINAR MEDICO-----------------------------------
+		 */
 		JButton btnEliminarMdico = new JButton("Eliminar medico");
+		btnEliminarMdico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnEliminarMdico.setBackground(SystemColor.activeCaption);
 		btnEliminarMdico.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnEliminarMdico.setBounds(324, 505, 233, 34);
 		contentPane.add(btnEliminarMdico);
 		
-		JSeparator separator = new JSeparator();
-		separator.setBounds(22, 550, 535, 2);
-		contentPane.add(separator);
 		
+		
+		
+		/*
+		 * -----------------------COPIA DE SEGURIDAD-----------------------------------
+		 */
 		JButton btnCrearCopiaDe = new JButton("Crear copia de seguridad del sistema");
+		btnCrearCopiaDe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnCrearCopiaDe.setBackground(SystemColor.activeCaption);
 		btnCrearCopiaDe.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnCrearCopiaDe.setBounds(22, 563, 535, 34);
 		contentPane.add(btnCrearCopiaDe);
 		
+		
+		/*
+		 * ------------------------------AYUDA-----------------------------------------
+		 */
 		JButton btnAyuda = new JButton("Ayuda");
+		btnAyuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnAyuda.setBackground(SystemColor.activeCaption);
 		btnAyuda.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnAyuda.setBounds(238, 608, 89, 23);
 		contentPane.add(btnAyuda);
 		
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setOrientation(SwingConstants.VERTICAL);
-		separator_1.setBounds(290, 415, 2, 137);
-		contentPane.add(separator_1);
 		
 		
 	}
@@ -302,7 +370,7 @@ public class WindowAdministrador extends JFrame {
 
 	private void initializeLabels() {
 		
-		
+		//-----------------------LABELS-----------------------------
 		JLabel lblFarmacias = new JLabel("Farmacias");
 		lblFarmacias.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblFarmacias.setBounds(115, 393, 69, 14);
@@ -315,5 +383,14 @@ public class WindowAdministrador extends JFrame {
 		contentPane.add(lblMedicos);
 		
 		
+		//-------------------------SEPARADORES------------------------
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setOrientation(SwingConstants.VERTICAL);
+		separator_1.setBounds(290, 415, 2, 137);
+		contentPane.add(separator_1);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(22, 550, 535, 2);
+		contentPane.add(separator);
 	}
 }

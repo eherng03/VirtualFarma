@@ -18,14 +18,15 @@ public class Paciente {
 	private String password;
 	//Nombre y apellidos, DNI, número de la seguridad social  y contraseña
 	
-	public Paciente(String nombre, String dni, String numeroSS, String password) throws InvalidPasswordException, EmptyFieldException, InvalidSSNumberException, InvalidDNIException, InvalidNameException, SQLException, AlreadyExistException{
+	public Paciente(String nombre, String dni, String numeroSS, String password, boolean nuevo) throws InvalidPasswordException, EmptyFieldException, InvalidSSNumberException, InvalidDNIException, InvalidNameException, SQLException, AlreadyExistException{
 		if(checkStruct(nombre, dni, numeroSS, password)){
 			this.nombre = nombre;
 			this.numeroSS = numeroSS;
 			this.password = password;
 		}
-		
-		BBDDPacientes.getInstance().introducirPaciente(nombre, dni, numeroSS, password);
+		if(nuevo){
+			BBDDPacientes.getInstance().introducirPaciente(nombre, dni, numeroSS, password);
+		}
 	}
 
 	private boolean checkStruct(String nombre, String dni, String numeroSS, String password) throws EmptyFieldException, InvalidPasswordException, InvalidSSNumberException, InvalidDNIException, InvalidNameException {

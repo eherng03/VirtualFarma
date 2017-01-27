@@ -40,7 +40,7 @@ public class BBDDRecetas {
 	 * @throws SQLException 
 	 * @throws AlreadyExistException 
 	 */
-	public static void introducirReceta(String dniPaciente, String dniMedico, String nombreMedicamento, boolean crónica, String fecha,
+	public void introducirReceta(String dniPaciente, String dniMedico, String nombreMedicamento, boolean crónica, String fecha,
 			int unidadesXToma, int frecuencia, String duracion, String instrucciones, int nEnvases) throws SQLException, AlreadyExistException {
 		String QuerySelect = "SELECT * FROM Recetas WHERE DNI_Paciente = '" + dniPaciente + "' AND DNI_Medico = '" + dniMedico + "' AND Nombre = '" 
 			+ nombreMedicamento + "' AND Fecha = '" + fecha + "'";
@@ -74,6 +74,8 @@ public class BBDDRecetas {
 		// TODO Auto-generated method stub
 		
 	}
+
+
 
 	
 }

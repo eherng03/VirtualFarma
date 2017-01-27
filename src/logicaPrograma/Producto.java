@@ -6,7 +6,7 @@ public class Producto {
 	private int cuantia;
 	private String cif;
 	
-	public Producto(String cif, String nombre, double precio, int cuantia){
+	public Producto(String cif, String nombre, double precio, int cuantia, boolean nuevo){
 		this.cif = cif;
 		this.nombre = nombre;
 		this.precio = precio;

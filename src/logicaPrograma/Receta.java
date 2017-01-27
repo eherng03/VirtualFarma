@@ -1,5 +1,10 @@
 package logicaPrograma;
 
+import java.sql.SQLException;
+
+import excepciones.AlreadyExistException;
+import persistencia.BBDDRecetas;
+
 public class Receta {
 	private String dniPaciente;
 	private String dniMedico;
@@ -14,7 +19,7 @@ public class Receta {
 
 	
 	public Receta(String dniPaciente, String dniMedico, String nombreMedicamento, boolean crónica, String fecha,
-			int unidadesXToma, int frecuencia, String duracion, String instrucciones, int nEnvases) {
+			int unidadesXToma, int frecuencia, String duracion, String instrucciones, int nEnvases, boolean nuevo) throws SQLException, AlreadyExistException {
 		this.dniPaciente = dniPaciente;
 		this.dniMedico = dniMedico;
 		this.nombreMedicamento = nombreMedicamento;
@@ -25,6 +30,9 @@ public class Receta {
 		this.duracion = duracion;
 		this.instrucciones = instrucciones;
 		this.nEnvases = nEnvases;
+		if(nuevo){
+			BBDDRecetas.getInstance().introducirReceta(dniPaciente, dniMedico, nombreMedicamento, crónica, fecha, unidadesXToma, frecuencia, duracion, instrucciones, nEnvases);
+		}
 	}
 
 	

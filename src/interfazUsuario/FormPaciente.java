@@ -151,7 +151,7 @@ public class FormPaciente extends JFrame {
 
 	private void registrarPaciente() {
 		try {
-			Paciente paciente = new Paciente(textNombre.getText() + " " + textApellido1.getText() + " " + textApellido2.getText(), textDNI.getText(), textNumeroSS.getText(), String.valueOf(passwordField.getPassword()));
+			Paciente paciente = new Paciente(textNombre.getText() + " " + textApellido1.getText() + " " + textApellido2.getText(), textDNI.getText(), textNumeroSS.getText(), String.valueOf(passwordField.getPassword()), true);
 			javax.swing.JOptionPane.showMessageDialog(this, "Su cuenta ha sido creada con éxito");
 		} catch(InvalidPasswordException | EmptyFieldException | InvalidNameException | InvalidDNIException | InvalidSSNumberException | AlreadyExistException e){
 			javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);

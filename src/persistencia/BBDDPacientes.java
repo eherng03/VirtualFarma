@@ -156,7 +156,7 @@ public class BBDDPacientes {
         resultSet = stSelect.executeQuery(querySelect);
         
         while(resultSet.next()){
-        	paciente = new Paciente(resultSet.getString("Nombre"), resultSet.getString("DNI"), resultSet.getString("NumeroSS"), resultSet.getString("Password"));
+        	paciente = new Paciente(resultSet.getString("Nombre"), resultSet.getString("DNI"), resultSet.getString("NumeroSS"), resultSet.getString("Password"), false);
         }
 		return paciente;
 	}

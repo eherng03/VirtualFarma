@@ -156,7 +156,7 @@ public class BBDDMedicos {
 	    
 	    while(resultSet.next()){
 	      medico = new Medico(resultSet.getString("Nombre"), resultSet.getString("CIF"), resultSet.getString("Horario"), resultSet.getString("Direccion"),
-	      			resultSet.getString("NumeroCuenta"), resultSet.getString("NombreDueno"), resultSet.getString("Telefono"));
+	      			resultSet.getString("NumeroCuenta"), resultSet.getString("NombreDueno"), resultSet.getString("Telefono"), false);
 	    }
 	    return medico;
 	}

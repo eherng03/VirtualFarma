@@ -23,7 +23,7 @@ public class Farmacia {
 	private String password;
 	
 	public Farmacia(String nombre, String cif, String horario, String direccion, 
-			String numeroCuenta, String nombreDueno, String telefono, String email, String password) throws InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException, InvalidPasswordException, SQLException, AlreadyExistException {
+			String numeroCuenta, String nombreDueno, String telefono, String email, String password, boolean nuevo) throws InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException, InvalidPasswordException, SQLException, AlreadyExistException {
 		if(checkDatos(nombre, cif, numeroCuenta, nombreDueno, telefono, password)){
 			this.nombre = nombre;
 			this.cif = cif;
@@ -34,9 +34,10 @@ public class Farmacia {
 			this.telefono = telefono;
 			this.email = email;
 			this.password = password;
-			BBDDFarmacias.getInstance().introducirFarmacia(cif, nombre, horario, direccion, numeroCuenta, nombreDueno, telefono, email, password);
+			if(nuevo){
+				BBDDFarmacias.getInstance().introducirFarmacia(cif, nombre, horario, direccion, numeroCuenta, nombreDueno, telefono, email, password);
+			}
 		}
-		
 	}
 
 	private boolean checkDatos(String nombre, String cif, String cuenta,
