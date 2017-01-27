@@ -143,48 +143,6 @@ public class WindowAdministrador extends JFrame {
 		
 		
 		/*
-		 * -----------------------REGISTRAR MEDICO-----------------------------------
-		 */
-		JButton btnRegistrarMdico = new JButton("Registrar medico");
-		btnRegistrarMdico.setBackground(SystemColor.activeCaption);
-		btnRegistrarMdico.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnRegistrarMdico.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFrame passwordFrame = new JFrame("Contraseña");
-				passwordFrame.setBounds(100, 100, 584, 671);
-				JLabel jlbPassword = new JLabel("Introduzca la contraseña:  ");
-				JPasswordField jpwName = new JPasswordField(10);
-				jpwName.setEchoChar('*');
-				passwordFrame.setVisible(true);
-				jpwName.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						JPasswordField input = (JPasswordField) e.getSource();
-						if (admin.checkPassword(String.valueOf(input.getPassword()))) {
-							passwordFrame.setVisible(false);
-							windowAdministrador.setVisible(false);
-							FormMedico formMedico = new FormMedico(null, windowAdministrador);
-							formMedico.setVisible(true);
-						} else {
-							JOptionPane.showMessageDialog(passwordFrame,
-									"Contraseña incorrecta", "Error",
-									JOptionPane.ERROR_MESSAGE);
-						}
-					}
-				});
-				JPanel jplContentPane = new JPanel(new BorderLayout());
-				jplContentPane.setBorder(BorderFactory.createEmptyBorder(20, 20,
-						20, 20));
-				jplContentPane.add(jlbPassword, BorderLayout.WEST);
-				jplContentPane.add(jpwName, BorderLayout.CENTER);
-				passwordFrame.setContentPane(jplContentPane);
-				passwordFrame.pack();
-			}
-		});
-		btnRegistrarMdico.setBounds(324, 415, 233, 34);
-		contentPane.add(btnRegistrarMdico);
-		
-		
-		/*
 		 * -----------------------EDITAR FARMACIA-----------------------------------
 		 */
 		JButton btnEditarFarmacia = new JButton("Editar farmacia");
@@ -232,6 +190,97 @@ public class WindowAdministrador extends JFrame {
 		});
 		btnEditarFarmacia.setBounds(22, 460, 233, 34);
 		contentPane.add(btnEditarFarmacia);
+		
+
+		/*
+		 * -----------------------ELIMINAR FARMACIA-----------------------------------
+		 */
+		JButton btnEliminarFarmacia = new JButton("Eliminar farmacia");
+		btnEliminarFarmacia.setBackground(SystemColor.activeCaption);
+		btnEliminarFarmacia.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnEliminarFarmacia.setBounds(22, 505, 233, 34);
+		btnEliminarFarmacia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					JFrame passwordFrame = new JFrame("Contraseña");
+					passwordFrame.setBounds(100, 100, 584, 671);
+					JLabel jlbPassword = new JLabel("Introduzca la contraseña:  ");
+					JPasswordField jpwName = new JPasswordField(10);
+					jpwName.setEchoChar('*');
+					jpwName.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							JPasswordField input = (JPasswordField) e.getSource();
+							if (admin.checkPassword(String.valueOf(input.getPassword()))) {
+								passwordFrame.setVisible(false);
+								windowAdministrador.setVisible(false);
+								String cif = JOptionPane.showInputDialog("Introduzca el CIF de la farmacia a eliminar");
+								try {
+									BBDDFarmacias.getInstance().eliminarFarmacia(cif);
+									javax.swing.JOptionPane.showMessageDialog(windowAdministrador, "La farmacia se ha eliminado con éxito");
+									windowAdministrador.setVisible(false);
+								} catch (SQLException e1) {
+									javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+								}
+							} else {
+								JOptionPane.showMessageDialog(passwordFrame,
+										"Contraseña incorrecta", "Error",
+										JOptionPane.ERROR_MESSAGE);
+							}
+						}
+					});
+					JPanel jplContentPane = new JPanel(new BorderLayout());
+					jplContentPane.setBorder(BorderFactory.createEmptyBorder(20, 20,
+							20, 20));
+					jplContentPane.add(jlbPassword, BorderLayout.WEST);
+					jplContentPane.add(jpwName, BorderLayout.CENTER);
+					passwordFrame.setContentPane(jplContentPane);
+					passwordFrame.pack();
+					passwordFrame.setVisible(true);
+				}
+			});
+		
+		contentPane.add(btnEliminarFarmacia);
+		
+		
+		
+		/*
+		 * -----------------------REGISTRAR MEDICO-----------------------------------
+		 */
+		JButton btnRegistrarMdico = new JButton("Registrar medico");
+		btnRegistrarMdico.setBackground(SystemColor.activeCaption);
+		btnRegistrarMdico.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnRegistrarMdico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame passwordFrame = new JFrame("Contraseña");
+				passwordFrame.setBounds(100, 100, 584, 671);
+				JLabel jlbPassword = new JLabel("Introduzca la contraseña:  ");
+				JPasswordField jpwName = new JPasswordField(10);
+				jpwName.setEchoChar('*');
+				jpwName.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						JPasswordField input = (JPasswordField) e.getSource();
+						if (admin.checkPassword(String.valueOf(input.getPassword()))) {
+							passwordFrame.setVisible(false);
+							windowAdministrador.setVisible(false);
+							FormMedico formMedico = new FormMedico(null, windowAdministrador);
+							formMedico.setVisible(true);
+						} else {
+							JOptionPane.showMessageDialog(passwordFrame, "Contraseña incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
+						}
+					}
+				});
+				JPanel jplContentPane = new JPanel(new BorderLayout());
+				jplContentPane.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+				jplContentPane.add(jlbPassword, BorderLayout.WEST);
+				jplContentPane.add(jpwName, BorderLayout.CENTER);
+				passwordFrame.setContentPane(jplContentPane);
+				passwordFrame.pack();
+				passwordFrame.setVisible(true);
+			}
+		});
+		btnRegistrarMdico.setBounds(324, 415, 233, 34);
+		contentPane.add(btnRegistrarMdico);
+		
+		
 		
 		
 		/*
@@ -285,54 +334,6 @@ public class WindowAdministrador extends JFrame {
 		
 		contentPane.add(btnEditarMdico);
 		
-		
-		/*
-		 * -----------------------ELIMINAR FARMACIA-----------------------------------
-		 */
-		JButton btnEliminarFarmacia = new JButton("Eliminar farmacia");
-		btnEliminarFarmacia.setBackground(SystemColor.activeCaption);
-		btnEliminarFarmacia.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnEliminarFarmacia.setBounds(22, 505, 233, 34);
-		btnEliminarFarmacia.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-					JFrame passwordFrame = new JFrame("Contraseña");
-					passwordFrame.setBounds(100, 100, 584, 671);
-					JLabel jlbPassword = new JLabel("Introduzca la contraseña:  ");
-					JPasswordField jpwName = new JPasswordField(10);
-					jpwName.setEchoChar('*');
-					jpwName.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							JPasswordField input = (JPasswordField) e.getSource();
-							if (admin.checkPassword(String.valueOf(input.getPassword()))) {
-								passwordFrame.setVisible(false);
-								windowAdministrador.setVisible(false);
-								String cif = JOptionPane.showInputDialog("Introduzca el CIF de la farmacia a eliminar");
-								try {
-									BBDDFarmacias.getInstance().eliminarFarmacia(cif);
-									javax.swing.JOptionPane.showMessageDialog(windowAdministrador, "La farmacia se ha eliminado con éxito");
-									windowAdministrador.setVisible(false);
-								} catch (SQLException e1) {
-									javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-								}
-							} else {
-								JOptionPane.showMessageDialog(passwordFrame,
-										"Contraseña incorrecta", "Error",
-										JOptionPane.ERROR_MESSAGE);
-							}
-						}
-					});
-					JPanel jplContentPane = new JPanel(new BorderLayout());
-					jplContentPane.setBorder(BorderFactory.createEmptyBorder(20, 20,
-							20, 20));
-					jplContentPane.add(jlbPassword, BorderLayout.WEST);
-					jplContentPane.add(jpwName, BorderLayout.CENTER);
-					passwordFrame.setContentPane(jplContentPane);
-					passwordFrame.pack();
-					passwordFrame.setVisible(true);
-				}
-			});
-		
-		contentPane.add(btnEliminarFarmacia);
 		
 		
 		/*
