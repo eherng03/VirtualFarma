@@ -13,8 +13,10 @@ public class ListadoRecetas extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param windowPaciente 
+	 * @param string 
 	 */
-	public ListadoRecetas() {
+	public ListadoRecetas(String string, WindowPaciente windowPaciente) {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

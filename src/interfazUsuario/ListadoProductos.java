@@ -30,7 +30,7 @@ public class ListadoProductos extends JFrame {
 	DefaultListModel<Producto> modelo = new DefaultListModel();
 
 
-	private ListadoProductos(String cif) {
+	public ListadoProductos(String cif, JFrame ventanaAnterior) {
 		listaProductos = new JList<Producto>();
 		listaProductos.setModel(modelo);
 		

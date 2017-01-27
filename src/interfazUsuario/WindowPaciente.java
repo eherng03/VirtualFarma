@@ -35,6 +35,8 @@ public class WindowPaciente extends JFrame {
 	private JButton btnConsultarRecetas;
 	private Paciente paciente;
 	private IniciarSesion iniciarSesion;
+	private WindowPaciente windowPaciente;
+	private JButton btnAtrs;
 
 
 	/**
@@ -45,6 +47,7 @@ public class WindowPaciente extends JFrame {
 		
 		this.iniciarSesion = iniciarSesion;
 		this.paciente = paciente;
+		windowPaciente = this;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 584, 671);
@@ -68,16 +71,25 @@ public class WindowPaciente extends JFrame {
 		btnShowChemistry.setBackground(SystemColor.activeCaption);
 		btnShowChemistry.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				showWindowChemistryList();
+				ListadoFarmacias lista = new ListadoFarmacias(windowPaciente);
+				lista.setVisible(true);
+				windowPaciente.setVisible(false);
 			}
 		});
-		btnShowChemistry.setBounds(10, 449, 547, 34);
+		btnShowChemistry.setBounds(10, 475, 547, 48);
 		contentPane.add(btnShowChemistry);
 		
 		btnConsultarRecetas = new JButton("Consultar recetas");
+		btnConsultarRecetas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListadoRecetas lista = new ListadoRecetas(paciente.getDni(), windowPaciente);
+				lista.setVisible(true);
+				windowPaciente.setVisible(false);
+			}
+		});
 		btnConsultarRecetas.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnConsultarRecetas.setBackground(SystemColor.activeCaption);
-		btnConsultarRecetas.setBounds(10, 404, 547, 34);
+		btnConsultarRecetas.setBounds(10, 416, 547, 48);
 		contentPane.add(btnConsultarRecetas);
 		
 		JButton btnDarseDeBaja = new JButton("Darse de baja");
@@ -116,25 +128,33 @@ public class WindowPaciente extends JFrame {
 				passwordFrame.setVisible(true);
 			}
 		});
-		btnDarseDeBaja.setBounds(10, 494, 547, 34);
+		btnDarseDeBaja.setBounds(10, 534, 547, 48);
 		contentPane.add(btnDarseDeBaja);
 		
 		
 		JButton btnAyuda = new JButton("Ayuda");
+		btnAyuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//TODO ayuda
+			}
+		});
 		btnAyuda.setBackground(SystemColor.activeCaption);
 		btnAyuda.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnAyuda.setBounds(238, 608, 89, 23);
+		btnAyuda.setBounds(308, 593, 249, 38);
 		contentPane.add(btnAyuda);
+		
+		btnAtrs = new JButton("Atrás");
+		btnAtrs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				iniciarSesion.setVisible(true);
+				windowPaciente.setVisible(false);
+			}
+		});
+		btnAtrs.setBounds(10, 593, 249, 38);
+		contentPane.add(btnAtrs);
 		
 		
 	}
 	
-	protected void showWindowChemistryList() {
-		// TODO Auto-generated method stub
-		
-	}
 
-	public void darDeBaja(){
-		
-	}
 }

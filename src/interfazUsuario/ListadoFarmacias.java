@@ -34,51 +34,41 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 import java.awt.SystemColor;
 import java.sql.SQLException;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 
 public class ListadoFarmacias extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private ListadoFarmacias listadoFarmacias;
 
 	JList<Farmacia> listaFarmacias;
 	
 	DefaultListModel<Farmacia> modelo; 
-
-
+	
 	private JPanel contentPane;
-
 	private JPanel logoPanel;
-
 	private JPanel jPanel1;
-
 	private JLabel jLabel1;
-
 	private JTextField jTextFieldNombre;
-
 	private JLabel jLabel2;
-
 	private JTextField jTextFieldHorario;
-
 	private JTextField jTextFieldDireccion;
-
 	private JLabel jLabel3;
-
 	private JLabel jLabel4;
-
 	private JTextField jTextFieldTelefono;
-
 	private JButton jButtonProductos;
 	private JButton btnAyuda;
+	private JButton btnAtrs;
+	
+	private String cifFarmaciaVisualizada;
 	
 
-    public ListadoFarmacias() {
+    public ListadoFarmacias(WindowPaciente windowPaciente) {
+    	listadoFarmacias = this;
     	setResizable(false);
-        initComponents(); 
-    }
-
-    public void initComponents() {
-    	
     	  
     	listaFarmacias = new JList<>();
     	
@@ -135,7 +125,7 @@ public class ListadoFarmacias extends JFrame {
         jLabel2 = new JLabel();
         jLabel2.setBackground(Color.WHITE);
         jLabel2.setFont(new Font("Arial", Font.PLAIN, 12));
-        jLabel2.setBounds(13, 59, 45, 19);
+        jLabel2.setBounds(13, 42, 45, 19);
         jLabel2.setText("Horario");
         jLabel2.setBorder(null);
         jPanel1.add(jLabel2);
@@ -144,13 +134,13 @@ public class ListadoFarmacias extends JFrame {
         jTextFieldHorario.setBackground(Color.WHITE);
         jTextFieldHorario.setEditable(false);
         jTextFieldHorario.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        jTextFieldHorario.setBounds(72, 58, 227, 21);
+        jTextFieldHorario.setBounds(72, 41, 227, 21);
         jPanel1.add(jTextFieldHorario);
         
         jLabel3 = new javax.swing.JLabel();
         jLabel3.setBackground(Color.WHITE);
         jLabel3.setFont(new Font("Arial", Font.PLAIN, 12));
-        jLabel3.setBounds(13, 106, 56, 19);
+        jLabel3.setBounds(13, 74, 56, 19);
         jLabel3.setText("Dirección");
         jLabel3.setBorder(null);
         jPanel1.add(jLabel3);
@@ -159,13 +149,13 @@ public class ListadoFarmacias extends JFrame {
         jTextFieldDireccion.setBackground(Color.WHITE);
         jTextFieldDireccion.setEditable(false);
         jTextFieldDireccion.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        jTextFieldDireccion.setBounds(72, 105, 227, 21);
+        jTextFieldDireccion.setBounds(72, 73, 227, 21);
         jPanel1.add(jTextFieldDireccion);
         
         jLabel4 = new javax.swing.JLabel();
         jLabel4.setBackground(Color.WHITE);
         jLabel4.setFont(new Font("Arial", Font.PLAIN, 12));
-        jLabel4.setBounds(13, 152, 52, 19);
+        jLabel4.setBounds(13, 105, 52, 19);
         jLabel4.setText("Telefono");
         jLabel4.setBorder(null);
         jPanel1.add(jLabel4);
@@ -175,13 +165,13 @@ public class ListadoFarmacias extends JFrame {
         jTextFieldTelefono.setBackground(Color.WHITE);
         jTextFieldTelefono.setEditable(false);
         jTextFieldTelefono.setFont(new Font("Arial", Font.PLAIN, 12));
-        jTextFieldTelefono.setBounds(72, 151, 227, 21);
+        jTextFieldTelefono.setBounds(72, 104, 227, 21);
         jPanel1.add(jTextFieldTelefono);
         
         jButtonProductos = new JButton();
         jButtonProductos.setBackground(SystemColor.activeCaption);
         jButtonProductos.setFont(new Font("Arial", Font.PLAIN, 12));
-        jButtonProductos.setBounds(86, 193, 213, 23);
+        jButtonProductos.setBounds(10, 135, 289, 23);
 
      
         
@@ -189,7 +179,12 @@ public class ListadoFarmacias extends JFrame {
         jButtonProductos.setText("Ver los productos de la farmacia");
         jButtonProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                //TODO abre lista de productos con el cif, primero comprobar si hay farmacia seleccionada
+                if(cifFarmaciaVisualizada != null){
+                	ListadoProductos lista = new ListadoProductos(cifFarmaciaVisualizada, listadoFarmacias);
+                	lista.setVisible(true);
+                	listadoFarmacias.setVisible(false);
+                }
+            	//TODO abre lista de productos con el cif, primero comprobar si hay farmacia seleccionada
             	
             }
         });
@@ -199,8 +194,23 @@ public class ListadoFarmacias extends JFrame {
         contentPane.add(jPanel1);
         
         btnAyuda = new JButton("Ayuda");
-        btnAyuda.setBounds(10, 194, 66, 23);
+        btnAyuda.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		//TODO ayuda
+        	}
+        });
+        btnAyuda.setBounds(10, 169, 125, 36);
         jPanel1.add(btnAyuda);
+        
+        btnAtrs = new JButton("Atrás");
+        btnAtrs.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		listadoFarmacias.setVisible(false);
+        		windowPaciente.setVisible(true);
+        	}
+        });
+        btnAtrs.setBounds(174, 169, 125, 36);
+        jPanel1.add(btnAtrs);
         
         listaFarmacias.setBounds(329, 404, 228, 227);
         contentPane.add(listaFarmacias);
@@ -210,11 +220,7 @@ public class ListadoFarmacias extends JFrame {
             	jListPersonasMouseReleased(evt);
             }
         });
-
-        
-
-       
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
 
     private void jListPersonasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListPersonasMouseReleased
@@ -232,6 +238,7 @@ public class ListadoFarmacias extends JFrame {
         jTextFieldHorario.setText(farmacia.getHorario());
         jTextFieldDireccion.setText(farmacia.getDireccion());
         jTextFieldTelefono.setText(farmacia.getTelefono());
+        cifFarmaciaVisualizada = farmacia.getCIF();
     }
 
 /*

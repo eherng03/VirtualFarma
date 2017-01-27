@@ -24,8 +24,9 @@ public class WindowVenta extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param windowFarmacia 
 	 */
-	public WindowVenta() {
+	public WindowVenta(WindowFarmacia windowFarmacia) {
 		setTitle("Bienvenido");
 		setBackground(new Color(255, 255, 255));
 		setFont(new Font("Consolas", Font.PLAIN, 13));
@@ -86,4 +87,5 @@ public class WindowVenta extends JFrame {
 		btnEliminarProducto.setBounds(403, 432, 144, 28);
 		contentPane.add(btnEliminarProducto);
 	}
+
 }

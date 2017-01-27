@@ -392,6 +392,7 @@ public class WindowAdministrador extends JFrame {
 		JButton btnCrearCopiaDe = new JButton("Crear copia de seguridad del sistema");
 		btnCrearCopiaDe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//TODO php backup
 			}
 		});
 		btnCrearCopiaDe.setBackground(SystemColor.activeCaption);
@@ -406,6 +407,7 @@ public class WindowAdministrador extends JFrame {
 		JButton btnAyuda = new JButton("Ayuda");
 		btnAyuda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//TODO ayuda
 			}
 		});
 		btnAyuda.setBackground(SystemColor.activeCaption);

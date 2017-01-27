@@ -92,16 +92,16 @@ public class FormMedico extends JFrame {
 		textNombre.setColumns(10);
 		
 		JButton btnAyuda = new JButton("Ayuda");
+		btnAyuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//TODO ayuda
+			}
+		});
 		btnAyuda.setBackground(SystemColor.activeCaption);
 		btnAyuda.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnAyuda.setBounds(446, 564, 89, 23);
 		contentPane.add(btnAyuda);
 		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBackground(SystemColor.activeCaption);
-		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnCancelar.setBounds(446, 468, 89, 23);
-		contentPane.add(btnCancelar);
 		
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
@@ -134,7 +134,7 @@ public class FormMedico extends JFrame {
 		});
 		button.setFont(new Font("Arial", Font.PLAIN, 12));
 		button.setBackground(SystemColor.activeCaption);
-		button.setBounds(446, 515, 89, 23);
+		button.setBounds(446, 495, 89, 23);
 		contentPane.add(button);
 		
 		

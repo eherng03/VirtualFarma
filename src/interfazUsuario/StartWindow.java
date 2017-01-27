@@ -69,7 +69,8 @@ public class StartWindow extends JFrame {
     	try {
 			db = BBDD.getInstance().makeBBDD();
 		} catch (ClassNotFoundException | SQLException e1) {
-			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", 
+					"ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 		}
 		setTitle("Bienvenido");
 		setBackground(new Color(255, 255, 255));
@@ -200,7 +201,7 @@ public class StartWindow extends JFrame {
 	}
 
 	protected void abrirAyuda() {
-		
+		//TODO ayuda
 		
 	}
 
