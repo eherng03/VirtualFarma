@@ -28,8 +28,10 @@ public class BBDDFarmacias {
 
 	
 	private static Connection conexion;
-	
 	private static BBDDFarmacias bbddFarmacias;
+	private BBDDFarmacias(){}
+	
+//####################################################################################	
 	
 	public static void init(Connection conexion2) {
 		conexion = conexion2;	
@@ -40,10 +42,9 @@ public class BBDDFarmacias {
 	 * @return
 	 */
 	public static BBDDFarmacias getInstance(){
-		if(bbddFarmacias != null){
-			return bbddFarmacias;
+		if(bbddFarmacias == null){
+			bbddFarmacias = new BBDDFarmacias();
 		}
-		bbddFarmacias = new BBDDFarmacias();
 		return bbddFarmacias;
 	}
 	

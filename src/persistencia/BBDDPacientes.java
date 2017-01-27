@@ -23,20 +23,23 @@ public class BBDDPacientes {
 	
 	private static Connection conexion;
 	private static BBDDPacientes bbddPacientes;
+	private BBDDPacientes(){}
+	
+//####################################################################################	
 	 
 	public static void init(Connection conexion2) {
 		conexion = conexion2;
 	}
+	
 	
 	/**
 	 * Devuelve la unica instancia de la clase, ya que es un singleton
 	 * @return
 	 */
 	public static BBDDPacientes getInstance(){
-		if(bbddPacientes != null){
-			return bbddPacientes;
+		if(bbddPacientes == null){
+			bbddPacientes = new BBDDPacientes();
 		}
-		bbddPacientes = new BBDDPacientes();
 		return bbddPacientes;
 	}
 

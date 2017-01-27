@@ -20,36 +20,29 @@ import com.mysql.jdbc.PreparedStatement;
  
 public class BBDD {
  
-    private static Connection conexion;
-    //private Statement statement = null;
-    //private PreparedStatement preparedStatement = null;
-    //private ResultSet resultSet = null;
+    private Connection conexion;
     private static BBDD database;
- 
-    public static BBDD makeBBDD() {
-    	if(database != null){
-    		return database;
-    	}else{
+    private BBDD(){}
+    
+  //####################################################################################	
+    
+    public static BBDD getInstance(){
+    	if(database == null){
     		database = new BBDD();
-    		
-	        try {
-	        	Class.forName("com.mysql.jdbc.Driver");
-	            conexion = DriverManager.getConnection("jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11154818", "sql11154818", "VI5cXvvBIk");
-	           // System.out.println("Se ha iniciado la conexión con el servidor de forma exitosa");
-	            BBDDPacientes.init(conexion);
-	            BBDDFarmacias.init(conexion);
-	            
-	        } catch (ClassNotFoundException ex) {
-	            Logger.getLogger(BBDD.class.getName()).log(Level.SEVERE, null, ex);
-	            
-	        } catch (SQLException ex) {
-	            Logger.getLogger(BBDD.class.getName()).log(Level.SEVERE, null, ex);
-	            
-	        }
+    	}
+    	return database;
+    }
+    
+    public BBDD makeBBDD() throws ClassNotFoundException, SQLException {
+
+        	Class.forName("com.mysql.jdbc.Driver");
+            conexion = DriverManager.getConnection("jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11155835", "sql11155835", "pfskdzCq1m");
+           // System.out.println("Se ha iniciado la conexión con el servidor de forma exitosa");
+            BBDDPacientes.init(conexion);
+            BBDDFarmacias.init(conexion);  
 	        
 	        database.conexion = conexion;
-			return database;
-    	}
+    	return database;
     }
  
     public void closeConnection() {

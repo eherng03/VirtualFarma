@@ -16,6 +16,9 @@ public class BBDDMedicos {
 
 	private static Connection conexion;
 	private static BBDDMedicos bbddMedicos;
+	private BBDDMedicos(){}
+	
+//####################################################################################
 	
 	public static void init(Connection conexion2) {
 		conexion = conexion2;	
@@ -26,10 +29,9 @@ public class BBDDMedicos {
 	 * @return
 	 */
 	public static BBDDMedicos getInstance(){
-		if(bbddMedicos != null){
-			return bbddMedicos;
+		if(bbddMedicos == null){
+			bbddMedicos = new BBDDMedicos();
 		}
-		bbddMedicos = new BBDDMedicos();
 		return bbddMedicos;
 	}
 
