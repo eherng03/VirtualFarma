@@ -5,6 +5,7 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
+import excepciones.AlreadyExistException;
 import excepciones.InvalidPasswordException;
 import logicaPrograma.Paciente;
 import logicaPrograma.Producto;
@@ -45,14 +46,15 @@ public class BBDDProductos {
 	 * @param precio
 	 * @param cuantia
 	 * @throws SQLException
+	 * @throws AlreadyExistException 
 	 */
-	public void introducirProducto(String cif, String nombre, String precio, String cuantia) throws SQLException{
+	public void introducirProducto(String cif, String nombre, String precio, String cuantia) throws SQLException, AlreadyExistException{
 		String QuerySelect = "SELECT * FROM Productos WHERE Nombre = '" + nombre + "'";
         Statement stSelect = conexion.createStatement();
         java.sql.ResultSet resultSet;
         resultSet = stSelect.executeQuery(QuerySelect);
         if(resultSet.next() == true){
-        	JOptionPane.showMessageDialog(null, "Los datos introducidos ya existen.");
+        	throw new AlreadyExistException();
         }else{
    	        String Query = "INSERT INTO Pacientes VALUES("
    	        			+ "\"" + cif + "\", "

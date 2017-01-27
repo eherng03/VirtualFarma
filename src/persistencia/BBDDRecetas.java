@@ -5,6 +5,7 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
+import excepciones.AlreadyExistException;
 import logicaPrograma.Receta;
 
 public class BBDDRecetas {
@@ -37,16 +38,17 @@ public class BBDDRecetas {
 	 * Introduce los datos de la receta en la bbdd
 	 * @param paciente
 	 * @throws SQLException 
+	 * @throws AlreadyExistException 
 	 */
 	public static void introducirReceta(String dniPaciente, String dniMedico, String nombreMedicamento, boolean crónica, String fecha,
-			int unidadesXToma, int frecuencia, String duracion, String instrucciones, int nEnvases) throws SQLException {
+			int unidadesXToma, int frecuencia, String duracion, String instrucciones, int nEnvases) throws SQLException, AlreadyExistException {
 		String QuerySelect = "SELECT * FROM Recetas WHERE DNI_Paciente = '" + dniPaciente + "' AND DNI_Medico = '" + dniMedico + "' AND Nombre = '" 
 			+ nombreMedicamento + "' AND Fecha = '" + fecha + "'";
         Statement stSelect = conexion.createStatement();
         java.sql.ResultSet resultSet;
         resultSet = stSelect.executeQuery(QuerySelect);
         if(resultSet.next() == true){
-        	JOptionPane.showMessageDialog(null, "Los datos introducidos ya existen.");
+        	throw new AlreadyExistException();
         }else{
    	        String Query = "INSERT INTO Recetas VALUES("
    	        			+ "\"" + dniPaciente + "\", "

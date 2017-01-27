@@ -5,6 +5,7 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
+import excepciones.AlreadyExistException;
 import excepciones.InvalidDNIException;
 import excepciones.InvalidNameException;
 import excepciones.InvalidPasswordException;
@@ -49,16 +50,17 @@ public class BBDDMedicos {
 	 * @param password
 	 * @throws InvalidPasswordException
 	 * @throws SQLException
+	 * @throws AlreadyExistException 
 	 */
 	public void introducirMedico(String nombre, String dni, String numeroSS, String direccion, String email,
-			String centroMedico, String password) throws InvalidPasswordException, SQLException {
+			String centroMedico, String password) throws InvalidPasswordException, SQLException, AlreadyExistException {
 
 		String QuerySelect = "SELECT * FROM Medicos WHERE DNI = '" + dni + "'";
         Statement stSelect = conexion.createStatement();
         java.sql.ResultSet resultSet;
         resultSet = stSelect.executeQuery(QuerySelect);
         if(resultSet.next() == true){
-        	 JOptionPane.showMessageDialog(null, "Los datos introducidos ya existen.");
+        	throw new AlreadyExistException();
         }else{
         	if(!Utils.getUtils().checkCadenaLetrasNumerosOEspacios(password)){
         		throw new InvalidPasswordException();

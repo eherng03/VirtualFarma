@@ -5,6 +5,7 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
+import excepciones.AlreadyExistException;
 import excepciones.InvalidCIFException;
 import excepciones.InvalidCuentaException;
 import excepciones.InvalidNameException;
@@ -57,15 +58,16 @@ public class BBDDFarmacias {
 	 * @param paciente
 	 * @throws SQLException 
 	 * @throws InvalidPasswordException 
+	 * @throws AlreadyExistException 
 	 */
-	public void introducirFarmacia(String cif, String nombre, String horario, String direccion, String numeroCuenta, String nombreDueno, String telefono, String email, String password) throws SQLException, InvalidPasswordException {
+	public void introducirFarmacia(String cif, String nombre, String horario, String direccion, String numeroCuenta, String nombreDueno, String telefono, String email, String password) throws SQLException, InvalidPasswordException, AlreadyExistException {
 		
 		String QuerySelect = "SELECT * FROM Farmacias WHERE CIF = '" + cif + "'";
         Statement stSelect = conexion.createStatement();
         java.sql.ResultSet resultSet;
         resultSet = stSelect.executeQuery(QuerySelect);
         if(resultSet.next() == true){
-        	 JOptionPane.showMessageDialog(null, "Los datos introducidos ya existen.");
+        	throw new AlreadyExistException();
         }else{
         	if(!Utils.getUtils().checkCadenaLetrasNumerosOEspacios(password)){
         		throw new InvalidPasswordException();

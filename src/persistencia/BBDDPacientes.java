@@ -5,6 +5,7 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
+import excepciones.AlreadyExistException;
 import excepciones.EmptyFieldException;
 import excepciones.InvalidDNIException;
 import excepciones.InvalidNameException;
@@ -54,15 +55,16 @@ public class BBDDPacientes {
 	 * @param password
 	 * @throws SQLException
 	 * @throws InvalidPasswordException
+	 * @throws AlreadyExistException 
 	 */
-	public static void introducirPaciente(String nombre, String DNI, String numeroSS, String password) throws SQLException, InvalidPasswordException {
+	public void introducirPaciente(String nombre, String DNI, String numeroSS, String password) throws SQLException, InvalidPasswordException, AlreadyExistException {
 		
 		String QuerySelect = "SELECT * FROM Pacientes WHERE DNI = '" + DNI + "'";
         Statement stSelect = conexion.createStatement();
         java.sql.ResultSet resultSet;
         resultSet = stSelect.executeQuery(QuerySelect);
         if(resultSet.next() == true){
-        	JOptionPane.showMessageDialog(null, "Los datos introducidos ya existen.");
+        	throw new AlreadyExistException();
         }else{
         	if(!Utils.getUtils().checkCadenaLetrasNumerosOEspacios(password)){
         		throw new InvalidPasswordException();
@@ -92,7 +94,7 @@ public class BBDDPacientes {
 	 * @throws EmptyFieldException 
 	 * @throws InvalidPasswordException 
 	 */
-	public static Paciente getPaciente(String user, String password) throws SQLException, InvalidPasswordException, EmptyFieldException, InvalidSSNumberException, InvalidDNIException, InvalidNameException {
+	public Paciente getPaciente(String user, String password) throws SQLException, InvalidPasswordException, EmptyFieldException, InvalidSSNumberException, InvalidDNIException, InvalidNameException {
 		String QuerySelect = "SELECT * FROM Pacientes WHERE DNI = '" + user + "' AND Password = '" + password + "'";
 		return devolverDatosPaciente(QuerySelect);
 	}
@@ -109,7 +111,7 @@ public class BBDDPacientes {
 	 * @throws InvalidDNIException
 	 * @throws InvalidNameException
 	 */
-	public static Paciente getPaciente(String dni) throws SQLException, InvalidPasswordException, EmptyFieldException, InvalidSSNumberException, InvalidDNIException, InvalidNameException {
+	public Paciente getPaciente(String dni) throws SQLException, InvalidPasswordException, EmptyFieldException, InvalidSSNumberException, InvalidDNIException, InvalidNameException {
 		String QuerySelect = "SELECT * FROM Pacientes WHERE DNI = '" + dni + "'";
 		return devolverDatosPaciente(QuerySelect);
 	}
@@ -123,7 +125,7 @@ public class BBDDPacientes {
 	 * @param DNI
 	 * @throws SQLException
 	 */
-	public static void eliminarPaciente(String DNI) throws SQLException {
+	public void eliminarPaciente(String DNI) throws SQLException {
 		String QuerySelect = "DELETE FROM Pacientes WHERE DNI = '" + DNI + "'";
         Statement stSelect;
 		stSelect = conexion.createStatement();
@@ -144,7 +146,7 @@ public class BBDDPacientes {
 	 * @throws InvalidDNIException
 	 * @throws InvalidNameException
 	 */
-	private static Paciente devolverDatosPaciente(String querySelect) throws SQLException, InvalidPasswordException, EmptyFieldException, InvalidSSNumberException, InvalidDNIException, InvalidNameException {
+	private Paciente devolverDatosPaciente(String querySelect) throws SQLException, InvalidPasswordException, EmptyFieldException, InvalidSSNumberException, InvalidDNIException, InvalidNameException {
 		Paciente paciente = null;
 		Statement stSelect = conexion.createStatement();
         java.sql.ResultSet resultSet;
