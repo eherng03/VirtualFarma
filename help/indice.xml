@@ -4,16 +4,18 @@ PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Index Version 1.0//EN"
 "http://java.sun.com/products/javahelp/index_1_0.dtd">
 <index version="1.0">
 	<indexitem text="Creación de una receta"  target="crear_receta"/>
-	<indexitem text="Crear usuario de farmacia" target="crear_farmacia"/>
-	<indexitem text="Crear usuario de paciente" target="crear_paciente"/>
-	<indexitem text="Crear usuario de médico" target="crear_medico"/>
+	<indexitem text="Crear usuario de  una farmacia" target="crear_farmacia"/>
+	<indexitem text="Crear usuario de un paciente" target="crear_paciente"/>
+	<indexitem text="Crear usuario de un médico" target="crear_medico"/>
 	<indexitem text="Editar un médico" target="editar_medico"/>
+	<indexitem text="Editar un producto" target="editar_producto"/>
 	<indexitem text="Editar una farmacia" target="editar_farmacia"/>
 	<indexitem text="Iniciar sesión" target="iniciar_sesion"/>
 	<indexitem text="Listado de farmacias" target="lista_farmacias"/>
 	<indexitem text="Listado de productos" target="lista_productos_farmacias"/>
-	<indexitem text="Listado de productos" target="lista_productos_pacientes"/>
-	<indexitem text="Listado de recetas" target="lista_recetas"/>
+	<indexitem text="Listado de productos disponibles para los pacientes" target="lista_productos_pacientes"/>
+	<indexitem text="Listado de mis recetas" target="lista_recetas_pacientes"/>
+	<indexitem text="Listado de recetas de un paciente" target="lista_recetas_farmacias"/>
 	<indexitem text="Venta de productos" target="venta"/>
 	<indexitem text="Ventana de inicio" target="ventana_inicio"/>
 	<indexitem text="Ventana de la farmacia" target="ventana_farmacia"/>

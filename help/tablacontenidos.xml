@@ -4,28 +4,34 @@
    		<tocitem text="Iniciar sesión" target="iniciar_sesion">
    			
    			<tocitem text="Ventana del administrador" target="ventana_admin">
-   				<tocitem text="Crear usuario de farmacia" target="crear_farmacia"/>
+   				<tocitem text="Crear usuario de una farmacia" target="crear_farmacia"/>
    				<tocitem text="Editar una farmacia" target="editar_farmacia"/>
-   				<tocitem text="Crear usuario de médico" target="crear_medico"/>
+   				<tocitem text="Crear usuario de un médico" target="crear_medico"/>
    				<tocitem text="Editar un médico" target="editar_medico"/>
    			</tocitem>
 
    			<tocitem text="Ventana del paciente" target="ventana_paciente">
-   				<tocitem text="Listado de recetas" target="lista_recetas"/>
+   				<tocitem text="Listado de mis recetas" target="lista_recetas_pacientes"/>
   				<tocitem text="Listado de farmacias" target="lista_farmacias">
-   					<tocitem text="Listado de productos" target="lista_productos_pacientes"/>
+   					<tocitem text="Listado de productos disponibles para los pacientes" target="lista_productos_pacientes"/>
    				</tocitem>
    			</tocitem>
 
    			<tocitem text="Ventana de la farmacia" target="ventana_farmacia">
-   				<tocitem text="Venta de productos" target="venta"/>
-   				<tocitem text="Listado de productos" target="lista_productos_farmacias"/>
+   				<tocitem text="Venta de productos" target="venta">
+                   <tocitem text="Listado de recetas de un paciente" target="lista_recetas_farmacias"/>
+               </tocitem>
+   				<tocitem text="Listado de productos" target="lista_productos_farmacias">
+                  <tocitem text="Editar un producto" target="editar_producto"/>
+               </tocitem>
    			</tocitem>
 
    			<tocitem text="Ventana del médico" target="ventana_medico">
    				<tocitem text="Creación de una receta"  target="crear_receta"/>
    			</tocitem>
    		</tocitem>
-   		<tocitem text="Crear usuario de paciente" target="crear_paciente"/>
+   		<tocitem text="Crear usuario de un paciente" target="crear_paciente"/>
    </tocitem>
 </toc>
+
+  
