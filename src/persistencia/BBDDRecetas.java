@@ -1,8 +1,10 @@
 package persistencia;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 import excepciones.AlreadyExistException;
@@ -28,10 +30,19 @@ public class BBDDRecetas {
 	}
 
 	//TODO
-	public static Receta[] getRecetas(String dni) {
-		//Todas las recetas
-		return null;
-		// TODO Auto-generated method stub
+	public DefaultListModel<Receta> getRecetas(String dni) throws SQLException, AlreadyExistException {
+		DefaultListModel<Receta> lista = new DefaultListModel<>();
+		String querySelect = "SELECT * FROM Recetas WHERE DNI = '" + dni + "'";
+		Statement stSelect = conexion.createStatement();
+        java.sql.ResultSet resultSet;
+        resultSet = stSelect.executeQuery(querySelect);
+        
+        while(resultSet.next()){
+        	lista.addElement(new Receta(resultSet.getString("DNI_Paciente"), resultSet.getString("DNI_Medico"), resultSet.getString("NombreMedicamento"), 
+        			resultSet.getBoolean("Cronica"), resultSet.getString("Fecha"), resultSet.getString("UnidadesToma"), resultSet.getString("Frecuencia") ,
+        			resultSet.getString("Duracion"), resultSet.getString("Instrucciones"), resultSet.getString("NumEnvases"),  false));
+        }
+        return lista;
 	}
 
 	/**
@@ -41,7 +52,7 @@ public class BBDDRecetas {
 	 * @throws AlreadyExistException 
 	 */
 	public void introducirReceta(String dniPaciente, String dniMedico, String nombreMedicamento, boolean crónica, String fecha,
-			int unidadesXToma, int frecuencia, String duracion, String instrucciones, int nEnvases) throws SQLException, AlreadyExistException {
+			String unidadesXToma, String frecuencia, String duracion, String instrucciones, String nEnvases) throws SQLException, AlreadyExistException {
 		String QuerySelect = "SELECT * FROM Recetas WHERE DNI_Paciente = '" + dniPaciente + "' AND DNI_Medico = '" + dniMedico + "' AND Nombre = '" 
 			+ nombreMedicamento + "' AND Fecha = '" + fecha + "'";
         Statement stSelect = conexion.createStatement();
@@ -54,7 +65,7 @@ public class BBDDRecetas {
    	        			+ "\"" + dniPaciente + "\", "
    	                    + "\"" + dniMedico + "\", "
    	                    + "\"" + nombreMedicamento + "\", "
-   	                    + "\"" + crónica + "\", "
+   	                    + "\'" + crónica + "\', "
    	                    + "\"" + fecha + "\", "
    	                    + "\"" + unidadesXToma + "\", "
    	                    + "\"" + frecuencia + "\", "
@@ -70,8 +81,13 @@ public class BBDDRecetas {
 	
 	//----------------------------------DELETE-------------------------------------------
 	
-	public static void eliminarReceta(Receta receta) {
-		// TODO Auto-generated method stub
+
+	public void eliminarReceta(String dniPaciente, String nombreMedicamento, String fecha) throws SQLException {
+		String QuerySelect = "DELETE FROM Recetas WHERE DNI_Paciente = '" + dniPaciente + "' AND NombreMedicamento = '" + nombreMedicamento 
+				+ "' AND Fecha = '" + fecha + "'";
+        Statement stSelect;
+		stSelect = conexion.createStatement();
+		stSelect.executeUpdate(QuerySelect);
 		
 	}
 

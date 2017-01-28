@@ -2,18 +2,16 @@ package persistencia;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
-
 import excepciones.AlreadyExistException;
-import excepciones.InvalidPasswordException;
-import logicaPrograma.Paciente;
 import logicaPrograma.Producto;
-import utils.Utils;
 
+/**
+ * Clase controladora de las tablas de productos
+ * @author Eva y Alba
+ *
+ */
 public class BBDDProductos {
 	
 	
@@ -111,8 +109,9 @@ public class BBDDProductos {
 	}
 	
 	
-	public void editarProducto(String cif, String nombre, String precio, String cuantia){
-		
+	public void editarProducto(Producto producto, String cif, String nombre, String precio, String cuantia) throws SQLException, AlreadyExistException{
+		eliminarProducto(cif, nombre);
+		introducirProducto(cif, nombre, precio, cuantia);
 	}
 	
 	
