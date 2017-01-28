@@ -9,7 +9,7 @@ import excepciones.InvalidNameException;
 import excepciones.InvalidPasswordException;
 import excepciones.InvalidTelefoneException;
 import persistencia.BBDDFarmacias;
-import utils.Utils;
+import utils.DataChecks;
 
 /**
  * Clase que implementa los metodos que puede realizar un usuario farmacia
@@ -65,24 +65,39 @@ public class Farmacia {
 		}
 	}
 
+	/**
+	 * Comprueba la estructura de los datos introducidos en la creacion de la farmacia
+	 * @param nombre
+	 * @param cif
+	 * @param cuenta
+	 * @param nombreDueno
+	 * @param telefono
+	 * @param password
+	 * @return
+	 * @throws InvalidNameException
+	 * @throws InvalidCIFException
+	 * @throws InvalidCuentaException
+	 * @throws InvalidTelefoneException
+	 * @throws InvalidPasswordException
+	 */
 	private boolean checkDatos(String nombre, String cif, String cuenta,
 			String nombreDueno, String telefono, String password) throws InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException, InvalidPasswordException {
-		if(!Utils.getUtils().checkCadenaLetrasNumerosOEspacios(nombre)){
+		if(!DataChecks.getInstance().checkCadenaLetrasNumerosOEspacios(nombre)){
 			throw new InvalidNameException();
 		}
-		if(!Utils.getUtils().checkCIF(cif)){
+		if(!DataChecks.getInstance().checkCIF(cif)){
 			throw new InvalidCIFException();
 		}
-		if(!Utils.getUtils().checkCuentaBancaria(cuenta)){
+		if(!DataChecks.getInstance().checkCuentaBancaria(cuenta)){
 			throw new InvalidCuentaException();
 		}
-		if(!Utils.getUtils().checkCadenaLetrasNumerosOEspacios(nombreDueno)){
+		if(!DataChecks.getInstance().checkCadenaLetrasNumerosOEspacios(nombreDueno)){
 			throw new InvalidNameException();
 		}
-		if(!Utils.getUtils().checkTelefono(telefono)){
+		if(!DataChecks.getInstance().checkTelefono(telefono)){
 			throw new InvalidTelefoneException();
 		}
-		if(!Utils.getUtils().checkCadenaLetrasNumerosOEspacios(password)){
+		if(!DataChecks.getInstance().checkCadenaLetrasNumerosOEspacios(password)){
 			throw new InvalidPasswordException();
 		}
 

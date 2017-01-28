@@ -11,8 +11,13 @@ import excepciones.InvalidNameException;
 import excepciones.InvalidPasswordException;
 import excepciones.InvalidSSNumberException;
 import logicaPrograma.Medico;
-import utils.Utils;
+import utils.DataChecks;
 
+/**
+ * Clase controladora de la tabla de médicos de la base de datos
+ * @author Eva y Alba
+ *
+ */
 public class BBDDMedicos {
 
 	private static Connection conexion;
@@ -62,7 +67,7 @@ public class BBDDMedicos {
         if(resultSet.next() == true){
         	throw new AlreadyExistException();
         }else{
-        	if(!Utils.getUtils().checkCadenaLetrasNumerosOEspacios(password)){
+        	if(!DataChecks.getInstance().checkCadenaLetrasNumerosOEspacios(password)){
         		throw new InvalidPasswordException();
         	}
    

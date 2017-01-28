@@ -34,9 +34,7 @@ public class WindowMedico extends JFrame {
 
 
 
-	/**
-	 * Create the frame.
-	 */
+
 	public WindowMedico(String dniMedico, IniciarSesion iniciarSesionX) {
 		windowMedico = this;
 		this.iniciarSesion = iniciarSesionX;

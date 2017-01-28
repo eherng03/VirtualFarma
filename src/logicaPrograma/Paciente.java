@@ -8,8 +8,14 @@ import excepciones.InvalidPasswordException;
 import excepciones.InvalidSSNumberException;
 import excepciones.InvalidNameException;
 import persistencia.BBDDPacientes;
-import utils.Utils;
+import utils.DataChecks;
 
+/**
+ * Clase controladora de todas las operaciones que hace el cliente a traves de la clase de interfaz grafica
+ * WindowPaciente.
+ * @author Eva y Alba
+ *
+ */
 public class Paciente {
 	
 	private String nombre;
@@ -37,19 +43,19 @@ public class Paciente {
 		if(nombre.equals("") || dni.equals("") || numeroSS.equals("") || password.equals("")){
 			throw new EmptyFieldException();
 		}
-		if(!Utils.getUtils().checkCadenaLetrasNumerosOEspacios(nombre)){
+		if(!DataChecks.getInstance().checkCadenaLetrasNumerosOEspacios(nombre)){
 			throw new InvalidNameException();
 		}
 		
-		if(!Utils.getUtils().checkDNI(dni)){
+		if(!DataChecks.getInstance().checkDNI(dni)){
 			throw new InvalidDNIException();
 		}
 		
-		if(!Utils.getUtils().checkNumeroSS(numeroSS)){
+		if(!DataChecks.getInstance().checkNumeroSS(numeroSS)){
 			throw new InvalidSSNumberException();
 		}
 		
-		if(!Utils.getUtils().checkCadenaLetrasNumerosOEspacios(password)){
+		if(!DataChecks.getInstance().checkCadenaLetrasNumerosOEspacios(password)){
 			throw new InvalidPasswordException();
 		}
 		

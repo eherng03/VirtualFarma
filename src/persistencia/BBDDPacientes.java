@@ -12,7 +12,7 @@ import excepciones.InvalidNameException;
 import excepciones.InvalidPasswordException;
 import excepciones.InvalidSSNumberException;
 import logicaPrograma.Paciente;
-import utils.Utils;
+import utils.DataChecks;
 
 
 /**
@@ -66,7 +66,7 @@ public class BBDDPacientes {
         if(resultSet.next() == true){
         	throw new AlreadyExistException();
         }else{
-        	if(!Utils.getUtils().checkCadenaLetrasNumerosOEspacios(password)){
+        	if(!DataChecks.getInstance().checkCadenaLetrasNumerosOEspacios(password)){
         		throw new InvalidPasswordException();
         	}
    	        String Query = "INSERT INTO Pacientes VALUES("

@@ -1,12 +1,12 @@
 package interfazUsuario;
 
-
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
-
+import java.awt.Font;
+import java.awt.SystemColor;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -36,14 +36,12 @@ import logicaPrograma.Paciente;
 import persistencia.BBDDFarmacias;
 import persistencia.BBDDMedicos;
 import persistencia.BBDDPacientes;
-import java.awt.Font;
-import java.awt.SystemColor;
 
 
 
 /**
- * Ventana que pide usuario y contraseña
- * @author Eva y alba
+ * Ventana que pide usuario y contraseña, y da paso a la ventana de usuario
+ * @author Eva y Alba
  *
  */
 public class IniciarSesion extends JFrame {
@@ -62,7 +60,8 @@ public class IniciarSesion extends JFrame {
 
 
 	/**
-	 * Create the frame.
+	 * Constructor de la ventana, inicia sesion con cualquier usuario
+	 * @param rol
 	 */
 	public IniciarSesion(String rol) {
 		setResizable(false);
@@ -214,7 +213,7 @@ public class IniciarSesion extends JFrame {
 					throw new InvalidUserOrPasswordException();
 				}
 				break;
-			case "Medico":
+			case "Médico":
 				Medico medico = BBDDMedicos.getInstance().getMedico(user, password);
 				if(medico.checkPassword(password)){
 					WindowMedico ventanaMedico = new WindowMedico(medico.getDNI(), this);

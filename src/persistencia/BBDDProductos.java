@@ -50,22 +50,26 @@ public class BBDDProductos {
 	 * @throws AlreadyExistException 
 	 */
 	public void introducirProducto(String cif, String nombre, String precio, String cuantia) throws SQLException, AlreadyExistException{
-		String QuerySelect = "SELECT * FROM Productos WHERE Nombre = '" + nombre + "'";
+		String QuerySelect = "SELECT * FROM Productos WHERE CIF_Farmacia = '" + cif + "' AND Nombre = '" + nombre + "'";
         Statement stSelect = conexion.createStatement();
         java.sql.ResultSet resultSet;
         resultSet = stSelect.executeQuery(QuerySelect);
+        //Si existe un producto con el mismo nombre actualiza la cantidad, y el precio es el nuevo
         if(resultSet.next() == true){
-        	throw new AlreadyExistException();
-        }else{
-   	        String Query = "INSERT INTO Productos VALUES("
-   	        			+ "\"" + cif + "\", "
-   	                    + "\"" + nombre + "\", "
-   	                    + "\"" + precio + "\", "
-   	                    + "\"" + cuantia + "\")";
-   	        Statement st = conexion.createStatement();
-   	        st.executeUpdate(Query);
-   	        JOptionPane.showMessageDialog(null, "Datos almacenados de forma exitosa.");
-        }	
+        	String cantidadAnterior = resultSet.getString("Cuantia");
+        	int cantidadSumada = Integer.parseInt(cantidadAnterior) + Integer.parseInt(cuantia);
+        	cuantia = Integer.toString(cantidadSumada);
+        }
+    
+        String Query = "INSERT INTO Productos VALUES("
+        			+ "\"" + cif + "\", "
+                    + "\"" + nombre + "\", "
+                    + "\"" + precio + "\", "
+                    + "\"" + cuantia + "\")";
+        Statement st = conexion.createStatement();
+        st.executeUpdate(Query);
+        JOptionPane.showMessageDialog(null, "Datos almacenados de forma exitosa.");
+        	
 	}
 	
 	//----------------------------------GET-------------------------------------------

@@ -8,8 +8,13 @@ import excepciones.InvalidNameException;
 import excepciones.InvalidPasswordException;
 import excepciones.InvalidSSNumberException;
 import persistencia.BBDDMedicos;
-import utils.Utils;
+import utils.DataChecks;
 
+/**
+ * Clase que engloba los datos del medico y los metodos que este puede ejecutar
+ * @author Eva y Alba
+ *
+ */
 public class Medico {
 	private String dni;
 	private String numeroSS;
@@ -34,19 +39,30 @@ public class Medico {
 		}
 	}
 
-	
+	/**
+	 * Comprueba la estructura de los datos del medico
+	 * @param nombre
+	 * @param dni
+	 * @param numeroSS
+	 * @param password
+	 * @return
+	 * @throws InvalidNameException
+	 * @throws InvalidDNIException
+	 * @throws InvalidSSNumberException
+	 * @throws InvalidPasswordException
+	 */
 	private boolean checkDatos(String nombre, String dni, String numeroSS, String password) throws InvalidNameException, InvalidDNIException, InvalidSSNumberException, InvalidPasswordException{
-		if(!Utils.getUtils().checkCadenaLetrasNumerosOEspacios(nombre)){
+		if(!DataChecks.getInstance().checkCadenaLetrasNumerosOEspacios(nombre)){
 			throw new InvalidNameException();
 		}
-		if(!Utils.getUtils().checkDNI(dni)){
+		if(!DataChecks.getInstance().checkDNI(dni)){
 			throw new InvalidDNIException();
 		}
 
-		if(!Utils.getUtils().checkNumeroSS(numeroSS)){
+		if(!DataChecks.getInstance().checkNumeroSS(numeroSS)){
 			throw new InvalidSSNumberException();
 		}
-		if(!Utils.getUtils().checkCadenaLetrasNumerosOEspacios(password)){
+		if(!DataChecks.getInstance().checkCadenaLetrasNumerosOEspacios(password)){
 			throw new InvalidPasswordException();
 		}
 		return true;
@@ -122,7 +138,11 @@ public class Medico {
 		this.password = password;
 	}
 
-
+	/**
+	 * Comprueba que la contraseña del médico sea la misma que la pasada como parámetro
+	 * @param password2
+	 * @return true o false
+	 */
 	public boolean checkPassword(String password2) {
 		return this.password.equals(password);
 	}

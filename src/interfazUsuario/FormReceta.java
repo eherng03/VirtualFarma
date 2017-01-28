@@ -78,7 +78,11 @@ public class FormReceta extends JFrame {
 			//TODO test
 			public void actionPerformed(ActionEvent e) {
 				try {
-					BBDDRecetas.getInstance().introducirReceta(textFieldDNIPaciente.getText(), dniMedico, textFieldNombreMedicamento.getText(), chckbxRecetaCrnica.isSelected(),
+					String cronica = "false";
+					if(chckbxRecetaCrnica.isSelected()){
+						cronica = "true";
+					}
+					BBDDRecetas.getInstance().introducirReceta(textFieldDNIPaciente.getText(), dniMedico, textFieldNombreMedicamento.getText(), cronica,
 							textFieldFecha.getText(), spinnerUnidades.getValue().toString(), spinnerFrecuencia.getValue().toString(), textFieldDuracion.getText(), 
 							textFieldInstrucciones.getText(), spinnerNEnvases.getValue().toString());
 				} catch (SQLException | AlreadyExistException e1) {

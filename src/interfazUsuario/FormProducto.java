@@ -1,12 +1,21 @@
 package interfazUsuario;
-import java.awt.BorderLayout;
+
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.SystemColor;
+import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.sql.SQLException;
+import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.help.HelpSetException;
+import javax.swing.JButton;
+
 
 import excepciones.AlreadyExistException;
 import images.ImagenVF;
@@ -14,18 +23,19 @@ import logicaPrograma.Helper;
 import logicaPrograma.Producto;
 import persistencia.BBDDProductos;
 
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JTextField;
-import javax.help.HelpSetException;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.net.MalformedURLException;
-import java.sql.SQLException;
-import java.awt.event.ActionEvent;
 
+
+/**
+ * Clase que contiene la ventana con el formulario para introducir productos en la base de datos
+ * @author Eva y Alba
+ *
+ */
 public class FormProducto extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPanel logoPanel;
 	private JFrame windowFarmacia;
@@ -94,6 +104,7 @@ public class FormProducto extends JFrame {
 		textFieldCantidad.setColumns(10);
 		
 		JButton btnIntroducir = new JButton("Introducir");
+		btnIntroducir.setBackground(SystemColor.activeCaption);
 		btnIntroducir.addActionListener(new ActionListener() {
 			//TODO test
 			public void actionPerformed(ActionEvent e) {
@@ -101,14 +112,20 @@ public class FormProducto extends JFrame {
 					try {
 						BBDDProductos.getInstance().introducirProducto(cifFarmacia, textFieldNombre.getText(), 
 								textFieldPrecio.getText(), textFieldCantidad.getText());
+						javax.swing.JOptionPane.showMessageDialog(null, "El producto ha sido introducido correctamente");
 					} catch (NumberFormatException |SQLException e1) {
 						javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 					} catch (AlreadyExistException e1) {
 						javax.swing.JOptionPane.showMessageDialog(null, e1.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-
 					}
 				}else{
-					//TODO editar producto
+					try {
+						BBDDProductos.getInstance().editarProducto(producto, cif, textFieldNombre.getText(), textFieldPrecio.getText(), textFieldCantidad.getText());
+					} catch (SQLException e1){
+						javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+					}catch(AlreadyExistException e1) {
+						javax.swing.JOptionPane.showMessageDialog(null, e1.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			}
 		});
@@ -118,6 +135,7 @@ public class FormProducto extends JFrame {
 		contentPane.add(btnIntroducir);
 		
 		JButton btnAyuda = new JButton("Ayuda");
+		btnAyuda.setBackground(SystemColor.activeCaption);
 		btnAyuda.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnAyuda.setBounds(294, 579, 263, 33);
 		contentPane.add(btnAyuda);
@@ -132,6 +150,7 @@ public class FormProducto extends JFrame {
 		}
 		
 		JButton btnAtrs = new JButton("Atrás");
+		btnAtrs.setBackground(SystemColor.activeCaption);
 		btnAtrs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				volverAtras();

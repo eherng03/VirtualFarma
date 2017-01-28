@@ -23,7 +23,11 @@ import images.ImagenVF;
 import logicaPrograma.Helper;
 import logicaPrograma.Paciente;
 
-
+/**
+ * Clase que contiene la ventana de las operaciones que puede realizar el paciente
+ * @author Eva y Alba
+ *
+ */
 public class WindowPaciente extends JFrame {
 	
 	private static final long serialVersionUID = 1L;

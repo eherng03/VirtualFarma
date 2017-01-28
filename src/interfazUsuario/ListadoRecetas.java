@@ -5,8 +5,10 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
 import java.sql.SQLException;
 
+import javax.help.HelpSetException;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,9 +22,15 @@ import javax.swing.border.LineBorder;
 
 import excepciones.AlreadyExistException;
 import images.ImagenVF;
+import logicaPrograma.Helper;
 import logicaPrograma.Receta;
 import persistencia.BBDDRecetas;
 
+/**
+ * Clase contenedora de la ventana con el listado de recetas de un determinado paciente.
+ * @author Eva
+ *
+ */
 public class ListadoRecetas extends JFrame {
 
 
@@ -49,6 +57,7 @@ public class ListadoRecetas extends JFrame {
 	
 	private Receta recetaSeleccionada;
 	private JButton btnVerDetallesDel;
+	private JLabel lblNombreYFecha;
 
 
 	/**
@@ -151,12 +160,17 @@ public class ListadoRecetas extends JFrame {
         btnAyuda = new JButton("Ayuda");
         btnAyuda.setBackground(SystemColor.activeCaption);
         btnAyuda.setFont(new Font("Arial", Font.PLAIN, 12));
-        btnAyuda.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		//TODO ayuda
-        	}
-        });
+       
         btnAyuda.setBounds(10, 202, 139, 36);
+        try {
+			if(desdeFarmacia){
+				Helper.getInstance().openHelp(btnAyuda, "lista_recetas_farmacias");
+			}else{
+				Helper.getInstance().openHelp(btnAyuda, "lista_recetas_pacientes");
+			}
+		} catch (MalformedURLException | HelpSetException e1) {
+			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error con el acceso a la\nayuda, disculpe las molestias.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+		}
         jPanel1.add(btnAyuda);
         
         btnAtrs = new JButton("Atrás");
@@ -177,6 +191,8 @@ public class ListadoRecetas extends JFrame {
         jPanel1.add(lblNumeroDeEnvases);
         
         textFieldNumEnvases = new JTextField();
+        textFieldNumEnvases.setBackground(Color.WHITE);
+        textFieldNumEnvases.setEditable(false);
         textFieldNumEnvases.setFont(new Font("Arial", Font.PLAIN, 12));
         textFieldNumEnvases.setBounds(160, 105, 139, 20);
         jPanel1.add(textFieldNumEnvases);
@@ -185,6 +201,7 @@ public class ListadoRecetas extends JFrame {
         if(desdeFarmacia){
         	btnEliminar = new JButton("Eliminar");
         	btnEliminar.setBounds(10, 130, 139, 36);
+        	btnEliminar.setBackground(SystemColor.activeCaption);
         	btnEliminar.addActionListener(new ActionListener() {
             	public void actionPerformed(ActionEvent e) {
             		try {
@@ -198,7 +215,7 @@ public class ListadoRecetas extends JFrame {
             
         }
         
-        listaRecetas.setBounds(329, 404, 239, 198);
+        listaRecetas.setBounds(329, 415, 239, 187);
         contentPane.add(listaRecetas);
         
         btnVerDetallesDel = new JButton("Detalles de la receta seleccionada");
@@ -211,6 +228,11 @@ public class ListadoRecetas extends JFrame {
         });
         btnVerDetallesDel.setBounds(329, 608, 239, 23);
         contentPane.add(btnVerDetallesDel);
+        
+        lblNombreYFecha = new JLabel("Nombre y fecha de la receta:");
+        lblNombreYFecha.setFont(new Font("Arial", Font.PLAIN, 12));
+        lblNombreYFecha.setBounds(329, 393, 228, 14);
+        contentPane.add(lblNombreYFecha);
 		
 	}
 	
@@ -231,6 +253,7 @@ public class ListadoRecetas extends JFrame {
 	     */
 	    private void rellenarDatosReceta(Receta receta) {
 			jTextFieldNombre.setText(receta.getNombreMedicamento());
+			textFieldNumEnvases.setText(receta.getnEnvases());
 			if(receta.isCrónica()){
 				jTextFieldCronica.setText("SI");
 			}else{

@@ -15,11 +15,13 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.SystemColor;
 
+/**
+ * Clase que contiene la ventana con las operaciones que puede realizar un usuario de tipo farmacia
+ * @author Eva y Alba
+ *
+ */
 public class WindowFarmacia extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPanel logoPanel;
@@ -27,9 +29,6 @@ public class WindowFarmacia extends JFrame {
 	private IniciarSesion iniciarSesion;
 
 
-	/**
-	 * Create the frame.
-	 */
 	public WindowFarmacia(String cif, IniciarSesion iniciarSesion) {
 		
 		windowFarmacia = this;

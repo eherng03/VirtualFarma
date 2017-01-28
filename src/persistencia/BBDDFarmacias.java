@@ -15,7 +15,7 @@ import excepciones.InvalidPasswordException;
 import excepciones.InvalidTelefoneException;
 import logicaPrograma.Farmacia;
 import logicaPrograma.Producto;
-import utils.Utils;
+import utils.DataChecks;
 
 
 /**
@@ -72,7 +72,7 @@ public class BBDDFarmacias {
         if(resultSet.next() == true){
         	throw new AlreadyExistException();
         }else{
-        	if(!Utils.getUtils().checkCadenaLetrasNumerosOEspacios(password)){
+        	if(!DataChecks.getInstance().checkCadenaLetrasNumerosOEspacios(password)){
         		throw new InvalidPasswordException();
         	}
    		

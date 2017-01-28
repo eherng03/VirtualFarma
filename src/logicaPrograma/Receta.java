@@ -5,11 +5,16 @@ import java.sql.SQLException;
 import excepciones.AlreadyExistException;
 import persistencia.BBDDRecetas;
 
+/**
+ * Clase que encapsula los objetso receta, con todos sus métodos.
+ * @author Eva y Alba
+ *
+ */
 public class Receta {
 	private String dniPaciente;
 	private String dniMedico;
 	private String nombreMedicamento;
-	private boolean crónica;
+	private String crónica;
 	private String fecha;			//Fecha desde la que se puede adquirir el producto
 	private String unidadesXToma;
 	private String frecuencia;		//en horas
@@ -18,7 +23,7 @@ public class Receta {
 	private String nEnvases;
 
 	
-	public Receta(String dniPacienteX, String dniMedicoX, String nombreMedicamento, boolean crónica, String fecha,
+	public Receta(String dniPacienteX, String dniMedicoX, String nombreMedicamento, String crónica, String fecha,
 			String unidadesXToma, String frecuencia, String duracion, String instrucciones, String nEnvases, boolean nuevo) throws SQLException, AlreadyExistException{
 		this.setDniPaciente(dniPacienteX);
 		this.dniMedico = dniMedicoX;
@@ -29,7 +34,7 @@ public class Receta {
 		this.frecuencia = frecuencia;
 		this.duracion = duracion;
 		this.instrucciones = instrucciones;
-		this.nEnvases = nEnvases;
+		this.setnEnvases(nEnvases);
 		if(nuevo){
 			BBDDRecetas.getInstance().introducirReceta(dniPaciente, dniMedico, nombreMedicamento, crónica, fecha, unidadesXToma, frecuencia, duracion, instrucciones, nEnvases);
 		}
@@ -68,12 +73,29 @@ public class Receta {
 
 
 	public boolean isCrónica() {
-		return crónica;
+		return crónica == "true";
 	}
 
 
-	public void setCrónica(boolean crónica) {
-		this.crónica = crónica;
+	public void setCrónica(String crónica2) {
+		this.crónica = crónica2;
+	}
+	
+	@Override
+	public String toString(){
+		return nombreMedicamento + ", " + fecha;
+	}
+
+
+
+	public String getnEnvases() {
+		return nEnvases;
+	}
+
+
+
+	public void setnEnvases(String nEnvases) {
+		this.nEnvases = nEnvases;
 	}
 
 	

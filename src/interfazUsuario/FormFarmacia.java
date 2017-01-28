@@ -1,8 +1,19 @@
 package interfazUsuario;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.EventQueue;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.SystemColor;
+import java.awt.Window;
+import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.sql.SQLException;
+import java.awt.event.ActionEvent;
+
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.help.HelpSetException;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -18,21 +29,15 @@ import logicaPrograma.Administrador;
 import logicaPrograma.Farmacia;
 import logicaPrograma.Helper;
 
-import javax.swing.JLabel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.help.HelpSetException;
-import javax.swing.JButton;
-import java.awt.Font;
-import java.awt.SystemColor;
-import java.awt.Window;
-import java.awt.event.ActionListener;
-import java.net.MalformedURLException;
-import java.sql.SQLException;
-import java.awt.event.ActionEvent;
+
+
 
 public class FormFarmacia extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPanel logoPanel;
 	private JPasswordField passwordField;
@@ -245,7 +250,7 @@ public class FormFarmacia extends JFrame {
 		try {
 			admin.crearFarmacia(textNombre.getText(), textCIF.getText(), textHorario.getText(), textDireccion.getText(), textCuentaBancaria.getText(),
 					textNombre.getText(), textTelefono.getText(), textEmail.getText(), String.valueOf(passwordField.getPassword()));
-			javax.swing.JOptionPane.showMessageDialog(this, "La cuenta ha sido creada con éxito");
+			javax.swing.JOptionPane.showMessageDialog(this, "La farmacia ha sido creada con éxito");
 			//Vuelve a la ventana anterior
 			formFarmacia.setVisible(false);
 			windowAdministrador.setVisible(true);

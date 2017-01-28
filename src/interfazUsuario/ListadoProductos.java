@@ -1,6 +1,7 @@
 package interfazUsuario;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.help.HelpSetException;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,10 +14,12 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import images.ImagenVF;
+import logicaPrograma.Helper;
 import logicaPrograma.Producto;
 import persistencia.BBDDProductos;
 
@@ -151,11 +154,17 @@ public class ListadoProductos extends JFrame {
         btnAyuda = new JButton("Ayuda");
         btnAyuda.setBackground(SystemColor.activeCaption);
         btnAyuda.setFont(new Font("Arial", Font.PLAIN, 12));
-        btnAyuda.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		//TODO ayuda
-        	}
-        });
+		try {
+			if(esFarmacia){
+				Helper.getInstance().openHelp(btnAyuda, "lista_productos_farmacias");
+			}else{
+				Helper.getInstance().openHelp(btnAyuda, "lista_productos_pacientes");
+			}
+		} catch (MalformedURLException | HelpSetException e1) {
+			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error con el acceso a la\nayuda, disculpe las molestias.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+		}
+			
+        
         btnAyuda.setBounds(10, 202, 139, 36);
         jPanel1.add(btnAyuda);
         

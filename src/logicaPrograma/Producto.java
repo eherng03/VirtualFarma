@@ -1,5 +1,10 @@
 package logicaPrograma;
 
+/**
+ * Clase que encapsula los datos y funciones de los objetos Producto
+ * @author Eva y Alba
+ *
+ */
 public class Producto {
 	private String nombre;
 	private double precio;
