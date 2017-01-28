@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='ISO-8859-1'?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE map
 PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Map Version 2.0//EN"
 "http://java.sun.com/products/javahelp/map_2_0.dtd">
@@ -21,5 +21,6 @@ PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Map Version 2.0//EN"
    <mapID target="venta" url="html/venta.html" />
    <mapID target="lista_productos_farmacias" url="html/listaProductosFarmacias.html" />
    <mapID target="crear_receta" url="html/crearReceta.html" />
+   <mapID target="crear_producto" url="html/crearProducto.html" />
    <mapID target="editar_producto" url="html/editarProducto.html" />
 </map>

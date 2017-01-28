@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <toc version="1.0">
    <tocitem text="Ventana de inicio" target="ventana_inicio">
    		<tocitem text="Iniciar sesión" target="iniciar_sesion">
@@ -24,6 +24,7 @@
    				<tocitem text="Listado de productos" target="lista_productos_farmacias">
                   <tocitem text="Editar un producto" target="editar_producto"/>
                </tocitem>
+                <tocitem text="Introducir un producto" target="crear_producto"/>
    			</tocitem>
 
    			<tocitem text="Ventana del médico" target="ventana_medico">

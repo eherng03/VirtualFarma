@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE index
 PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Index Version 1.0//EN"
 "http://java.sun.com/products/javahelp/index_1_0.dtd">
@@ -11,6 +11,7 @@ PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Index Version 1.0//EN"
 	<indexitem text="Editar un producto" target="editar_producto"/>
 	<indexitem text="Editar una farmacia" target="editar_farmacia"/>
 	<indexitem text="Iniciar sesión" target="iniciar_sesion"/>
+	<indexitem text="Introducir un producto" target="crear_producto"/>
 	<indexitem text="Listado de farmacias" target="lista_farmacias"/>
 	<indexitem text="Listado de productos" target="lista_productos_farmacias"/>
 	<indexitem text="Listado de productos disponibles para los pacientes" target="lista_productos_pacientes"/>
