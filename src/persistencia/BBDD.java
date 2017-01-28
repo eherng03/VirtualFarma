@@ -1,4 +1,9 @@
 package persistencia;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -6,7 +11,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.mysql.jdbc.PreparedStatement;
 
@@ -33,6 +41,12 @@ public class BBDD {
     	return database;
     }
     
+    /**
+     * Inicializa la conexion con la base de datos y todos los controladores de las distintas tablas
+     * @return
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
     public BBDD makeBBDD() throws ClassNotFoundException, SQLException {
 
         	Class.forName("com.mysql.jdbc.Driver");
@@ -48,6 +62,9 @@ public class BBDD {
     	return database;
     }
  
+    /**
+     * Cierra la conexion con la base de datos remota
+     */
     public void closeConnection() {
         try {
             conexion.close();
@@ -57,38 +74,30 @@ public class BBDD {
         }
     }
  
- 
-    /*
-    public void getValues(String table_name) {
-        try {
-            String Query = "SELECT * FROM " + table_name;
-            Statement st = conexion.createStatement();
-            java.sql.ResultSet resultSet;
-            resultSet = st.executeQuery(Query);
- 
-            while (resultSet.next()) {
-                System.out.println("ID: " + resultSet.getString("ID") + " "
-                        + "Nombre: " + resultSet.getString("Nombre") + " " + resultSet.getString("Apellido") + " "
-                        + "Edad: " + resultSet.getString("Edad") + " "
-                        + "Sexo: " + resultSet.getString("Sexo"));
-            }
- 
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error en la adquisición de datos");
-        }
-    }
- */
-    //Vale para todas
-    public void deleteRecord(String table_name, String ID) {
-        try {
-            String Query = "DELETE FROM " + table_name + " WHERE ID = \"" + ID + "\"";
-            Statement st = conexion.createStatement();
-            st.executeUpdate(Query);
- 
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            JOptionPane.showMessageDialog(null, "Error borrando el registro especificado");
-        }
-    }
- 
+
+    /**
+     * Crea una copiade seguridad local de la base de datos remota
+     * @throws SQLException
+     * @throws IOException 
+     */
+	public void copiaDeSeguridad() throws  IOException {
+	
+		Runtime runtime = Runtime.getRuntime();
+		String directorio = System.getProperty("user.dir");
+
+		Process child = runtime.exec(directorio + "\\mysqldump.exe -h sql11.freemysqlhosting.net --user=sql11155835 --password=pfskdzCq1m sql11155835");
+		//Crear y escribir el fichero
+
+		FileWriter writer = new FileWriter(directorio + "/backup/backup.sql");
+		InputStreamReader inputReader = new InputStreamReader(child.getInputStream());
+		BufferedReader bufferReader = new BufferedReader(inputReader);
+		String linea;
+		while( (linea = bufferReader.readLine()) != null ) {
+			writer.write(linea + "\n");
+		}
+		writer.close();
+		inputReader.close();
+		bufferReader.close();
+		JOptionPane.showMessageDialog(null, "El archivo se ha escrito correctamente.");
+	}
 }

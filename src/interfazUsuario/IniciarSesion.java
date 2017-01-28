@@ -1,7 +1,6 @@
 package interfazUsuario;
 
 
-import java.awt.EventQueue;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -11,6 +10,10 @@ import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.JButton;
 
 import excepciones.AlreadyExistException;
 import excepciones.EmptyFieldException;
@@ -22,6 +25,7 @@ import excepciones.InvalidPasswordException;
 import excepciones.InvalidSSNumberException;
 import excepciones.InvalidTelefoneException;
 import excepciones.InvalidUserOrPasswordException;
+import images.ImagenVF;
 import logicaPrograma.Administrador;
 import logicaPrograma.Farmacia;
 import logicaPrograma.Medico;
@@ -29,16 +33,14 @@ import logicaPrograma.Paciente;
 import persistencia.BBDDFarmacias;
 import persistencia.BBDDMedicos;
 import persistencia.BBDDPacientes;
+import java.awt.Font;
+import java.awt.SystemColor;
 
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.JButton;
+
 
 /**
  * Ventana que pide usuario y contraseña
- * @author Eva
- * @author Alba
+ * @author Eva y alba
  *
  */
 public class IniciarSesion extends JFrame {
@@ -46,6 +48,7 @@ public class IniciarSesion extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private StartWindow padre;
 	private JPanel contentPane;
+	private JPanel logoPanel;
 	private JTextField userField;
 	private JPasswordField passwordField;
 	private JButton btnAyuda;
@@ -61,56 +64,75 @@ public class IniciarSesion extends JFrame {
 	public IniciarSesion(String rol) {
 		setResizable(false);
 		
-		/*
-		 * INICIAR SESION
-		 */
 		setTitle("Iniciar sesión como " + rol);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 393, 266);
+		setBounds(100, 100, 584, 671);
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBackground(Color.WHITE);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		
+		/*
+		 * LOGO
+		 */
+		logoPanel = new ImagenVF(547, 382);
+		logoPanel.setBackground(Color.WHITE);
+		logoPanel.setBounds(10, 0, 547, 382);
+		contentPane.add(logoPanel);
+		
+		/*
+		 * INICIAR SESION
+		 */
+	
+		
 		userField = new JTextField();
-		userField.setBounds(136, 64, 189, 20);
+		userField.setFont(new Font("Arial", Font.PLAIN, 12));
+		userField.setBounds(242, 427, 189, 20);
 		contentPane.add(userField);
 		userField.setColumns(10);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(136, 95, 189, 20);
+		passwordField.setBounds(242, 458, 189, 20);
 		contentPane.add(passwordField);
 		
 		JLabel lblUsuario = new JLabel("Usuario:");
-		lblUsuario.setBounds(50, 67, 76, 14);
+		lblUsuario.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblUsuario.setBounds(156, 430, 76, 14);
 		contentPane.add(lblUsuario);
 		
 		JLabel lblContrasea = new JLabel("Contraseña:");
-		lblContrasea.setBounds(50, 98, 76, 14);
+		lblContrasea.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblContrasea.setBounds(156, 461, 76, 14);
 		contentPane.add(lblContrasea);
 		
 		JLabel lblIntroduzcaSuNombre = new JLabel("Introduzca su nombre de usuario y contraseña");
-		lblIntroduzcaSuNombre.setBounds(51, 33, 275, 20);
+		lblIntroduzcaSuNombre.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblIntroduzcaSuNombre.setBounds(10, 396, 275, 20);
 		contentPane.add(lblIntroduzcaSuNombre);
 		
 	/*
 	 * AYUDA
 	 */
 		btnAyuda = new JButton("Ayuda");
+		btnAyuda.setBackground(SystemColor.activeCaption);
+		btnAyuda.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnAyuda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//TODO ayuda
 				
 			}
 		});
-		btnAyuda.setBounds(147, 160, 84, 23);
+		btnAyuda.setBounds(346, 585, 198, 34);
 		contentPane.add(btnAyuda);
 		
 	/*
 	 * INICIAR SESION
 	 */
 		btnIniciarSes = new JButton("Iniciar sesión");
+		btnIniciarSes.setBackground(SystemColor.activeCaption);
+		btnIniciarSes.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnIniciarSes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
@@ -122,16 +144,18 @@ public class IniciarSesion extends JFrame {
 				}
 			}
 		});
-		btnIniciarSes.setBounds(196, 126, 129, 23);
+		btnIniciarSes.setBounds(156, 501, 275, 34);
 		contentPane.add(btnIniciarSes);
 		
-		JButton btnVolverAtrs = new JButton("Volver atrás");
+		JButton btnVolverAtrs = new JButton("Atrás");
+		btnVolverAtrs.setBackground(SystemColor.activeCaption);
+		btnVolverAtrs.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnVolverAtrs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				botonVolver();
 			}
 		});
-		btnVolverAtrs.setBounds(50, 126, 129, 23);
+		btnVolverAtrs.setBounds(34, 585, 198, 34);
 		contentPane.add(btnVolverAtrs);
 	}
 

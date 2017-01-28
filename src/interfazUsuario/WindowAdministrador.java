@@ -2,12 +2,23 @@ package interfazUsuario;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.SystemColor;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 import excepciones.AlreadyExistException;
 import excepciones.InvalidCIFException;
@@ -17,59 +28,43 @@ import excepciones.InvalidNameException;
 import excepciones.InvalidPasswordException;
 import excepciones.InvalidSSNumberException;
 import excepciones.InvalidTelefoneException;
+
 import images.ImagenVF;
 import logicaPrograma.Administrador;
 import logicaPrograma.Farmacia;
 import logicaPrograma.Medico;
-import persistencia.BBDD;
 import persistencia.BBDDFarmacias;
 import persistencia.BBDDMedicos;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.sql.SQLException;
-import java.awt.event.ActionEvent;
-import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
-import java.awt.Font;
-import java.awt.SystemColor;
 
+/**
+ * Ventana con las acciones que puede realizar el administrador al iniciar sesion
+ * Contendra los metodos para registrar, dar de baja y editar los datos de los medicos y las farmacias, 
+ * y hacer una copia de seguridad
+ * @author Eva y Alba
+ *
+ */
 public class WindowAdministrador extends JFrame {
 
-	/**
-	 * Ventana que se muestra al administrador del programa.
-	 * Contendra los metodos para registrar, dar de baja y editar los datos de los medicos y las farmacias, 
-	 * y hacer una copia de seguridad
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPanel logoPanel;
 	private Administrador admin;
 	private WindowAdministrador windowAdministrador;
+	private IniciarSesion iniciarSesion;
 	
 
 	/**
-	 * Create the frame.
+	 * Crea la ventana
 	 * @param iniciarSesion 
 	 */
 	public WindowAdministrador(IniciarSesion iniciarSesion) {
+		
 		iniciarSesion.setVisible(false);
+		this.iniciarSesion = iniciarSesion;
 		admin = Administrador.getAdmin();
 		windowAdministrador = this;
-		initializeWindow();
-
-	}
-
-
-	private void initializeWindow() {
-		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 584, 671);
@@ -97,7 +92,9 @@ public class WindowAdministrador extends JFrame {
 	}
 	
 
-
+	/**
+	 * Inicializa todos los botones
+	 */
 	private void initializeButtons() {
 		
 		/*
@@ -392,7 +389,11 @@ public class WindowAdministrador extends JFrame {
 		JButton btnCrearCopiaDe = new JButton("Crear copia de seguridad del sistema");
 		btnCrearCopiaDe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO php backup
+				try {
+					admin.crearCopiaDeSeguridad();
+				} catch (IOException e1) {
+					javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		btnCrearCopiaDe.setBackground(SystemColor.activeCaption);
@@ -412,14 +413,27 @@ public class WindowAdministrador extends JFrame {
 		});
 		btnAyuda.setBackground(SystemColor.activeCaption);
 		btnAyuda.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnAyuda.setBounds(238, 608, 89, 23);
+		btnAyuda.setBounds(303, 608, 254, 23);
 		contentPane.add(btnAyuda);
+		
+		JButton btnAtras = new JButton("Atrás");
+		btnAtras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				iniciarSesion.setVisible(true);
+				windowAdministrador.setVisible(false);
+			}
+		});
+		btnAtras.setBackground(SystemColor.activeCaption);
+		btnAtras.setBounds(22, 608, 254, 24);
+		contentPane.add(btnAtras);
 		
 		
 		
 	}
 
-
+	/**
+	 * Inicializa todas las etiquetas
+	 */
 	private void initializeLabels() {
 		
 		//-----------------------LABELS-----------------------------

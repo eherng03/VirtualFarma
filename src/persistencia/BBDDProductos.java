@@ -51,7 +51,7 @@ public class BBDDProductos {
 	 * @throws SQLException
 	 * @throws AlreadyExistException 
 	 */
-	public void introducirProducto(String cif, String nombre, double precio, int cuantia) throws SQLException, AlreadyExistException{
+	public void introducirProducto(String cif, String nombre, String precio, String cuantia) throws SQLException, AlreadyExistException{
 		String QuerySelect = "SELECT * FROM Productos WHERE Nombre = '" + nombre + "'";
         Statement stSelect = conexion.createStatement();
         java.sql.ResultSet resultSet;
@@ -59,11 +59,11 @@ public class BBDDProductos {
         if(resultSet.next() == true){
         	throw new AlreadyExistException();
         }else{
-   	        String Query = "INSERT INTO Pacientes VALUES("
+   	        String Query = "INSERT INTO Productos VALUES("
    	        			+ "\"" + cif + "\", "
    	                    + "\"" + nombre + "\", "
-   	                    +  precio + ", "
-   	                    + cuantia + ")";
+   	                    + "\"" + precio + "\", "
+   	                    + "\"" + cuantia + "\")";
    	        Statement st = conexion.createStatement();
    	        st.executeUpdate(Query);
    	        JOptionPane.showMessageDialog(null, "Datos almacenados de forma exitosa.");
@@ -105,9 +105,8 @@ public class BBDDProductos {
         resultSet = stSelect.executeQuery(querySelect);
         
         while(resultSet.next()){
-        	lista.addElement(new Producto(resultSet.getString("CIF_Farmacia"), resultSet.getString("Nombre"), resultSet.getDouble("Precio"), resultSet.getInt("Cuantia"), false));
+        	lista.addElement(new Producto(resultSet.getString("CIF_Farmacia"), resultSet.getString("Nombre"), Double.parseDouble(resultSet.getString("Precio")), Integer.parseInt(resultSet.getString("Cuantia")), false));
         }
-        
         return lista;
 	}
 	

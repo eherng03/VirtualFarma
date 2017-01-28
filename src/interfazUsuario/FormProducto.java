@@ -97,7 +97,7 @@ public class FormProducto extends JFrame {
 				if(producto == null){
 					try {
 						BBDDProductos.getInstance().introducirProducto(cifFarmacia, textFieldNombre.getText(), 
-								Double.parseDouble(textFieldPrecio.getText()), Integer.parseInt(textFieldCantidad.getText()));
+								textFieldPrecio.getText(), textFieldCantidad.getText());
 					} catch (NumberFormatException |SQLException e1) {
 						javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 					} catch (AlreadyExistException e1) {

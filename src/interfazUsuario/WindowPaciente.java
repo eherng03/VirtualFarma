@@ -43,10 +43,10 @@ public class WindowPaciente extends JFrame {
 	 * Create the frame.
 	 * @param iniciarSesion 
 	 */
-	public WindowPaciente(Paciente paciente, IniciarSesion iniciarSesion) {
+	public WindowPaciente(Paciente pacienteX, IniciarSesion iniciarSesion) {
 		
 		this.iniciarSesion = iniciarSesion;
-		this.paciente = paciente;
+		this.paciente = pacienteX;
 		windowPaciente = this;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -107,7 +107,12 @@ public class WindowPaciente extends JFrame {
 						JPasswordField input = (JPasswordField) e.getSource();
 						if (paciente.checkPassword(String.valueOf(input.getPassword()))) {
 							try {
+								passwordFrame.setVisible(false);
 								paciente.eliminar();
+								javax.swing.JOptionPane.showMessageDialog(windowPaciente, "La cuenta se ha eliminado con éxito");
+								//Vuelve a la ventana anterior, el paciente ya no tiene cuenta
+								iniciarSesion.setVisible(true);
+								windowPaciente.setVisible(false);
 							} catch (SQLException e1) {
 								javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 							}

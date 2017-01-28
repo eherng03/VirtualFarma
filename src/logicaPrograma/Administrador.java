@@ -1,5 +1,6 @@
 package logicaPrograma;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 import excepciones.AlreadyExistException;
@@ -11,6 +12,7 @@ import excepciones.InvalidPasswordException;
 import excepciones.InvalidSSNumberException;
 import excepciones.InvalidTelefoneException;
 import interfazUsuario.WindowAdministrador;
+import persistencia.BBDD;
 import persistencia.BBDDFarmacias;
 import persistencia.BBDDMedicos;
 
@@ -87,6 +89,11 @@ public class Administrador {
 
 	public boolean checkUser(String user) {
 		return user.equals(this.user);
+	}
+
+	public void crearCopiaDeSeguridad() throws  IOException {
+		BBDD.getInstance().copiaDeSeguridad();
+		
 	}
 	
 

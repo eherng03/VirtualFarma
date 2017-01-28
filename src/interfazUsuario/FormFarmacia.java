@@ -23,6 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.SystemColor;
+import java.awt.Window;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
@@ -42,6 +43,7 @@ public class FormFarmacia extends JFrame {
 	private JTextField textNombre;
 	private Administrador admin;
 	private FormFarmacia formFarmacia;
+	private Window windowAdministrador;
 
 
 
@@ -52,6 +54,7 @@ public class FormFarmacia extends JFrame {
 		formFarmacia = this;
 		
 		admin = Administrador.getAdmin();
+		this.windowAdministrador = windowAdministrador;
 		
 		setResizable(false);
 		
@@ -191,6 +194,10 @@ public class FormFarmacia extends JFrame {
 						admin.editarFarmacia(farmacia, textCIF.getText(), textNombre.getText(), textHorario.getText(),
 								textDireccion.getText(), textCuentaBancaria.getText(), textNombreDueno.getText(), 
 								textTelefono.getText(), textEmail.getText());
+						javax.swing.JOptionPane.showMessageDialog(null, "La cuenta ha sido editada con éxito");
+						//Vuelve a la ventana anterior
+						formFarmacia.setVisible(false);
+						windowAdministrador.setVisible(true);
 					} catch (SQLException e) {
 						javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 					} catch (InvalidPasswordException | AlreadyExistException e) {
@@ -226,6 +233,9 @@ public class FormFarmacia extends JFrame {
 			admin.crearFarmacia(textNombre.getText(), textCIF.getText(), textHorario.getText(), textDireccion.getText(), textCuentaBancaria.getText(),
 					textNombre.getText(), textTelefono.getText(), textEmail.getText(), String.valueOf(passwordField.getPassword()));
 			javax.swing.JOptionPane.showMessageDialog(this, "La cuenta ha sido creada con éxito");
+			//Vuelve a la ventana anterior
+			formFarmacia.setVisible(false);
+			windowAdministrador.setVisible(true);
 		} catch (InvalidNameException | InvalidCIFException | InvalidCuentaException | InvalidTelefoneException | InvalidPasswordException | AlreadyExistException e) {
 			javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 		} catch (SQLException e) {
