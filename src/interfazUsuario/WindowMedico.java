@@ -8,10 +8,14 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import images.ImagenVF;
+import logicaPrograma.Helper;
+
+import javax.help.HelpSetException;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
 import java.awt.event.ActionEvent;
 
 public class WindowMedico extends JFrame {
@@ -77,15 +81,15 @@ public class WindowMedico extends JFrame {
 		contentPane.add(btnAtrs);
 		
 		JButton btnAyuda = new JButton("Ayuda");
-		btnAyuda.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//TODO help
-			}
-		});
 		btnAyuda.setBackground(SystemColor.activeCaption);
 		btnAyuda.setFont(new Font("Arial", Font.PLAIN, 15));
 		btnAyuda.setBounds(295, 568, 262, 63);
 		contentPane.add(btnAyuda);
+		try {
+			Helper.getInstance().openHelp(btnAyuda, "ventana_medico");
+		} catch (MalformedURLException | HelpSetException e1) {
+			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error con el acceso a la\nayuda, disculpe las molestias.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+		}
 		
 	}
 }

@@ -19,12 +19,15 @@ import excepciones.InvalidPasswordException;
 import excepciones.InvalidTelefoneException;
 import images.ImagenVF;
 import logicaPrograma.Farmacia;
+import logicaPrograma.Helper;
 import logicaPrograma.Paciente;
 import persistencia.BBDDFarmacias;
 
+import javax.help.HelpSetException;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
@@ -138,15 +141,15 @@ public class WindowPaciente extends JFrame {
 		
 		
 		JButton btnAyuda = new JButton("Ayuda");
-		btnAyuda.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//TODO ayuda
-			}
-		});
 		btnAyuda.setBackground(SystemColor.activeCaption);
 		btnAyuda.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnAyuda.setBounds(308, 593, 249, 38);
 		contentPane.add(btnAyuda);
+		try {
+			Helper.getInstance().openHelp(btnAyuda, "ventana_paciente");
+		} catch (MalformedURLException | HelpSetException e1) {
+			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error con el acceso a la\nayuda, disculpe las molestias.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+		}
 		
 		btnAtrs = new JButton("Atrás");
 		btnAtrs.addActionListener(new ActionListener() {

@@ -16,15 +16,18 @@ import excepciones.InvalidTelefoneException;
 import images.ImagenVF;
 import logicaPrograma.Administrador;
 import logicaPrograma.Farmacia;
+import logicaPrograma.Helper;
 
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.help.HelpSetException;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.Window;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
@@ -179,6 +182,16 @@ public class FormFarmacia extends JFrame {
 		btnAyuda.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnAyuda.setBounds(446, 564, 89, 23);
 		contentPane.add(btnAyuda);
+		try {
+			if(farmacia == null){
+					Helper.getInstance().openHelp(btnAyuda, "crear_farmacia");
+			}else{
+					Helper.getInstance().openHelp(btnAyuda, "editar_farmacia");
+			}
+		} catch (MalformedURLException | HelpSetException e1) {
+			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error con el acceso a la\nayuda, disculpe las molestias.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+		}
+		
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBackground(SystemColor.activeCaption);

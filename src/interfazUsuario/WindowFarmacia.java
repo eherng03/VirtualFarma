@@ -5,8 +5,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import images.ImagenVF;
+import logicaPrograma.Helper;
+
+import javax.help.HelpSetException;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.SystemColor;
@@ -100,15 +104,15 @@ public class WindowFarmacia extends JFrame {
 		contentPane.add(btnEliminarPr);
 		
 		JButton btnAyuda = new JButton("Ayuda");
-		btnAyuda.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//TODO ayuda
-			}
-		});
 		btnAyuda.setBackground(SystemColor.activeCaption);
 		btnAyuda.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnAyuda.setBounds(288, 589, 269, 42);
 		contentPane.add(btnAyuda);
+		try {
+			Helper.getInstance().openHelp(btnAyuda, "ventana_farmacia");
+		} catch (MalformedURLException | HelpSetException e1) {
+			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error con el acceso a la\nayuda, disculpe las molestias.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+		}
 		
 		JButton btnAtrs = new JButton("Atrás");
 		btnAtrs.addActionListener(new ActionListener() {

@@ -3,6 +3,7 @@ package interfazUsuario;
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
@@ -13,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.help.HelpSetException;
 import javax.swing.JButton;
 
 import excepciones.AlreadyExistException;
@@ -28,6 +30,7 @@ import excepciones.InvalidUserOrPasswordException;
 import images.ImagenVF;
 import logicaPrograma.Administrador;
 import logicaPrograma.Farmacia;
+import logicaPrograma.Helper;
 import logicaPrograma.Medico;
 import logicaPrograma.Paciente;
 import persistencia.BBDDFarmacias;
@@ -118,14 +121,13 @@ public class IniciarSesion extends JFrame {
 		btnAyuda = new JButton("Ayuda");
 		btnAyuda.setBackground(SystemColor.activeCaption);
 		btnAyuda.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnAyuda.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				//TODO ayuda
-				
-			}
-		});
 		btnAyuda.setBounds(346, 585, 198, 34);
 		contentPane.add(btnAyuda);
+		try {
+			Helper.getInstance().openHelp(btnAyuda, "iniciar_sesion");
+		} catch (MalformedURLException | HelpSetException e1) {
+			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error con el acceso a la\nayuda, disculpe las molestias.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+		}
 		
 	/*
 	 * INICIAR SESION
@@ -139,7 +141,7 @@ public class IniciarSesion extends JFrame {
 					accionIniciarSesion(rol);
 				} catch (SQLException e) {
 					javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-				}catch(EmptyFieldException | InvalidUserOrPasswordException | InvalidPasswordException | InvalidSSNumberException | InvalidDNIException | InvalidNameException | InvalidCIFException | InvalidCuentaException | InvalidTelefoneException e){
+				}catch(AlreadyExistException | EmptyFieldException | InvalidUserOrPasswordException | InvalidPasswordException | InvalidSSNumberException | InvalidDNIException | InvalidNameException | InvalidCIFException | InvalidCuentaException | InvalidTelefoneException e){
 					javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -173,8 +175,9 @@ public class IniciarSesion extends JFrame {
 	 * @throws InvalidTelefoneException 
 	 * @throws InvalidCuentaException 
 	 * @throws InvalidCIFException 
+	 * @throws AlreadyExistException 
 	 */
-	private void accionIniciarSesion(String rol) throws EmptyFieldException, InvalidUserOrPasswordException, SQLException, InvalidPasswordException, InvalidSSNumberException, InvalidDNIException, InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException {
+	private void accionIniciarSesion(String rol) throws EmptyFieldException, InvalidUserOrPasswordException, SQLException, InvalidPasswordException, InvalidSSNumberException, InvalidDNIException, InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException, AlreadyExistException {
 		user = userField.getText();
 		password = String.valueOf(passwordField.getPassword());
 		
@@ -192,36 +195,33 @@ public class IniciarSesion extends JFrame {
 				}
 				break;
 			case "Paciente":
-			Paciente pac;
-			try {
-				pac = BBDDPacientes.getInstance().getPaciente(user, password);
-				WindowPaciente ventanaPac = new WindowPaciente(pac, this);
-				ventanaPac.setVisible(true);
-				this.setVisible(false);
+			Paciente paciente = BBDDPacientes.getInstance().getPaciente(user, password);
+				if(paciente.checkPassword(password)){
+					WindowPaciente ventanaPac = new WindowPaciente(paciente, this);
+					ventanaPac.setVisible(true);
+					this.setVisible(false);
+				}else{
+					throw new InvalidUserOrPasswordException();
+				}
 				break;
-			} catch (AlreadyExistException e) {
-				javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-			}
 			case "Farmacia":
-			try {
-				Farmacia f1 = BBDDFarmacias.getInstance().getFarmacia(user, password);
-				WindowFarmacia ventanaFarmacia = new WindowFarmacia(f1.getCIF(), this);
-				ventanaFarmacia.setVisible(true);
-				this.setVisible(false);
+				Farmacia farmacia = BBDDFarmacias.getInstance().getFarmacia(user, password);
+				if(farmacia.checkPassword(password)){
+					WindowFarmacia ventanaFarmacia = new WindowFarmacia(farmacia.getCIF(), this);
+					ventanaFarmacia.setVisible(true);
+					this.setVisible(false);
+				}else{
+					throw new InvalidUserOrPasswordException();
+				}
 				break;
-			} catch (AlreadyExistException e) {
-				javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-			}
 			case "Medico":
-			try {
-				Medico m1 = BBDDMedicos.getInstance().getMedico(user, password);
-				WindowMedico ventanaMedico = new WindowMedico(m1.getDNI(), this);
-				ventanaMedico.setVisible(true);
-				this.setVisible(false);
+				Medico medico = BBDDMedicos.getInstance().getMedico(user, password);
+				if(medico.checkPassword(password)){
+					WindowMedico ventanaMedico = new WindowMedico(medico.getDNI(), this);
+					ventanaMedico.setVisible(true);
+					this.setVisible(false);
+				}
 				break;
-			} catch (AlreadyExistException e) {
-				javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-			}
 		}
 		
 	}

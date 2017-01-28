@@ -122,4 +122,9 @@ public class Medico {
 		this.password = password;
 	}
 
+
+	public boolean checkPassword(String password2) {
+		return this.password.equals(password);
+	}
+
 }

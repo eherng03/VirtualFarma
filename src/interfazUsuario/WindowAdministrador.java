@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
@@ -13,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
+import javax.help.HelpSetException;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -32,6 +34,7 @@ import excepciones.InvalidTelefoneException;
 import images.ImagenVF;
 import logicaPrograma.Administrador;
 import logicaPrograma.Farmacia;
+import logicaPrograma.Helper;
 import logicaPrograma.Medico;
 import persistencia.BBDDFarmacias;
 import persistencia.BBDDMedicos;
@@ -406,15 +409,15 @@ public class WindowAdministrador extends JFrame {
 		 * ------------------------------AYUDA-----------------------------------------
 		 */
 		JButton btnAyuda = new JButton("Ayuda");
-		btnAyuda.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//TODO ayuda
-			}
-		});
 		btnAyuda.setBackground(SystemColor.activeCaption);
 		btnAyuda.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnAyuda.setBounds(303, 608, 254, 23);
 		contentPane.add(btnAyuda);
+		try {
+			Helper.getInstance().openHelp(btnAyuda, "ventana_admin");
+		} catch (MalformedURLException | HelpSetException e1) {
+			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error con el acceso a la\nayuda, disculpe las molestias.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+		}
 		
 		JButton btnAtras = new JButton("Atrás");
 		btnAtras.addActionListener(new ActionListener() {

@@ -6,8 +6,10 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
 import java.sql.SQLException;
 
+import javax.help.HelpSetException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 
 import excepciones.AlreadyExistException;
 import images.ImagenVF;
+import logicaPrograma.Helper;
 import persistencia.BBDDProductos;
 import persistencia.BBDDRecetas;
 
@@ -89,14 +92,14 @@ public class FormReceta extends JFrame {
 		contentPane.add(btnIntroducir);
 		
 		JButton btnAyuda = new JButton("Ayuda");
-		btnAyuda.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//TODO ayuda
-			}
-		});
 		btnAyuda.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnAyuda.setBounds(294, 598, 263, 33);
 		contentPane.add(btnAyuda);
+		try {
+			Helper.getInstance().openHelp(btnAyuda, "crear_receta");
+		} catch (MalformedURLException | HelpSetException e1) {
+			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error con el acceso a la\nayuda, disculpe las molestias.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+		}
 		
 		JButton btnAtrs = new JButton("Atrás");
 		btnAtrs.addActionListener(new ActionListener() {

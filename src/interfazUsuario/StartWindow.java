@@ -103,25 +103,17 @@ public class StartWindow extends JFrame {
 		btnAyuda.setText("Ayuda");
 		btnAyuda.setBounds(244, 604, 88, 23);
 		btnInitAdmin.setVisible(true);
-		
+		contentPane.add(btnAyuda);
 		try {
 			Helper.getInstance().openHelp(btnAyuda, "ventana_inicio");
-		} catch (MalformedURLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (HelpSetException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		/*} catch (MalformedURLException | HelpSetException e1) {
+		} catch (MalformedURLException | HelpSetException e1) {
 			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error con el acceso a la\nayuda, disculpe las molestias.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-		}*/
-		contentPane.add(btnAyuda);
+		}
 		
 	/*
 	 * ADMIN
 	 */
-		btnInitAdmin.setText("Iniciar sesión como administrador.");
+		btnInitAdmin.setText("Iniciar sesión como administrador");
 		btnInitAdmin.setForeground(new Color(128, 0, 0));
 		btnInitAdmin.setBackground(SystemColor.activeCaption);
 		btnInitAdmin.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -137,7 +129,7 @@ public class StartWindow extends JFrame {
 	/*
 	 * FARMACIA
 	 */
-		btnInitFarmacia.setText("Iniciar sesión como farmacia.");
+		btnInitFarmacia.setText("Iniciar sesión como farmacia");
 		btnInitFarmacia.setForeground(new Color(128, 0, 0));
 		btnInitFarmacia.setBackground(SystemColor.activeCaption);
 		btnInitFarmacia.setBounds(20, 435, 537, 31);
@@ -158,7 +150,7 @@ public class StartWindow extends JFrame {
 		//INICIO DE SESION
 		
 		btnInitPaciente.setToolTipText("Si no tiene cuenta de usuario haga clic en crear cuenta de usuario");
-		btnInitPaciente.setText("Iniciar sesión como usuario.");
+		btnInitPaciente.setText("Iniciar sesión como paciente");
 		btnInitPaciente.setFont(new Font("Arial", Font.PLAIN, 14));
 		btnInitPaciente.setForeground(new Color(128, 0, 0));
 		btnInitPaciente.setBackground(SystemColor.activeCaption);
@@ -179,7 +171,7 @@ public class StartWindow extends JFrame {
 				registrarPaciente();
 			}
 		});
-		btnRegistrarPaciente.setText("Crear cuenta de usuario.");
+		btnRegistrarPaciente.setText("Crear cuenta de paciente");
 		btnRegistrarPaciente.setForeground(new Color(128, 0, 0));
 		btnRegistrarPaciente.setFont(new Font("Arial", Font.PLAIN, 14));
 		btnRegistrarPaciente.setBackground(SystemColor.activeCaption);
@@ -195,7 +187,7 @@ public class StartWindow extends JFrame {
 			}
 		});
 		btnInitMedico.setToolTipText("Si no tiene cuenta de médico pongase en contacto con administración.");
-		btnInitMedico.setText("Iniciar sesión como médico.");
+		btnInitMedico.setText("Iniciar sesión como médico");
 		btnInitMedico.setForeground(new Color(128, 0, 0));
 		btnInitMedico.setFont(new Font("Arial", Font.PLAIN, 14));
 		btnInitMedico.setBackground(SystemColor.activeCaption);

@@ -13,13 +13,16 @@ import excepciones.InvalidPasswordException;
 import excepciones.InvalidSSNumberException;
 import images.ImagenVF;
 import excepciones.InvalidNameException;
+import logicaPrograma.Helper;
 import logicaPrograma.Paciente;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+import javax.help.HelpSetException;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
@@ -149,14 +152,14 @@ public class FormPaciente extends JFrame {
 		 * AYUDA
 		 */
 		JButton btnAyuda = new JButton("Ayuda");
-		btnAyuda.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//TODO ayuda
-			}
-		});
 		btnAyuda.setFont(new Font("Arial", Font.PLAIN, 11));
 		btnAyuda.setBounds(211, 591, 160, 40);
 		contentPane.add(btnAyuda);
+		try {
+			Helper.getInstance().openHelp(btnAyuda, "crear_paciente");
+		} catch (MalformedURLException | HelpSetException e1) {
+			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error con el acceso a la\nayuda, disculpe las molestias.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+		}
 		
 		/*
 		 * CONFIRMAR

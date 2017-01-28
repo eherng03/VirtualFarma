@@ -17,15 +17,18 @@ import excepciones.InvalidSSNumberException;
 import excepciones.InvalidTelefoneException;
 import images.ImagenVF;
 import logicaPrograma.Administrador;
+import logicaPrograma.Helper;
 import logicaPrograma.Medico;
 
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.help.HelpSetException;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
@@ -92,17 +95,19 @@ public class FormMedico extends JFrame {
 		textNombre.setColumns(10);
 		
 		JButton btnAyuda = new JButton("Ayuda");
-		btnAyuda.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//TODO ayuda
-			}
-		});
 		btnAyuda.setBackground(SystemColor.activeCaption);
 		btnAyuda.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnAyuda.setBounds(446, 564, 89, 23);
 		contentPane.add(btnAyuda);
-		
-		
+		try {
+			if(medico == null){
+					Helper.getInstance().openHelp(btnAyuda, "crear_medico");
+			}else{
+					Helper.getInstance().openHelp(btnAyuda, "editar_medico");
+			}
+		} catch (MalformedURLException | HelpSetException e1) {
+			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error con el acceso a la\nayuda, disculpe las molestias.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+		}
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {

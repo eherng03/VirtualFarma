@@ -9,9 +9,14 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import images.ImagenVF;
+import logicaPrograma.Helper;
+
 import java.awt.List;
+import java.net.MalformedURLException;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.help.HelpSetException;
 import javax.swing.JButton;
 
 public class WindowVenta extends JFrame {
@@ -86,6 +91,14 @@ public class WindowVenta extends JFrame {
 		JButton btnEliminarProducto = new JButton("Eliminar producto");
 		btnEliminarProducto.setBounds(403, 432, 144, 28);
 		contentPane.add(btnEliminarProducto);
+		
+		JButton btnAyuda = new JButton("Ayuda");
+		btnAyuda.setBounds(403, 591, 144, 23);
+		contentPane.add(btnAyuda);
+		try {
+			Helper.getInstance().openHelp(btnAyuda, "venta");
+		} catch (MalformedURLException | HelpSetException e1) {
+			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error con el acceso a la\nayuda, disculpe las molestias.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+		}
 	}
-
 }

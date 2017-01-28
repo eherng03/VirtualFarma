@@ -10,14 +10,17 @@ import javax.swing.border.EmptyBorder;
 
 import excepciones.AlreadyExistException;
 import images.ImagenVF;
+import logicaPrograma.Helper;
 import logicaPrograma.Producto;
 import persistencia.BBDDProductos;
 
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.help.HelpSetException;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
@@ -107,8 +110,6 @@ public class FormProducto extends JFrame {
 				}else{
 					//TODO editar producto
 				}
-				
-				
 			}
 		});
 		
@@ -117,14 +118,18 @@ public class FormProducto extends JFrame {
 		contentPane.add(btnIntroducir);
 		
 		JButton btnAyuda = new JButton("Ayuda");
-		btnAyuda.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//TODO ayuda
-			}
-		});
 		btnAyuda.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnAyuda.setBounds(294, 579, 263, 33);
 		contentPane.add(btnAyuda);
+		try {
+			if(producto == null){
+					Helper.getInstance().openHelp(btnAyuda, "crear_producto");
+			}else{
+					Helper.getInstance().openHelp(btnAyuda, "editar_producto");
+			}
+		} catch (MalformedURLException | HelpSetException e1) {
+			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error con el acceso a la\nayuda, disculpe las molestias.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+		}
 		
 		JButton btnAtrs = new JButton("Atrás");
 		btnAtrs.addActionListener(new ActionListener() {
