@@ -222,7 +222,6 @@ public class IniciarSesion extends JFrame {
 				}
 				break;
 		}
-		
 	}
 
 	private void botonVolver() {

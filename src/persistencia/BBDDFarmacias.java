@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import excepciones.AlreadyExistException;
@@ -14,7 +13,6 @@ import excepciones.InvalidNameException;
 import excepciones.InvalidPasswordException;
 import excepciones.InvalidTelefoneException;
 import logicaPrograma.Farmacia;
-import logicaPrograma.Producto;
 import utils.DataChecks;
 
 

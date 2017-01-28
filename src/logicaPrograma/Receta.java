@@ -30,10 +30,10 @@ public class Receta {
 		this.setNombreMedicamento(nombreMedicamento);
 		this.setCrónica(crónica);
 		this.setFecha(fecha);
-		this.unidadesXToma = unidadesXToma;
-		this.frecuencia = frecuencia;
-		this.duracion = duracion;
-		this.instrucciones = instrucciones;
+		this.setUnidadesXToma(unidadesXToma);
+		this.setFrecuencia(frecuencia);
+		this.setDuracion(duracion);
+		this.setInstrucciones(instrucciones);
 		this.setnEnvases(nEnvases);
 		if(nuevo){
 			BBDDRecetas.getInstance().introducirReceta(dniPaciente, dniMedico, nombreMedicamento, crónica, fecha, unidadesXToma, frecuencia, duracion, instrucciones, nEnvases);
@@ -96,6 +96,54 @@ public class Receta {
 
 	public void setnEnvases(String nEnvases) {
 		this.nEnvases = nEnvases;
+	}
+
+
+
+	public String getInstrucciones() {
+		return instrucciones;
+	}
+
+
+
+	public void setInstrucciones(String instrucciones) {
+		this.instrucciones = instrucciones;
+	}
+
+
+
+	public String getUnidadesXToma() {
+		return unidadesXToma;
+	}
+
+
+
+	public void setUnidadesXToma(String unidadesXToma) {
+		this.unidadesXToma = unidadesXToma;
+	}
+
+
+
+	public String getFrecuencia() {
+		return frecuencia;
+	}
+
+
+
+	public void setFrecuencia(String frecuencia) {
+		this.frecuencia = frecuencia;
+	}
+
+
+
+	public String getDuracion() {
+		return duracion;
+	}
+
+
+
+	public void setDuracion(String duracion) {
+		this.duracion = duracion;
 	}
 
 	

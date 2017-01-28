@@ -36,8 +36,6 @@ public class ListadoRecetas extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private ListadoRecetas listadoRecetas;
-	private JFrame ventanaAnterior;
 	
 	private DefaultListModel<Receta> modelo;
 	private JList<Receta> listaRecetas;
@@ -51,7 +49,6 @@ public class ListadoRecetas extends JFrame {
 	private JLabel jLabel3;
 	private JTextField jTextFieldDisponibilidad;
 	private JButton btnAyuda;
-	private JButton btnAtrs;
 	private JTextField textFieldNumEnvases;
 	private JButton btnEliminar;
 	
@@ -65,10 +62,8 @@ public class ListadoRecetas extends JFrame {
 	 * @param windowPaciente 
 	 * @param string 
 	 */
-	public ListadoRecetas(String dni, JFrame ventanaAnteriorX, boolean desdeFarmacia) {
+	public ListadoRecetas(String dni, boolean desdeFarmacia) {
 		
-		listadoRecetas = this;
-		this.ventanaAnterior = ventanaAnteriorX;
     	setResizable(false);
     	  
     	listaRecetas = new JList<>();
@@ -79,14 +74,13 @@ public class ListadoRecetas extends JFrame {
 		} catch (SQLException e) {
 			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 		} catch (AlreadyExistException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 		}
     	listaRecetas.setModel(modelo);  
         
     	
         setTitle("Lista de recetas");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 584, 671);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -172,18 +166,7 @@ public class ListadoRecetas extends JFrame {
 			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error con el acceso a la\nayuda, disculpe las molestias.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 		}
         jPanel1.add(btnAyuda);
-        
-        btnAtrs = new JButton("Atrás");
-        btnAtrs.setBackground(SystemColor.activeCaption);
-        btnAtrs.setFont(new Font("Arial", Font.PLAIN, 12));
-        btnAtrs.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		listadoRecetas.setVisible(false);
-        		ventanaAnterior.setVisible(true);
-        	}
-        });
-        btnAtrs.setBounds(162, 202, 139, 36);
-        jPanel1.add(btnAtrs);
+       
         
         JLabel lblNumeroDeEnvases = new JLabel("Numero de envases");
         lblNumeroDeEnvases.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -206,6 +189,7 @@ public class ListadoRecetas extends JFrame {
             	public void actionPerformed(ActionEvent e) {
             		try {
 						BBDDRecetas.getInstance().eliminarReceta(recetaSeleccionada.getDniPaciente(), recetaSeleccionada.getNombreMedicamento(), recetaSeleccionada.getFecha());
+						JOptionPane.showMessageDialog(null,"El producto se ha eliminado con éxito");
 					} catch (SQLException e1) {
 						javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 					}

@@ -28,6 +28,8 @@ import javax.swing.border.EmptyBorder;
 
 import javax.swing.border.LineBorder;
 
+import excepciones.AlreadyExistException;
+
 public class ListadoProductos extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -45,8 +47,7 @@ public class ListadoProductos extends JFrame {
 	private JLabel jLabel3;
 	private JButton btnAyuda;
 	private JButton btnAtrs;
-	
-
+	private JButton btnAddToVenta;
 	
 	ArrayList<Producto> lista;
 
@@ -62,6 +63,7 @@ public class ListadoProductos extends JFrame {
 
 
 	public ListadoProductos(String cifX, JFrame ventanaAnterior, boolean esFarmacia) {
+		
 		listadoProductos = this;
     	setResizable(false);
     	cifFarmacia = cifX;
@@ -93,8 +95,6 @@ public class ListadoProductos extends JFrame {
 		logoPanel.setBackground(Color.WHITE);
 		logoPanel.setBounds(10, 0, 547, 382);
 		contentPane.add(logoPanel);
-		
-		
 		
         jPanel1 = new JPanel();
         jPanel1.setBackground(Color.WHITE);
@@ -147,8 +147,6 @@ public class ListadoProductos extends JFrame {
         jTextFieldDisponibilidad.setBounds(88, 73, 211, 21);
         jPanel1.add(jTextFieldDisponibilidad);
         
-        
-        
         contentPane.add(jPanel1);
         
         btnAyuda = new JButton("Ayuda");
@@ -163,7 +161,6 @@ public class ListadoProductos extends JFrame {
 		} catch (MalformedURLException | HelpSetException e1) {
 			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error con el acceso a la\nayuda, disculpe las molestias.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 		}
-			
         
         btnAyuda.setBounds(10, 202, 139, 36);
         jPanel1.add(btnAyuda);
@@ -204,6 +201,22 @@ public class ListadoProductos extends JFrame {
             });
             btnEditarProducto.setBounds(160, 130, 139, 39);
             jPanel1.add(btnEditarProducto);
+            
+            btnAddToVenta = new JButton("Añadir producto a la venta");
+            btnAddToVenta.addActionListener(new ActionListener() {
+            	public void actionPerformed(ActionEvent e) {
+            		String unidades = JOptionPane.showInputDialog("¿Cuántas unidades desea añadir?");
+            		((WindowVenta) ventanaAnterior).addProducto(new Producto(productoSeleccionado.getCif(), productoSeleccionado.getNombre(), productoSeleccionado.getPrecio(), Integer.parseInt(unidades), false));
+            		try {
+						BBDDProductos.getInstance().editarProducto(productoSeleccionado, productoSeleccionado.getCif(), productoSeleccionado.getNombre(), Double.toString(productoSeleccionado.getPrecio()),
+								Integer.toString(productoSeleccionado.getCuantia() - Integer.parseInt(unidades)));
+					} catch (NumberFormatException | SQLException | AlreadyExistException e1) {
+						javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+					}
+            	}
+            });
+            btnAddToVenta.setBounds(160, 130, 139, 39);
+            jPanel1.add(btnAddToVenta);
         }
 
         
@@ -235,7 +248,7 @@ public class ListadoProductos extends JFrame {
     }
     
     /**
-     * Reyena los campos de texto de la ventana dependiendo del producto que se haya seleccionado de la lista
+     * Rellena los campos de texto de la ventana dependiendo del producto que se haya seleccionado de la lista
      * @param producto
      */
     private void rellenarDatosProducto(Producto producto) {
@@ -243,7 +256,7 @@ public class ListadoProductos extends JFrame {
 		jTextFieldPrecio.setText(Double.toString(producto.getPrecio()) + "€");
 		productoSeleccionado = producto;
 		
-		if(productoSeleccionado.getCuantia() < 0){
+		if(productoSeleccionado.getCuantia() > 0){
 			jTextFieldDisponibilidad.setText("SI");
 		}else{
 			jTextFieldDisponibilidad.setText("NO");

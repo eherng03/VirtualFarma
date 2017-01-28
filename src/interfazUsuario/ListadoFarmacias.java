@@ -70,6 +70,7 @@ public class ListadoFarmacias extends JFrame {
 	
 
     public ListadoFarmacias(WindowPaciente windowPaciente) {
+    	
     	listadoFarmacias = this;
     	setResizable(false);
     	  

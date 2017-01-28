@@ -1,30 +1,25 @@
 package interfazUsuario;
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import excepciones.AlreadyExistException;
-import excepciones.InvalidCIFException;
-import excepciones.InvalidCuentaException;
-import excepciones.InvalidDNIException;
-import excepciones.InvalidNameException;
-import excepciones.InvalidPasswordException;
-import excepciones.InvalidSSNumberException;
-import excepciones.InvalidTelefoneException;
-import images.ImagenVF;
-import logicaPrograma.Administrador;
-import logicaPrograma.Helper;
-import logicaPrograma.Medico;
-
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.help.HelpSetException;
 import javax.swing.JButton;
+
+import excepciones.AlreadyExistException;
+import excepciones.InvalidDNIException;
+import excepciones.InvalidNameException;
+import excepciones.InvalidPasswordException;
+import excepciones.InvalidSSNumberException;
+import images.ImagenVF;
+import logicaPrograma.Administrador;
+import logicaPrograma.Helper;
+import logicaPrograma.Medico;
+
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
@@ -34,6 +29,7 @@ import java.awt.event.ActionEvent;
 
 public class FormMedico extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private Administrador admin;
 	private JPanel contentPane;
 	private JPanel logoPanel;
@@ -47,17 +43,13 @@ public class FormMedico extends JFrame {
 	private FormMedico formMedico;
 
 
-
-	/**
-	 * Create the frame.
-	 */
 	public FormMedico(Medico medico, WindowAdministrador windowAdministrador) {
 		formMedico = this;
 		
 		admin = Administrador.getAdmin();
 		
 		setResizable(false);
-		
+		setTitle("Formulario de datos de un medico");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 584, 671);
 		contentPane = new JPanel();
@@ -144,24 +136,28 @@ public class FormMedico extends JFrame {
 		
 		
 		JLabel lblNumeross = new JLabel("NumeroSS");
-		lblNumeross.setBounds(10, 473, 64, 14);
+		lblNumeross.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblNumeross.setBounds(10, 473, 70, 14);
 		contentPane.add(lblNumeross);
 		
 		textNumeroSS = new JTextField();
-		textNumeroSS.setBounds(73, 470, 346, 20);
+		textNumeroSS.setBounds(83, 470, 336, 20);
 		contentPane.add(textNumeroSS);
 		textNumeroSS.setColumns(10);
 		
 		JLabel lblDireccion = new JLabel("Direccion");
+		lblDireccion.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblDireccion.setBounds(10, 500, 64, 14);
 		contentPane.add(lblDireccion);
 		
 		JLabel lblEmail = new JLabel("e-mail");
-		lblEmail.setBounds(10, 529, 46, 14);
+		lblEmail.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblEmail.setBounds(10, 529, 64, 14);
 		contentPane.add(lblEmail);
 		
 		JLabel lblCentroMdico = new JLabel("Centro médico");
-		lblCentroMdico.setBounds(10, 560, 76, 14);
+		lblCentroMdico.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblCentroMdico.setBounds(10, 560, 97, 14);
 		contentPane.add(lblCentroMdico);
 		
 		if(medico == null){
@@ -175,17 +171,17 @@ public class FormMedico extends JFrame {
 		}
 		
 		textCentroMedico = new JTextField();
-		textCentroMedico.setBounds(96, 557, 323, 20);
+		textCentroMedico.setBounds(117, 557, 302, 20);
 		contentPane.add(textCentroMedico);
 		textCentroMedico.setColumns(10);
 		
 		textDireccion = new JTextField();
-		textDireccion.setBounds(68, 498, 351, 20);
+		textDireccion.setBounds(83, 498, 336, 20);
 		contentPane.add(textDireccion);
 		textDireccion.setColumns(10);
 		
 		textEmail = new JTextField();
-		textEmail.setBounds(62, 526, 357, 20);
+		textEmail.setBounds(78, 526, 341, 20);
 		contentPane.add(textEmail);
 		textEmail.setColumns(10);
 		
@@ -197,9 +193,8 @@ public class FormMedico extends JFrame {
 			textDireccion.setText(medico.getDireccion());
 			textEmail.setText(medico.getEmail());
 		}
-		
-		
 	}
+	
 	private void registrarMedico() {
 		try {
 			admin.crearMedico(textNombre.getText(), textDNI.getText(), textNumeroSS.getText(), textDireccion.getText(), textEmail.getText(), textCentroMedico.getText(), String.valueOf(passwordField.getPassword()));

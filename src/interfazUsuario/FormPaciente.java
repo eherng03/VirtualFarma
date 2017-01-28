@@ -1,10 +1,13 @@
 package interfazUsuario;
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JPasswordField;
+import javax.help.HelpSetException;
+import javax.swing.JButton;
 
 import excepciones.AlreadyExistException;
 import excepciones.EmptyFieldException;
@@ -16,11 +19,6 @@ import excepciones.InvalidNameException;
 import logicaPrograma.Helper;
 import logicaPrograma.Paciente;
 
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.help.HelpSetException;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.sql.SQLException;
@@ -31,6 +29,7 @@ import java.awt.Font;
 
 public class FormPaciente extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private StartWindow startWindow;
 	private JTextField textNombre;
@@ -41,15 +40,13 @@ public class FormPaciente extends JFrame {
 	private JPasswordField passwordField;
 	private JPanel logoPanel;
 	
-	/**
-	 * Create the frame.
-	 */
+
 	public FormPaciente(StartWindow startWindow) {
 		
 		this.startWindow = startWindow;
 		
 		setResizable(false);
-		
+		setTitle("Formulario de datos de paciente");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 584, 671);
 		contentPane = new JPanel();
@@ -82,22 +79,22 @@ public class FormPaciente extends JFrame {
 		contentPane.add(lblPrimerApellido);
 		
 		JLabel lblSegundoApellido = new JLabel("Segundo apellido");
-		lblSegundoApellido.setFont(new Font("Arial", Font.PLAIN, 11));
+		lblSegundoApellido.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblSegundoApellido.setBounds(20, 488, 93, 14);
 		contentPane.add(lblSegundoApellido);
 		
 		JLabel lblNumeroDeLa = new JLabel("Numero de la seguridad social");
-		lblNumeroDeLa.setFont(new Font("Arial", Font.PLAIN, 11));
-		lblNumeroDeLa.setBounds(20, 538, 160, 14);
+		lblNumeroDeLa.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblNumeroDeLa.setBounds(20, 538, 178, 14);
 		contentPane.add(lblNumeroDeLa);
 		
 		JLabel lblDni = new JLabel("DNI");
-		lblDni.setFont(new Font("Arial", Font.PLAIN, 11));
+		lblDni.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblDni.setBounds(20, 513, 46, 14);
 		contentPane.add(lblDni);
 		
 		JLabel lblContrasea = new JLabel("Contraseña");
-		lblContrasea.setFont(new Font("Arial", Font.PLAIN, 11));
+		lblContrasea.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblContrasea.setBounds(20, 563, 77, 14);
 		contentPane.add(lblContrasea);
 		
@@ -127,7 +124,7 @@ public class FormPaciente extends JFrame {
 		
 		textNumeroSS = new JTextField();
 		textNumeroSS.setFont(new Font("Arial", Font.PLAIN, 11));
-		textNumeroSS.setBounds(184, 535, 373, 20);
+		textNumeroSS.setBounds(208, 535, 349, 20);
 		contentPane.add(textNumeroSS);
 		textNumeroSS.setColumns(10);
 		
@@ -139,12 +136,13 @@ public class FormPaciente extends JFrame {
 		 * ATRAS
 		 */
 		JButton btnAtrs = new JButton("Atrás");
+		btnAtrs.setBackground(SystemColor.activeCaption);
 		btnAtrs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				volverAtras();
 			}
 		});
-		btnAtrs.setFont(new Font("Arial", Font.PLAIN, 11));
+		btnAtrs.setFont(new Font("Arial", Font.PLAIN, 13));
 		btnAtrs.setBounds(20, 591, 160, 40);
 		contentPane.add(btnAtrs);
 		
@@ -152,7 +150,8 @@ public class FormPaciente extends JFrame {
 		 * AYUDA
 		 */
 		JButton btnAyuda = new JButton("Ayuda");
-		btnAyuda.setFont(new Font("Arial", Font.PLAIN, 11));
+		btnAyuda.setBackground(SystemColor.activeCaption);
+		btnAyuda.setFont(new Font("Arial", Font.PLAIN, 13));
 		btnAyuda.setBounds(211, 591, 160, 40);
 		contentPane.add(btnAyuda);
 		try {
@@ -165,7 +164,8 @@ public class FormPaciente extends JFrame {
 		 * CONFIRMAR
 		 */
 		JButton btnConfirmar = new JButton("Confirmar");
-		btnConfirmar.setFont(new Font("Arial", Font.PLAIN, 11));
+		btnConfirmar.setBackground(SystemColor.activeCaption);
+		btnConfirmar.setFont(new Font("Arial", Font.PLAIN, 13));
 		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				registrarPaciente();
@@ -177,7 +177,7 @@ public class FormPaciente extends JFrame {
 
 	private void registrarPaciente() {
 		try {
-			Paciente paciente = new Paciente(textNombre.getText() + " " + textApellido1.getText() + " " + textApellido2.getText(), textDNI.getText(), textNumeroSS.getText(), String.valueOf(passwordField.getPassword()), true);
+			new Paciente(textNombre.getText() + " " + textApellido1.getText() + " " + textApellido2.getText(), textDNI.getText(), textNumeroSS.getText(), String.valueOf(passwordField.getPassword()), true);
 			javax.swing.JOptionPane.showMessageDialog(this, "Su cuenta ha sido creada con éxito");
 			this.setVisible(false);
 			startWindow.setVisible(true);

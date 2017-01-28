@@ -32,9 +32,6 @@ import persistencia.BBDDProductos;
  */
 public class FormProducto extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPanel logoPanel;
@@ -45,17 +42,13 @@ public class FormProducto extends JFrame {
 	private JTextField textFieldCantidad;
 	private String cifFarmacia;
 
-
-	/**
-	 * Create the frame.
-	 * @param window 
-	 */
 	public FormProducto(Producto producto, String cif, JFrame window) {
-		//TODO testear
+
 		cifFarmacia = cif;
 		formProducto = this;
 		this.windowFarmacia = window;
 		
+		setTitle("Formulario de datos de un producto");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 584, 671);
@@ -106,7 +99,6 @@ public class FormProducto extends JFrame {
 		JButton btnIntroducir = new JButton("Introducir");
 		btnIntroducir.setBackground(SystemColor.activeCaption);
 		btnIntroducir.addActionListener(new ActionListener() {
-			//TODO test
 			public void actionPerformed(ActionEvent e) {
 				if(producto == null){
 					try {

@@ -39,6 +39,7 @@ public class StartWindow extends JFrame {
 	private JButton btnInitMedico;
 	private JButton btnAyuda;
 
+	@SuppressWarnings("unused")
 	private BBDD db;
 	private JPanel logoPanel;
 	private JButton btnRegistrarPaciente;
@@ -48,7 +49,6 @@ public class StartWindow extends JFrame {
 	public static void main(String[] args) {
 		 StartWindow w = new StartWindow();
 	     w.setVisible(true);
-
 	 }
 
 
@@ -62,7 +62,9 @@ public class StartWindow extends JFrame {
     	
     	btnInitFarmacia = new JButton();
     	btnAyuda = new JButton();
-    	btnAyuda.setFont(new Font("Arial", Font.PLAIN, 12));
+    	btnAyuda.setForeground(new Color(128, 0, 0));
+    	btnAyuda.setBackground(SystemColor.activeCaption);
+    	btnAyuda.setFont(new Font("Arial", Font.PLAIN, 14));
     	btnInitPaciente = new JButton();
     	btnInitAdmin = new JButton();
     	btnInitMedico = new JButton();
@@ -94,14 +96,12 @@ public class StartWindow extends JFrame {
 		logoPanel.setBackground(Color.WHITE);
 		logoPanel.setBounds(10, 0, 547, 382);
 		contentPane.add(logoPanel);
-		
-		
 	
 	/*
 	 * AYUDA	
 	 */
 		btnAyuda.setText("Ayuda");
-		btnAyuda.setBounds(244, 604, 88, 23);
+		btnAyuda.setBounds(20, 604, 537, 27);
 		btnInitAdmin.setVisible(true);
 		contentPane.add(btnAyuda);
 		try {

@@ -49,12 +49,13 @@ public class FormReceta extends JFrame {
 	private JSpinner spinnerFrecuencia;
 
 	public FormReceta(String dniMedicoX, WindowMedico windowMedico) {
-		//TODO testear
+
 		this.dniMedico = dniMedicoX;
 		formReceta = this;
 		this.windowMedico = windowMedico;
 		
 		setResizable(false);
+		setTitle("Formulario de datos de una receta");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 584, 671);
 		contentPane = new JPanel();
@@ -74,8 +75,8 @@ public class FormReceta extends JFrame {
 		
 		
 		JButton btnIntroducir = new JButton("Introducir");
+		btnIntroducir.setBackground(SystemColor.activeCaption);
 		btnIntroducir.addActionListener(new ActionListener() {
-			//TODO test
 			public void actionPerformed(ActionEvent e) {
 				try {
 					String cronica = "false";
@@ -96,6 +97,7 @@ public class FormReceta extends JFrame {
 		contentPane.add(btnIntroducir);
 		
 		JButton btnAyuda = new JButton("Ayuda");
+		btnAyuda.setBackground(SystemColor.activeCaption);
 		btnAyuda.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnAyuda.setBounds(294, 598, 263, 33);
 		contentPane.add(btnAyuda);
@@ -106,6 +108,7 @@ public class FormReceta extends JFrame {
 		}
 		
 		JButton btnAtrs = new JButton("Atrás");
+		btnAtrs.setBackground(SystemColor.activeCaption);
 		btnAtrs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				volverAtras();

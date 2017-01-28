@@ -33,6 +33,7 @@ public class WindowFarmacia extends JFrame {
 		
 		windowFarmacia = this;
 		this.iniciarSesion = iniciarSesion;
+		setTitle("Farmacia");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 584, 671);
 		contentPane = new JPanel();
@@ -53,14 +54,14 @@ public class WindowFarmacia extends JFrame {
 		JButton btnNuevaVenta = new JButton("Nueva venta");
 		btnNuevaVenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				WindowVenta nuevaVenta = new WindowVenta(windowFarmacia);
+				WindowVenta nuevaVenta = new WindowVenta(windowFarmacia, cif);
 				nuevaVenta.setVisible(true);
 				windowFarmacia.setVisible(false);
 			}
 		});
 		btnNuevaVenta.setBackground(SystemColor.activeCaption);
 		btnNuevaVenta.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnNuevaVenta.setBounds(10, 393, 547, 38);
+		btnNuevaVenta.setBounds(10, 393, 547, 54);
 		contentPane.add(btnNuevaVenta);
 		
 		JButton btnIntroducirProductoEn = new JButton("Introducir producto en la base de datos");
@@ -73,10 +74,10 @@ public class WindowFarmacia extends JFrame {
 				formProducto.setVisible(true);
 			}
 		});
-		btnIntroducirProductoEn.setBounds(10, 442, 547, 38);
+		btnIntroducirProductoEn.setBounds(10, 459, 547, 54);
 		contentPane.add(btnIntroducirProductoEn);
 		
-		JButton btnEditarProductoDe = new JButton("Editar producto de la base de datos, o ver lista de productos");
+		JButton btnEditarProductoDe = new JButton("Ver lista de productos");
 		btnEditarProductoDe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListadoProductos lista = new ListadoProductos(cif, windowFarmacia, true);
@@ -86,21 +87,8 @@ public class WindowFarmacia extends JFrame {
 		});
 		btnEditarProductoDe.setBackground(SystemColor.activeCaption);
 		btnEditarProductoDe.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnEditarProductoDe.setBounds(10, 491, 547, 38);
+		btnEditarProductoDe.setBounds(10, 524, 547, 54);
 		contentPane.add(btnEditarProductoDe);
-		
-		JButton btnEliminarPr = new JButton("Eliminar producto");
-		btnEliminarPr.setBackground(SystemColor.activeCaption);
-		btnEliminarPr.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnEliminarPr.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ListadoProductos lista = new ListadoProductos(cif, windowFarmacia, true);
-				windowFarmacia.setVisible(false);
-				lista.setVisible(true);
-			}
-		});
-		btnEliminarPr.setBounds(10, 540, 547, 38);
-		contentPane.add(btnEliminarPr);
 		
 		JButton btnAyuda = new JButton("Ayuda");
 		btnAyuda.setBackground(SystemColor.activeCaption);

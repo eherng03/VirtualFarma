@@ -38,4 +38,9 @@ public class Producto {
 		this.cif = cif;
 	}
 	
+	@Override
+	public String toString(){
+		return nombre + " , " + precio + "€";
+	}
+	
 }

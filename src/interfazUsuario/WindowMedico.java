@@ -39,6 +39,7 @@ public class WindowMedico extends JFrame {
 		windowMedico = this;
 		this.iniciarSesion = iniciarSesionX;
 		
+		setTitle("Medico");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 584, 671);
 		contentPane = new JPanel();

@@ -65,7 +65,7 @@ public class FormFarmacia extends JFrame {
 		this.windowAdministrador = windowAdministrador;
 		
 		setResizable(false);
-		
+		setTitle("Formulario de datos de farmacia");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 584, 671);
 		contentPane = new JPanel();

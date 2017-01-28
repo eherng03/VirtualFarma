@@ -50,6 +50,7 @@ public class WindowPaciente extends JFrame {
 		this.paciente = pacienteX;
 		windowPaciente = this;
 		
+		setTitle("Paciente");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 584, 671);
 		contentPane = new JPanel();		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -83,9 +84,8 @@ public class WindowPaciente extends JFrame {
 		btnConsultarRecetas = new JButton("Consultar recetas");
 		btnConsultarRecetas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ListadoRecetas lista = new ListadoRecetas(paciente.getDni(), windowPaciente, false);
+				ListadoRecetas lista = new ListadoRecetas(paciente.getDni(),  false);
 				lista.setVisible(true);
-				windowPaciente.setVisible(false);
 			}
 		});
 		btnConsultarRecetas.setFont(new Font("Arial", Font.PLAIN, 12));

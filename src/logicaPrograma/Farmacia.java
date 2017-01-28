@@ -180,4 +180,8 @@ public class Farmacia {
 		return this.password.equals(password);
 	}
 	
+	@Override
+	public String toString(){
+		return nombre;
+	}
 }
