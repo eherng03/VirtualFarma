@@ -30,6 +30,7 @@ import excepciones.InvalidCuentaException;
 import excepciones.InvalidNameException;
 import excepciones.InvalidPasswordException;
 import excepciones.InvalidTelefoneException;
+import javax.swing.border.LineBorder;
 
 public class ListadoProductos extends JFrame {
 
@@ -58,7 +59,9 @@ public class ListadoProductos extends JFrame {
 	private ListadoProductos listadoProductos;
 	private JButton btnEliminarProducto;
 	private JButton btnEditarProducto;
+	
 	private Producto productoSeleccionado;
+	private JButton btnVerDetallesDel;
 
 
 	public ListadoProductos(String cif, JFrame ventanaAnterior, boolean esFarmacia) {
@@ -66,6 +69,7 @@ public class ListadoProductos extends JFrame {
     	setResizable(false);
     	  
     	listaProductos = new JList<>();
+    	listaProductos.setBorder(new LineBorder(new Color(0, 0, 0)));
     	
     	try {
 			modelo = BBDDProductos.getInstance().getProductos(cif);
@@ -75,8 +79,7 @@ public class ListadoProductos extends JFrame {
     	listaProductos.setModel(modelo);  
         
     	
-        setTitle("Lista de farmacias");
-        jPanel1.setLayout(null);
+        setTitle("Lista de productos");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 584, 671);
 		contentPane = new JPanel();
@@ -97,7 +100,7 @@ public class ListadoProductos extends JFrame {
 		
         jPanel1 = new JPanel();
         jPanel1.setBackground(Color.WHITE);
-        jPanel1.setBounds(10, 404, 309, 227);
+        jPanel1.setBounds(10, 393, 309, 249);
         jPanel1.setLayout(null);
         
         jLabel1 = new JLabel();
@@ -112,7 +115,7 @@ public class ListadoProductos extends JFrame {
         jTextFieldNombre = new JTextField();
         jTextFieldNombre.setBackground(Color.WHITE);
         jTextFieldNombre.setEditable(false);
-        jTextFieldNombre.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        jTextFieldNombre.setFont(new Font("Arial", Font.PLAIN, 12));
         jTextFieldNombre.setBounds(72, 10, 227, 21);
         jPanel1.add(jTextFieldNombre);
         
@@ -127,7 +130,7 @@ public class ListadoProductos extends JFrame {
         jTextFieldPrecio = new JTextField();
         jTextFieldPrecio.setBackground(Color.WHITE);
         jTextFieldPrecio.setEditable(false);
-        jTextFieldPrecio.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        jTextFieldPrecio.setFont(new Font("Arial", Font.PLAIN, 12));
         jTextFieldPrecio.setBounds(72, 41, 227, 21);
         jPanel1.add(jTextFieldPrecio);
         
@@ -142,13 +145,8 @@ public class ListadoProductos extends JFrame {
         jTextFieldDisponibilidad = new JTextField();
         jTextFieldDisponibilidad.setBackground(Color.WHITE);
         jTextFieldDisponibilidad.setEditable(false);
-        jTextFieldDisponibilidad.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        jTextFieldDisponibilidad.setFont(new Font("Arial", Font.PLAIN, 12));
         jTextFieldDisponibilidad.setBounds(88, 73, 211, 21);
-        if(productoSeleccionado.getCuantia() < 0){
-        	jTextFieldDisponibilidad.setText("SI");
-        }else{
-        	jTextFieldDisponibilidad.setText("NO");
-        }
         jPanel1.add(jTextFieldDisponibilidad);
         
         
@@ -156,22 +154,26 @@ public class ListadoProductos extends JFrame {
         contentPane.add(jPanel1);
         
         btnAyuda = new JButton("Ayuda");
+        btnAyuda.setBackground(SystemColor.activeCaption);
+        btnAyuda.setFont(new Font("Arial", Font.PLAIN, 12));
         btnAyuda.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		//TODO ayuda
         	}
         });
-        btnAyuda.setBounds(10, 180, 139, 36);
+        btnAyuda.setBounds(10, 202, 139, 36);
         jPanel1.add(btnAyuda);
         
         btnAtrs = new JButton("Atrás");
+        btnAtrs.setBackground(SystemColor.activeCaption);
+        btnAtrs.setFont(new Font("Arial", Font.PLAIN, 12));
         btnAtrs.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		listadoProductos.setVisible(false);
         		ventanaAnterior.setVisible(true);
         	}
         });
-        btnAtrs.setBounds(160, 180, 139, 36);
+        btnAtrs.setBounds(162, 202, 139, 36);
         jPanel1.add(btnAtrs);
         
         if(esFarmacia){
@@ -182,7 +184,7 @@ public class ListadoProductos extends JFrame {
             		try {
 						BBDDProductos.getInstance().eliminarProducto(cif, productoSeleccionado.getNombre());
 					} catch (SQLException e1) {
-						// TODO mensaje de error
+						javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 					}
             	}
 			});
@@ -192,31 +194,39 @@ public class ListadoProductos extends JFrame {
             btnEditarProducto.addActionListener(new ActionListener() {
             	public void actionPerformed(ActionEvent e) {
             		FormProducto formProducto = new FormProducto(productoSeleccionado, cif, listadoProductos);
+            		formProducto.setVisible(true);
+            		listadoProductos.setVisible(false);
             	}
             });
             btnEditarProducto.setBounds(160, 130, 139, 39);
             jPanel1.add(btnEditarProducto);
         }
-        
-        
-        listaProductos.setBounds(329, 404, 228, 227);
-        contentPane.add(listaProductos);
 
-        listaProductos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-            	jListProductosMouseReleased(evt);
-            }
+        
+        listaProductos.setBounds(329, 404, 239, 198);
+        contentPane.add(listaProductos);
+        
+        btnVerDetallesDel = new JButton("Detalles del producto seleccionado");
+        btnVerDetallesDel.setBackground(SystemColor.activeCaption);
+        btnVerDetallesDel.setFont(new Font("Arial", Font.PLAIN, 12));
+        btnVerDetallesDel.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		seleccionarProducto();
+        	}
         });
+        btnVerDetallesDel.setBounds(329, 608, 239, 23);
+        contentPane.add(btnVerDetallesDel);
+
     }
 
 
-    private void jListProductosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListPersonasMouseReleased
+    private void seleccionarProducto() {
         if(modelo.isEmpty()){
             JOptionPane.showMessageDialog(this,"La lista esta vacia");
         }else{
             Object objeto = listaProductos.getSelectedValue();
-            Producto producto = (Producto) objeto;
-            rellenarDatosProducto(producto);
+            productoSeleccionado = (Producto) objeto;
+            rellenarDatosProducto(productoSeleccionado);
         }
     }
     
@@ -228,7 +238,12 @@ public class ListadoProductos extends JFrame {
 		jTextFieldNombre.setText(producto.getNombre());
 		jTextFieldPrecio.setText(Double.toString(producto.getPrecio()) + "€");
 		productoSeleccionado = producto;
-			
+		
+		if(productoSeleccionado.getCuantia() < 0){
+			jTextFieldDisponibilidad.setText("SI");
+		}else{
+			jTextFieldDisponibilidad.setText("NO");
+		}
 	}
 
 		

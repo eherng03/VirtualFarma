@@ -8,6 +8,7 @@ package interfazUsuario;
 import java.awt.Color;
 import java.awt.Font;
 
+import javax.help.HelpSetException;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 
 import excepciones.AlreadyExistException;
@@ -27,6 +29,7 @@ import excepciones.InvalidPasswordException;
 import excepciones.InvalidTelefoneException;
 import images.ImagenVF;
 import logicaPrograma.Farmacia;
+import logicaPrograma.Helper;
 import logicaPrograma.Producto;
 import persistencia.BBDDFarmacias;
 
@@ -35,7 +38,9 @@ import javax.swing.GroupLayout;
 import java.awt.SystemColor;
 import java.sql.SQLException;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
 import java.awt.event.ActionEvent;
+import javax.swing.border.LineBorder;
 
 
 
@@ -63,7 +68,9 @@ public class ListadoFarmacias extends JFrame {
 	private JButton btnAyuda;
 	private JButton btnAtrs;
 	
-	private String cifFarmaciaVisualizada;
+	private JButton btnVerDetallesDe;
+	
+	private Farmacia farmaciaSeleccionada;
 	
 
     public ListadoFarmacias(WindowPaciente windowPaciente) {
@@ -71,6 +78,7 @@ public class ListadoFarmacias extends JFrame {
     	setResizable(false);
     	  
     	listaFarmacias = new JList<>();
+    	listaFarmacias.setBorder(new LineBorder(new Color(0, 0, 0)));
     	
     	try {
 			modelo = BBDDFarmacias.getInstance().getFarmacias();
@@ -82,7 +90,6 @@ public class ListadoFarmacias extends JFrame {
         
     	
         setTitle("Lista de farmacias");
-        jPanel1.setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 584, 671);
 		contentPane = new JPanel();
@@ -103,7 +110,7 @@ public class ListadoFarmacias extends JFrame {
 		
         jPanel1 = new JPanel();
         jPanel1.setBackground(Color.WHITE);
-        jPanel1.setBounds(10, 404, 309, 227);
+        jPanel1.setBounds(10, 393, 309, 249);
         jPanel1.setLayout(null);
         
         jLabel1 = new JLabel();
@@ -171,12 +178,12 @@ public class ListadoFarmacias extends JFrame {
         jButtonProductos = new JButton();
         jButtonProductos.setBackground(SystemColor.activeCaption);
         jButtonProductos.setFont(new Font("Arial", Font.PLAIN, 12));
-        jButtonProductos.setBounds(10, 135, 289, 23);
+        jButtonProductos.setBounds(13, 146, 289, 45);
         jButtonProductos.setText("Ver los productos de la farmacia");
         jButtonProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                if(cifFarmaciaVisualizada != null){
-                	ListadoProductos lista = new ListadoProductos(cifFarmaciaVisualizada, listadoFarmacias, false);
+                if(farmaciaSeleccionada.getCIF() != null){
+                	ListadoProductos lista = new ListadoProductos(farmaciaSeleccionada.getCIF(), listadoFarmacias, false);
                 	lista.setVisible(true);
                 	listadoFarmacias.setVisible(false);
                 }else{
@@ -190,42 +197,52 @@ public class ListadoFarmacias extends JFrame {
         contentPane.add(jPanel1);
         
         btnAyuda = new JButton("Ayuda");
-        btnAyuda.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		//TODO ayuda
-        	}
-        });
-        btnAyuda.setBounds(10, 169, 125, 36);
+        btnAyuda.setBackground(SystemColor.activeCaption);
+        btnAyuda.setFont(new Font("Arial", Font.PLAIN, 12));
+        btnAyuda.setBounds(13, 202, 125, 36);
+        try {
+			Helper.getInstance().openHelp(btnAyuda, "lista_farmacias");
+		} catch (MalformedURLException | HelpSetException e1) {
+			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error con el acceso a la\nayuda, disculpe las molestias.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+		}
         jPanel1.add(btnAyuda);
         
         btnAtrs = new JButton("Atrás");
+        btnAtrs.setBackground(SystemColor.activeCaption);
+        btnAtrs.setFont(new Font("Arial", Font.PLAIN, 12));
         btnAtrs.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		listadoFarmacias.setVisible(false);
         		windowPaciente.setVisible(true);
         	}
         });
-        btnAtrs.setBounds(174, 169, 125, 36);
+        btnAtrs.setBounds(174, 202, 125, 36);
         jPanel1.add(btnAtrs);
         
-        listaFarmacias.setBounds(329, 404, 228, 227);
+        listaFarmacias.setBounds(329, 404, 239, 200);
+        listaFarmacias.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         contentPane.add(listaFarmacias);
-
-        listaFarmacias.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-            	jListProductosMouseReleased(evt);
-            }
+        
+        btnVerDetallesDe = new JButton("Detalles de la farmacia seleccionada");
+        btnVerDetallesDe.setBackground(SystemColor.activeCaption);
+        btnVerDetallesDe.setFont(new Font("Arial", Font.PLAIN, 12));
+        btnVerDetallesDe.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		seleccionarFarmacia();
+        	}
         });
+        btnVerDetallesDe.setBounds(329, 608, 239, 23);
+        contentPane.add(btnVerDetallesDe);
     }
 
 
-    private void jListProductosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListPersonasMouseReleased
+    private void seleccionarFarmacia() {
         if(modelo.isEmpty()){
             JOptionPane.showMessageDialog(this,"La lista esta vacia");
         }else{
             Object objeto = listaFarmacias.getSelectedValue();
-            Farmacia farmacia = (Farmacia) objeto;
-            rellenarDatosFarmacia(farmacia);
+            farmaciaSeleccionada = (Farmacia) objeto;
+            rellenarDatosFarmacia(farmaciaSeleccionada);
         }
     }
     
@@ -234,60 +251,7 @@ public class ListadoFarmacias extends JFrame {
         jTextFieldHorario.setText(farmacia.getHorario());
         jTextFieldDireccion.setText(farmacia.getDireccion());
         jTextFieldTelefono.setText(farmacia.getTelefono());
-        cifFarmaciaVisualizada = farmacia.getCIF();
     }
-
-/*
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if(listaProductos.isSelectionEmpty()){
-            JOptionPane.showMessageDialog(this,"Debe selecionar una persona de la lista");
-        }else{
-            modelo.removeElement(listaProductos.getSelectedValue());
-            limpiarFormulario();
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButtonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarActionPerformed
-        limpiarFormulario();
-    }//GEN-LAST:event_jButtonLimpiarActionPerformed
-
-    /**
-     * @param args the command line arguments
-     
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListadoFarmacias.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListadoFarmacias.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListadoFarmacias.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListadoFarmacias.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ListadoFarmacias().setVisible(true);
-            }
-        });
-    }
-    */
-
-
 
  
 }
