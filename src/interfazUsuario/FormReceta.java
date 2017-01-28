@@ -1,7 +1,6 @@
 package interfazUsuario;
-import java.awt.BorderLayout;
+
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -16,18 +15,24 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JCheckBox;
+import javax.swing.JSpinner;
 
 import excepciones.AlreadyExistException;
 import images.ImagenVF;
 import logicaPrograma.Helper;
-import persistencia.BBDDProductos;
 import persistencia.BBDDRecetas;
 
-import javax.swing.JCheckBox;
-import javax.swing.JSpinner;
 
+/**
+ * Clase formulario para crear recetas
+ * @author Eva y alba
+ *
+ */
 public class FormReceta extends JFrame {
 
+	
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private String dniMedico;
 	private WindowMedico windowMedico;
@@ -43,14 +48,9 @@ public class FormReceta extends JFrame {
 	private JSpinner spinnerUnidades;
 	private JSpinner spinnerFrecuencia;
 
-	//Los atributos van a ser 
-
-	/**
-	 * Create the frame.
-	 */
-	public FormReceta(String dniMedico, WindowMedico windowMedico) {
+	public FormReceta(String dniMedicoX, WindowMedico windowMedico) {
 		//TODO testear
-		this.dniMedico = dniMedico;
+		this.dniMedico = dniMedicoX;
 		formReceta = this;
 		this.windowMedico = windowMedico;
 		
@@ -79,8 +79,8 @@ public class FormReceta extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					BBDDRecetas.getInstance().introducirReceta(textFieldDNIPaciente.getText(), dniMedico, textFieldNombreMedicamento.getText(), chckbxRecetaCrnica.isSelected(),
-							textFieldFecha.getText(), (Integer) spinnerUnidades.getValue(), (Integer) spinnerFrecuencia.getValue(), textFieldDuracion.getText(), 
-							textFieldInstrucciones.getText(), (Integer)spinnerNEnvases.getValue());
+							textFieldFecha.getText(), spinnerUnidades.getValue().toString(), spinnerFrecuencia.getValue().toString(), textFieldDuracion.getText(), 
+							textFieldInstrucciones.getText(), spinnerNEnvases.getValue().toString());
 				} catch (SQLException | AlreadyExistException e1) {
 					javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 				}

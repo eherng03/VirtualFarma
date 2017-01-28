@@ -17,24 +17,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import images.ImagenVF;
-import logicaPrograma.Farmacia;
 import logicaPrograma.Producto;
-import persistencia.BBDDFarmacias;
 import persistencia.BBDDProductos;
 
 import javax.swing.border.EmptyBorder;
 
-import excepciones.AlreadyExistException;
-import excepciones.InvalidCIFException;
-import excepciones.InvalidCuentaException;
-import excepciones.InvalidNameException;
-import excepciones.InvalidPasswordException;
-import excepciones.InvalidTelefoneException;
+
 import javax.swing.border.LineBorder;
 
 public class ListadoProductos extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	
 	private String cifFarmacia;
 
 	private JPanel contentPane;
@@ -55,7 +49,7 @@ public class ListadoProductos extends JFrame {
 
 	JList<Producto> listaProductos;
 	
-	DefaultListModel<Producto> modelo = new DefaultListModel<>();
+	DefaultListModel<Producto> modelo;
 	private ListadoProductos listadoProductos;
 	private JButton btnEliminarProducto;
 	private JButton btnEditarProducto;
@@ -64,15 +58,16 @@ public class ListadoProductos extends JFrame {
 	private JButton btnVerDetallesDel;
 
 
-	public ListadoProductos(String cif, JFrame ventanaAnterior, boolean esFarmacia) {
+	public ListadoProductos(String cifX, JFrame ventanaAnterior, boolean esFarmacia) {
 		listadoProductos = this;
     	setResizable(false);
+    	cifFarmacia = cifX;
     	  
     	listaProductos = new JList<>();
     	listaProductos.setBorder(new LineBorder(new Color(0, 0, 0)));
     	
     	try {
-			modelo = BBDDProductos.getInstance().getProductos(cif);
+			modelo = BBDDProductos.getInstance().getProductos(cifFarmacia);
 		} catch (SQLException e) {
 			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 		}
@@ -182,7 +177,7 @@ public class ListadoProductos extends JFrame {
             btnEliminarProducto.addActionListener(new ActionListener() {
             	public void actionPerformed(ActionEvent e) {
             		try {
-						BBDDProductos.getInstance().eliminarProducto(cif, productoSeleccionado.getNombre());
+						BBDDProductos.getInstance().eliminarProducto(cifFarmacia, productoSeleccionado.getNombre());
 					} catch (SQLException e1) {
 						javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 					}
@@ -193,7 +188,7 @@ public class ListadoProductos extends JFrame {
             btnEditarProducto = new JButton("Editar producto");
             btnEditarProducto.addActionListener(new ActionListener() {
             	public void actionPerformed(ActionEvent e) {
-            		FormProducto formProducto = new FormProducto(productoSeleccionado, cif, listadoProductos);
+            		FormProducto formProducto = new FormProducto(productoSeleccionado, cifFarmacia, listadoProductos);
             		formProducto.setVisible(true);
             		listadoProductos.setVisible(false);
             	}

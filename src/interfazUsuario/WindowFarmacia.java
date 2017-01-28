@@ -114,7 +114,7 @@ public class WindowFarmacia extends JFrame {
 			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error con el acceso a la\nayuda, disculpe las molestias.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 		}
 		
-		JButton btnAtrs = new JButton("Atrás");
+		JButton btnAtrs = new JButton("Cerrar sesión");
 		btnAtrs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				volverAtras();

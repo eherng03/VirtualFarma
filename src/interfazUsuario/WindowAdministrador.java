@@ -419,7 +419,8 @@ public class WindowAdministrador extends JFrame {
 			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error con el acceso a la\nayuda, disculpe las molestias.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 		}
 		
-		JButton btnAtras = new JButton("Atrás");
+		JButton btnAtras = new JButton("Cerrar sesión");
+		btnAtras.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				iniciarSesion.setVisible(true);

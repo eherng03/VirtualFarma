@@ -1,28 +1,31 @@
 package interfazUsuario;
-import java.awt.BorderLayout;
+
 import java.awt.Color;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import images.ImagenVF;
-import logicaPrograma.Helper;
-
-import javax.help.HelpSetException;
-import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.awt.event.ActionEvent;
 
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.help.HelpSetException;
+import javax.swing.JButton;
+
+import images.ImagenVF;
+import logicaPrograma.Helper;
+
+
+/**
+ * Ventana que contiene todas las operaciones que puede realizar un médico
+ * @author Eva y Alba
+ *
+ */
 public class WindowMedico extends JFrame {
-	/**
-	 * Ventana que se muestra a los médicos. Mientras esté abierta almacenará los datos del medico que la esté usando
-	 * para que sea mas facil la tarea de elaborar recetas.
-	 */
+	
+	private static final long serialVersionUID = 1L;
+	
 
 	private JPanel contentPane;
 	private IniciarSesion iniciarSesion;
@@ -34,9 +37,9 @@ public class WindowMedico extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public WindowMedico(String dniMedico, IniciarSesion iniciarSesion) {
+	public WindowMedico(String dniMedico, IniciarSesion iniciarSesionX) {
 		windowMedico = this;
-		this.iniciarSesion = iniciarSesion;
+		this.iniciarSesion = iniciarSesionX;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 584, 671);
@@ -68,7 +71,7 @@ public class WindowMedico extends JFrame {
 		btnCrearReceta.setBounds(10, 393, 547, 164);
 		contentPane.add(btnCrearReceta);
 		
-		JButton btnAtrs = new JButton("Atrás");
+		JButton btnAtrs = new JButton("Cerrar sesión");
 		btnAtrs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				windowMedico.setVisible(false);

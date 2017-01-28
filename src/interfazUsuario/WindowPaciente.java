@@ -1,9 +1,13 @@
 package interfazUsuario;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.SystemColor;
+import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.sql.SQLException;
+import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,28 +15,18 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
-
-import excepciones.InvalidCIFException;
-import excepciones.InvalidCuentaException;
-import excepciones.InvalidNameException;
-import excepciones.InvalidPasswordException;
-import excepciones.InvalidTelefoneException;
-import images.ImagenVF;
-import logicaPrograma.Farmacia;
-import logicaPrograma.Helper;
-import logicaPrograma.Paciente;
-import persistencia.BBDDFarmacias;
-
 import javax.help.HelpSetException;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.net.MalformedURLException;
-import java.sql.SQLException;
-import java.awt.event.ActionEvent;
+
+import images.ImagenVF;
+import logicaPrograma.Helper;
+import logicaPrograma.Paciente;
+
 
 public class WindowPaciente extends JFrame {
-
+	
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPanel logoPanel;
 	private JButton btnConsultarRecetas;
@@ -46,9 +40,9 @@ public class WindowPaciente extends JFrame {
 	 * Create the frame.
 	 * @param iniciarSesion 
 	 */
-	public WindowPaciente(Paciente pacienteX, IniciarSesion iniciarSesion) {
+	public WindowPaciente(Paciente pacienteX, IniciarSesion iniciarSesionX) {
 		
-		this.iniciarSesion = iniciarSesion;
+		this.iniciarSesion = iniciarSesionX;
 		this.paciente = pacienteX;
 		windowPaciente = this;
 		
@@ -85,7 +79,7 @@ public class WindowPaciente extends JFrame {
 		btnConsultarRecetas = new JButton("Consultar recetas");
 		btnConsultarRecetas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ListadoRecetas lista = new ListadoRecetas(paciente.getDni(), windowPaciente);
+				ListadoRecetas lista = new ListadoRecetas(paciente.getDni(), windowPaciente, false);
 				lista.setVisible(true);
 				windowPaciente.setVisible(false);
 			}
@@ -151,7 +145,9 @@ public class WindowPaciente extends JFrame {
 			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error con el acceso a la\nayuda, disculpe las molestias.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 		}
 		
-		btnAtrs = new JButton("Atrás");
+		btnAtrs = new JButton("Cerrar sesión");
+		btnAtrs.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnAtrs.setBackground(SystemColor.activeCaption);
 		btnAtrs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				iniciarSesion.setVisible(true);
