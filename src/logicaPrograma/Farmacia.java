@@ -11,6 +11,11 @@ import excepciones.InvalidTelefoneException;
 import persistencia.BBDDFarmacias;
 import utils.Utils;
 
+/**
+ * Clase que implementa los metodos que puede realizar un usuario farmacia
+ * @author Eva y alba
+ *
+ */
 public class Farmacia {
 	private String nombre;
 	private String cif;
@@ -22,6 +27,26 @@ public class Farmacia {
 	private String email;
 	private String password;
 	
+	/**
+	 * Constructor de la farmacia, si es nueva la introduce en la bbdd
+	 * @param nombre
+	 * @param cif
+	 * @param horario
+	 * @param direccion
+	 * @param numeroCuenta
+	 * @param nombreDueno
+	 * @param telefono
+	 * @param email
+	 * @param password
+	 * @param nuevo
+	 * @throws InvalidNameException
+	 * @throws InvalidCIFException
+	 * @throws InvalidCuentaException
+	 * @throws InvalidTelefoneException
+	 * @throws InvalidPasswordException
+	 * @throws SQLException
+	 * @throws AlreadyExistException
+	 */
 	public Farmacia(String nombre, String cif, String horario, String direccion, 
 			String numeroCuenta, String nombreDueno, String telefono, String email, String password, boolean nuevo) throws InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException, InvalidPasswordException, SQLException, AlreadyExistException {
 		if(checkDatos(nombre, cif, numeroCuenta, nombreDueno, telefono, password)){
@@ -139,5 +164,5 @@ public class Farmacia {
 	public boolean checkPassword(String password) {
 		return this.password.equals(password);
 	}
-
+	
 }

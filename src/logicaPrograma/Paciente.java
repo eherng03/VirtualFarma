@@ -24,7 +24,7 @@ public class Paciente {
 	public Paciente(String nombre, String dni, String numeroSS, String password, boolean nuevo) throws InvalidPasswordException, EmptyFieldException, InvalidSSNumberException, InvalidDNIException, InvalidNameException, SQLException, AlreadyExistException{
 		if(checkStruct(nombre, dni, numeroSS, password)){
 			this.dni = dni;
-			this.nombre = nombre;
+			this.setNombre(nombre);
 			this.setNumeroSS(numeroSS);
 			this.password = password;
 		}
@@ -81,6 +81,14 @@ public class Paciente {
 
 	public void setDni(String dni) {
 		this.dni = dni;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 }

@@ -11,7 +11,6 @@ import excepciones.InvalidNameException;
 import excepciones.InvalidPasswordException;
 import excepciones.InvalidSSNumberException;
 import excepciones.InvalidTelefoneException;
-import interfazUsuario.WindowAdministrador;
 import persistencia.BBDD;
 import persistencia.BBDDFarmacias;
 import persistencia.BBDDMedicos;
@@ -25,7 +24,6 @@ import persistencia.BBDDMedicos;
 public class Administrador {
 	private final String user;
 	private final String password;
-	private WindowAdministrador windowAdministrador;
 	private static Administrador admin;
 	
 	private Administrador(){
@@ -52,7 +50,7 @@ public class Administrador {
 
 	public void crearMedico(String nombre, String dni, String numeroSS, String direccion, 
 			String email, String centroMedico, String password) throws InvalidNameException, InvalidDNIException, InvalidSSNumberException, InvalidPasswordException, SQLException, AlreadyExistException {
-		Medico medico = new Medico(nombre, dni, numeroSS, direccion, email, centroMedico, password, true);
+		new Medico(nombre, dni, numeroSS, direccion, email, centroMedico, password, true);
 		
 	}
 	
@@ -70,7 +68,7 @@ public class Administrador {
 	
 	public void crearFarmacia(String nombre, String cif, String horario, String direccion, 
 			String cuenta, String nombreDueno, String telefono, String email, String password) throws InvalidNameException, InvalidCIFException, InvalidCuentaException, InvalidTelefoneException, InvalidPasswordException, SQLException, AlreadyExistException{
-		Farmacia farmacia = new Farmacia(nombre, cif, horario, direccion, cuenta, nombreDueno, telefono, email, password, true);
+		new Farmacia(nombre, cif, horario, direccion, cuenta, nombreDueno, telefono, email, password, true);
 	}
 
 	public void editarFarmacia(Farmacia farmacia, String cif, String nombre, String horario, String direccion, String numeroCuenta, String nombreDueno, String telefono, String email) throws SQLException, InvalidPasswordException, AlreadyExistException {
