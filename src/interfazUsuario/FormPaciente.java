@@ -132,6 +132,9 @@ public class FormPaciente extends JFrame {
 		passwordField.setBounds(92, 560, 465, 20);
 		contentPane.add(passwordField);
 		
+		/*
+		 * ATRAS
+		 */
 		JButton btnAtrs = new JButton("Atrás");
 		btnAtrs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -142,6 +145,9 @@ public class FormPaciente extends JFrame {
 		btnAtrs.setBounds(20, 591, 160, 40);
 		contentPane.add(btnAtrs);
 		
+		/*
+		 * AYUDA
+		 */
 		JButton btnAyuda = new JButton("Ayuda");
 		btnAyuda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -152,6 +158,9 @@ public class FormPaciente extends JFrame {
 		btnAyuda.setBounds(211, 591, 160, 40);
 		contentPane.add(btnAyuda);
 		
+		/*
+		 * CONFIRMAR
+		 */
 		JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.setFont(new Font("Arial", Font.PLAIN, 11));
 		btnConfirmar.addActionListener(new ActionListener() {
@@ -167,6 +176,8 @@ public class FormPaciente extends JFrame {
 		try {
 			Paciente paciente = new Paciente(textNombre.getText() + " " + textApellido1.getText() + " " + textApellido2.getText(), textDNI.getText(), textNumeroSS.getText(), String.valueOf(passwordField.getPassword()), true);
 			javax.swing.JOptionPane.showMessageDialog(this, "Su cuenta ha sido creada con éxito");
+			this.setVisible(false);
+			startWindow.setVisible(true);
 		} catch(InvalidPasswordException | EmptyFieldException | InvalidNameException | InvalidDNIException | InvalidSSNumberException | AlreadyExistException e){
 			javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 		}catch (SQLException e) {

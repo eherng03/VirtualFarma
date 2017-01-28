@@ -25,7 +25,7 @@ public class FormProducto extends JFrame {
 
 	private JPanel contentPane;
 	private JPanel logoPanel;
-	private WindowFarmacia windowFarmacia;
+	private JFrame windowFarmacia;
 	private FormProducto formProducto;
 	private JTextField textFieldNombre;
 	private JTextField textFieldPrecio;
@@ -35,13 +35,13 @@ public class FormProducto extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * @param windowFarmacia 
+	 * @param window 
 	 */
-	public FormProducto(String cif, WindowFarmacia windowFarmacia) {
+	public FormProducto(Producto producto, String cif, JFrame window) {
 		//TODO testear
 		cifFarmacia = cif;
 		formProducto = this;
-		this.windowFarmacia = windowFarmacia;
+		this.windowFarmacia = window;
 		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -94,15 +94,21 @@ public class FormProducto extends JFrame {
 		btnIntroducir.addActionListener(new ActionListener() {
 			//TODO test
 			public void actionPerformed(ActionEvent e) {
-				try {
-					BBDDProductos.getInstance().introducirProducto(cifFarmacia, textFieldNombre.getText(), 
-							Double.parseDouble(textFieldPrecio.getText()), Integer.parseInt(textFieldCantidad.getText()));
-				} catch (NumberFormatException |SQLException e1) {
-					javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-				} catch (AlreadyExistException e1) {
-					javax.swing.JOptionPane.showMessageDialog(null, e1.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+				if(producto == null){
+					try {
+						BBDDProductos.getInstance().introducirProducto(cifFarmacia, textFieldNombre.getText(), 
+								Double.parseDouble(textFieldPrecio.getText()), Integer.parseInt(textFieldCantidad.getText()));
+					} catch (NumberFormatException |SQLException e1) {
+						javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+					} catch (AlreadyExistException e1) {
+						javax.swing.JOptionPane.showMessageDialog(null, e1.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 
+					}
+				}else{
+					//TODO editar producto
 				}
+				
+				
 			}
 		});
 		
@@ -129,6 +135,12 @@ public class FormProducto extends JFrame {
 		btnAtrs.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnAtrs.setBounds(10, 579, 263, 33);
 		contentPane.add(btnAtrs);
+		
+		if(producto != null){
+			textFieldCantidad.setText(Integer.toString(producto.getCuantia()));
+			textFieldNombre.setText(producto.getNombre());
+			textFieldPrecio.setText(Double.toString(producto.getPrecio()));
+		}
 	}
 
 

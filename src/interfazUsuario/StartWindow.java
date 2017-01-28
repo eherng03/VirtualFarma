@@ -4,28 +4,32 @@ import java.awt.Color;
 import java.awt.Font;
 
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.help.HelpSetException;
 import javax.swing.JButton;
 import javax.swing.border.EmptyBorder;
 
 import images.ImagenVF;
+import logicaPrograma.Helper;
 import persistencia.BBDD;
 import java.awt.SystemColor;
 
 
 
-
+/**
+ * Clase principal
+ * @author Eva Y Alba
+ * https://github.com/eherng03/IngSoft1.git
+ */
 public class StartWindow extends JFrame {
 	
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -8217358516629805849L;
 	
 	private JPanel contentPane;
@@ -52,7 +56,6 @@ public class StartWindow extends JFrame {
         initComponents();
     }
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
     	
     	startWindow = this;
@@ -100,11 +103,19 @@ public class StartWindow extends JFrame {
 		btnAyuda.setText("Ayuda");
 		btnAyuda.setBounds(244, 604, 88, 23);
 		btnInitAdmin.setVisible(true);
-		btnAyuda.addActionListener(new ActionListener() {
-    		public void actionPerformed(ActionEvent e) {
-    			abrirAyuda();
-    		}
-		});
+		
+		try {
+			Helper.getInstance().openHelp(btnAyuda, "ventana_inicio");
+		} catch (MalformedURLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (HelpSetException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		/*} catch (MalformedURLException | HelpSetException e1) {
+			javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error con el acceso a la\nayuda, disculpe las molestias.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+		}*/
 		contentPane.add(btnAyuda);
 		
 	/*
@@ -200,11 +211,11 @@ public class StartWindow extends JFrame {
 		this.setVisible(false);
 	}
 
-	protected void abrirAyuda() {
-		//TODO ayuda
-		
-	}
 
+	/**
+	 * Inicia sesion con cualquier tipo de usuario
+	 * @param rol
+	 */
 	protected void iniciarSesionX(String rol) {
 		IniciarSesion ini = new IniciarSesion(rol);
 		ini.setPadre(this);

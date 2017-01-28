@@ -65,7 +65,7 @@ public class WindowFarmacia extends JFrame {
 		btnIntroducirProductoEn.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnIntroducirProductoEn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FormProducto formProducto = new FormProducto(cif, windowFarmacia);
+				FormProducto formProducto = new FormProducto(null, cif, windowFarmacia);
 				windowFarmacia.setVisible(false);
 				formProducto.setVisible(true);
 			}
@@ -73,10 +73,10 @@ public class WindowFarmacia extends JFrame {
 		btnIntroducirProductoEn.setBounds(10, 442, 547, 38);
 		contentPane.add(btnIntroducirProductoEn);
 		
-		JButton btnEditarProductoDe = new JButton("Editar producto de la base de datos");
+		JButton btnEditarProductoDe = new JButton("Editar producto de la base de datos, o ver lista de productos");
 		btnEditarProductoDe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ListadoProductos lista = new ListadoProductos(cif, windowFarmacia);
+				ListadoProductos lista = new ListadoProductos(cif, windowFarmacia, true);
 				windowFarmacia.setVisible(false);
 				lista.setVisible(true);
 			}
@@ -91,7 +91,7 @@ public class WindowFarmacia extends JFrame {
 		btnEliminarPr.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnEliminarPr.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ListadoProductos lista = new ListadoProductos(cif, windowFarmacia);
+				ListadoProductos lista = new ListadoProductos(cif, windowFarmacia, true);
 				windowFarmacia.setVisible(false);
 				lista.setVisible(true);
 			}
@@ -102,7 +102,7 @@ public class WindowFarmacia extends JFrame {
 		JButton btnAyuda = new JButton("Ayuda");
 		btnAyuda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO alba 
+				//TODO ayuda
 			}
 		});
 		btnAyuda.setBackground(SystemColor.activeCaption);

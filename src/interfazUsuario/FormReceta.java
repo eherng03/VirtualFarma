@@ -79,8 +79,7 @@ public class FormReceta extends JFrame {
 							textFieldFecha.getText(), (Integer) spinnerUnidades.getValue(), (Integer) spinnerFrecuencia.getValue(), textFieldDuracion.getText(), 
 							textFieldInstrucciones.getText(), (Integer)spinnerNEnvases.getValue());
 				} catch (SQLException | AlreadyExistException e1) {
-					// TODO ventanita error
-					e1.printStackTrace();
+					javax.swing.JOptionPane.showMessageDialog(null, "Ha habido un error en la conexión con la\nbase de datos, disculpe las molestias.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

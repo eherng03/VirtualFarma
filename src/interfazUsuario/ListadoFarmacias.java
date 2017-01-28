@@ -172,20 +172,16 @@ public class ListadoFarmacias extends JFrame {
         jButtonProductos.setBackground(SystemColor.activeCaption);
         jButtonProductos.setFont(new Font("Arial", Font.PLAIN, 12));
         jButtonProductos.setBounds(10, 135, 289, 23);
-
-     
-        
-
         jButtonProductos.setText("Ver los productos de la farmacia");
         jButtonProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 if(cifFarmaciaVisualizada != null){
-                	ListadoProductos lista = new ListadoProductos(cifFarmaciaVisualizada, listadoFarmacias);
+                	ListadoProductos lista = new ListadoProductos(cifFarmaciaVisualizada, listadoFarmacias, false);
                 	lista.setVisible(true);
                 	listadoFarmacias.setVisible(false);
+                }else{
+                	javax.swing.JOptionPane.showMessageDialog(null, "Debe seleccionar una farmacia para ver sus productos");
                 }
-            	//TODO abre lista de productos con el cif, primero comprobar si hay farmacia seleccionada
-            	
             }
         });
         jPanel1.add(jButtonProductos);
@@ -217,13 +213,13 @@ public class ListadoFarmacias extends JFrame {
 
         listaFarmacias.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-            	jListPersonasMouseReleased(evt);
+            	jListProductosMouseReleased(evt);
             }
         });
     }
 
 
-    private void jListPersonasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListPersonasMouseReleased
+    private void jListProductosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListPersonasMouseReleased
         if(modelo.isEmpty()){
             JOptionPane.showMessageDialog(this,"La lista esta vacia");
         }else{

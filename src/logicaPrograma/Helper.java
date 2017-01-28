@@ -25,7 +25,7 @@ public class Helper {
 	
 	public void openHelp(JButton button, String target) throws MalformedURLException, HelpSetException{
 		// Carga el fichero de ayuda
-		File fichero = new File("help/helpset.hs");
+		File fichero = new File("help/help.hs");
 		URL hsURL = fichero.toURI().toURL();
 
 		// Crea el HelpSet

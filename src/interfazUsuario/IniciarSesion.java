@@ -61,6 +61,9 @@ public class IniciarSesion extends JFrame {
 	public IniciarSesion(String rol) {
 		setResizable(false);
 		
+		/*
+		 * INICIAR SESION
+		 */
 		setTitle("Iniciar sesión como " + rol);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 393, 266);
@@ -97,9 +100,7 @@ public class IniciarSesion extends JFrame {
 		btnAyuda = new JButton("Ayuda");
 		btnAyuda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				/*
-				 * ABRIR LA AYUDA DESDE ESTA PAGINA
-				 */
+				//TODO ayuda
 				
 			}
 		});
@@ -128,7 +129,6 @@ public class IniciarSesion extends JFrame {
 		btnVolverAtrs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				botonVolver();
-				
 			}
 		});
 		btnVolverAtrs.setBounds(50, 126, 129, 23);
@@ -181,7 +181,9 @@ public class IniciarSesion extends JFrame {
 			case "Farmacia":
 			try {
 				Farmacia f1 = BBDDFarmacias.getInstance().getFarmacia(user, password);
-				//TODO Abrir la ventana de farmacia
+				WindowFarmacia ventanaFarmacia = new WindowFarmacia(f1.getCIF(), this);
+				ventanaFarmacia.setVisible(true);
+				this.setVisible(false);
 				break;
 			} catch (AlreadyExistException e) {
 				javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
@@ -189,7 +191,9 @@ public class IniciarSesion extends JFrame {
 			case "Medico":
 			try {
 				Medico m1 = BBDDMedicos.getInstance().getMedico(user, password);
-				//TODO abrir la ventana de medico
+				WindowMedico ventanaMedico = new WindowMedico(m1.getDNI(), this);
+				ventanaMedico.setVisible(true);
+				this.setVisible(false);
 				break;
 			} catch (AlreadyExistException e) {
 				javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
