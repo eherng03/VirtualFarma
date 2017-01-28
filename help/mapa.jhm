@@ -3,5 +3,21 @@
 PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Map Version 2.0//EN"
 "http://java.sun.com/products/javahelp/map_2_0.dtd">
 <map version="1.0">
-   <mapID target="ventana_inicio" url="html/main.html" />
+   <mapID target="ventana_inicio" url="html/ventanaInicio.html" />
+   <mapID target="iniciar_sesion" url="html/iniciarSesion.html" />
+   <mapID target="crear_paciente" url="html/crearPaciente.html" />
+   <mapID target="ventana_admin" url="html/ventanaAdmin.html" />
+   <mapID target="ventana_paciente" url="html/ventanaPaciente.html" />
+   <mapID target="ventana_farmacia" url="html/ventanaFarmacia.html" />
+   <mapID target="ventana_medico" url="html/ventanaMedico.html" />
+   <mapID target="crear_farmacia" url="html/crearFarmacia.html" />
+   <mapID target="editar_farmacia" url="html/editarFarmacia.html" />
+   <mapID target="crear_medico" url="html/crearMedico.html" />
+   <mapID target="editar_medico" url="html/editarMedico.html" />
+   <mapID target="lista_recetas" url="html/listaRecetas.html" />
+   <mapID target="lista_farmacias" url="html/listaFarmacias.html" />
+   <mapID target="lista_productos_pacientes" url="html/listaProductosPacientes.html" />
+   <mapID target="venta" url="html/venta.html" />
+   <mapID target="lista_productos_farmacias" url="html/listaProductosFarmacias.html" />
+   <mapID target="crear_receta" url="html/crearReceta.html" />
 </map>
